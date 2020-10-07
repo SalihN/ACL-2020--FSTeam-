@@ -19,10 +19,7 @@ public class Main {
 
 		// classe qui lance le moteur de jeu generique
 		GameEngineGraphical engine = new GameEngineGraphical(game, painter, controller);
-		System.out.println("Hello");
 		engine.run();
-		//Test conflit
-
 	}
 
 }
