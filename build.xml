@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="acl-2020-fsteam" default="all">
+<project name="acl-2020-fsteam" default="run">
   
   
   <property file="acl-2020-fsteam.properties"/>
@@ -225,7 +225,11 @@
   </target>
   
   <target name="compile.module.acl-2020-fsteam.tests" depends="register.custom.compilers,compile.module.acl-2020-fsteam.production" description="compile module ACL-2020-FSTeam; test classes" unless="skip.tests"/>
-  
+  <target name="run" depends="all">
+    <java classname="production.ACL-2020-FSTeam.start.Main">
+      <classpath path="out"/>
+    </java>
+  </target>
   <target name="clean.module.acl-2020-fsteam" description="cleanup module">
     <delete dir="${acl-2020-fsteam.output.dir}"/>
     <delete dir="${acl-2020-fsteam.testoutput.dir}"/>
