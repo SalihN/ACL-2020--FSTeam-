@@ -225,9 +225,16 @@
   </target>
   
   <target name="compile.module.acl-2020-fsteam.tests" depends="register.custom.compilers,compile.module.acl-2020-fsteam.production" description="compile module ACL-2020-FSTeam; test classes" unless="skip.tests"/>
-  <target name="run" depends="all">
-    <java classname="production.ACL-2020-FSTeam.start.Main">
-      <classpath path="out"/>
+  <target name="jar" depends="all">
+    <jar destfile="${acl-2020-fsteam.output.dir}/jar/Laby.jar" basedir="${acl-2020-fsteam.output.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="start.Main"></attribute>
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="run" depends="jar">
+    <java jar="${acl-2020-fsteam.output.dir}/jar/Laby.jar" fork="true">
     </java>
   </target>
   <target name="clean.module.acl-2020-fsteam" description="cleanup module">
