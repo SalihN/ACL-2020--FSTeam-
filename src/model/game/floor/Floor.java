@@ -15,4 +15,8 @@ public abstract class Floor {
     }
 
     public abstract void draw(BufferedImage im);
+
+    public Point getPosition() {
+        return position;
+    }
 }

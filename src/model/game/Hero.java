@@ -26,4 +26,20 @@ public class Hero {
         position.x += x;
         position.y += y;
     }
+
+    public void setPosition(Point position) {
+        this.position = position;
+    }
+
+    public Point getPosition() {
+        return position;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 }
