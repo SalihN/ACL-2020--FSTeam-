@@ -1,11 +1,14 @@
 package model;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 import engine.Cmd;
 import engine.Game;
+import model.game.Hero;
+import model.game.Maze;
 
 /**
  * @author Horatiu Cirstea, Vincent Thomas
@@ -15,12 +18,16 @@ import engine.Game;
  * 
  */
 public class PacmanGame implements Game {
+	private Hero hero;
+	private Maze maze;
 
 	/**
 	 * constructeur avec fichier source pour le help
 	 * 
 	 */
 	public PacmanGame(String source) {
+		hero = new Hero();
+		maze = new Maze();
 		BufferedReader helpReader;
 		try {
 			helpReader = new BufferedReader(new FileReader(source));
@@ -41,7 +48,25 @@ public class PacmanGame implements Game {
 	 */
 	@Override
 	public void evolve(Cmd commande) {
-		System.out.println("Execute "+commande);
+		switch (commande){
+			case UP:
+				hero.move(0,-1);
+				break;
+			case DOWN:
+				hero.move(0,1);
+				break;
+			case LEFT:
+				hero.move(-1,0);
+				break;
+			case RIGHT:
+				hero.move(1,0);
+				break;
+		}
+	}
+
+	public void draw(BufferedImage im){
+		maze.draw(im);
+		hero.draw(im);
 	}
 
 	/**
@@ -52,5 +77,4 @@ public class PacmanGame implements Game {
 		// le jeu n'est jamais fini
 		return false;
 	}
-
 }
