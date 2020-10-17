@@ -3,6 +3,8 @@ package model.game;
 import model.game.floor.Floor;
 import model.game.floor.NormalFloor;
 import model.game.floor.Wall;
+import model.game.monster.Monster;
+import model.game.monster.NormalMonster;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,12 +13,15 @@ import java.util.Collection;
 
 public class Maze {
     private Collection<Floor> listFloor;
+    private Collection<Monster> listMonsters;
     private int ligne, colonne;
     private final int WIDTH = 20;
     private final int HEIGHT = 20;
 
     public Maze(){
         listFloor = new ArrayList<>();
+        listMonsters = new ArrayList<>();
+        listMonsters.add(new NormalMonster(new Point(100,100),10,10));
         ligne = 0;
     }
 
@@ -39,6 +44,9 @@ public class Maze {
     public void draw(BufferedImage im){
         for(Floor floor : listFloor){
             floor.draw(im);
+        }
+        for(Monster monster : listMonsters){
+            monster.draw(im);
         }
     }
 
