@@ -8,6 +8,7 @@ import model.game.monster.NormalMonster;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -41,7 +42,7 @@ public class Maze {
         ligne += HEIGHT;
     }
 
-    public void draw(BufferedImage im){
+    public void draw(BufferedImage im) throws IOException {
         for(Floor floor : listFloor){
             floor.draw(im);
         }

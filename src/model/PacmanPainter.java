@@ -3,6 +3,7 @@ package model;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import engine.Game;
 import engine.GamePainter;
@@ -33,7 +34,7 @@ public class PacmanPainter implements GamePainter {
 	 * methode  redefinie de Afficheur retourne une image du jeu
 	 */
 	@Override
-	public void draw(BufferedImage im) {
+	public void draw(BufferedImage im) throws IOException {
 		game.draw(im);
 	}
 

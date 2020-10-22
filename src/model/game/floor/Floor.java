@@ -2,6 +2,7 @@ package model.game.floor;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public abstract class Floor {
     protected Point position;
@@ -14,7 +15,7 @@ public abstract class Floor {
         height = h;
     }
 
-    public abstract void draw(BufferedImage im);
+    public abstract void draw(BufferedImage im) throws IOException;
 
     public Point getPosition() {
         return position;

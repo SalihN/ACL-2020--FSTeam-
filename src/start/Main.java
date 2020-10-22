@@ -5,12 +5,14 @@ import engine.GameEngineGraphical;
 import model.PacmanController;
 import model.PacmanGame;
 
+import java.io.IOException;
+
 /**
  * lancement du moteur avec le jeu
  */
 public class Main {
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException, IOException {
 
 		// creation du jeu particulier et de son afficheur
 		PacmanGame game = new PacmanGame("resources/maze.txt");

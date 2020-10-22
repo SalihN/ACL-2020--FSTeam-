@@ -75,7 +75,7 @@ public class PacmanGame implements Game {
 		}
 	}
 
-	public void draw(BufferedImage im){
+	public void draw(BufferedImage im) throws IOException {
 		maze.draw(im);
 		hero.draw(im);
 	}

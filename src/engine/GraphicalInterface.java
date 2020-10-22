@@ -1,6 +1,7 @@
 package engine;
 
 import javax.swing.JFrame;
+import java.io.IOException;
 
 
 /**
@@ -43,7 +44,7 @@ public class GraphicalInterface  {
 	/**
 	 * mise a jour du dessin
 	 */
-	public void paint() {
+	public void paint() throws IOException {
 		this.panel.drawGame();	
 	}
 	
