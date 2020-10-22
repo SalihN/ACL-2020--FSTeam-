@@ -1,7 +1,6 @@
 package model;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -20,14 +19,16 @@ public class PacmanPainter implements GamePainter {
 	/**
 	 * la taille des cases
 	 */
-	protected static final int WIDTH = 500;
-	protected static final int HEIGHT = 500;
+	protected static int WIDTH = 750;
+	protected static int HEIGHT = 500;
 
 	/**
 	 * appelle constructeur parent
 	 */
 	public PacmanPainter(PacmanGame game) {
 		this.game = game;
+		this.WIDTH = this.game.getMaze().getWidth();
+		this.HEIGHT = this.game.getMaze().getHeight();
 	}
 
 	/**

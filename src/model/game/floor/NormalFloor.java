@@ -6,6 +6,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ *
+ */
 public class NormalFloor extends Floor {
     public NormalFloor(Point p, int w, int h) {
         super(p, w, h);

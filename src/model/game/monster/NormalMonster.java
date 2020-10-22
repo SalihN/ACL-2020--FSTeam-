@@ -1,7 +1,10 @@
 package model.game.monster;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class NormalMonster extends Monster {
 
@@ -10,9 +13,9 @@ public class NormalMonster extends Monster {
     }
 
     @Override
-    public void draw(BufferedImage im) {
+    public void draw(BufferedImage im) throws IOException {
         Graphics2D crayon = (Graphics2D) im.getGraphics();
-        crayon.setColor(Color.yellow);
-        crayon.fillOval(position.x, position.y, width, height);
+        im = ImageIO.read(new File("resources/images/normalmonster.png"));
+        crayon.drawImage(im,position.x,position.y,width,height,null);
     }
 }

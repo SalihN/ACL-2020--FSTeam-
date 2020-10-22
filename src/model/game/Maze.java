@@ -16,13 +16,13 @@ public class Maze {
     private Collection<Floor> listFloor;
     private Collection<Monster> listMonsters;
     private int ligne, colonne;
-    private final int WIDTH = 20;
-    private final int HEIGHT = 20;
+    private final int WIDTH = 32;
+    private final int HEIGHT = 32;
 
     public Maze(){
         listFloor = new ArrayList<>();
         listMonsters = new ArrayList<>();
-        listMonsters.add(new NormalMonster(new Point(100,100),10,10));
+        listMonsters.add(new NormalMonster(new Point(100,100),20,20));
         ligne = 0;
     }
 

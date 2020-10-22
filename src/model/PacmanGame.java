@@ -21,7 +21,7 @@ import model.game.Maze;
 public class PacmanGame implements Game {
 	private Hero hero;
 	private Maze maze;
-	private int speed = 2;
+	private int speed = 5;
 
 	/**
 	 * constructeur avec fichier source pour le help
@@ -103,5 +103,13 @@ public class PacmanGame implements Game {
 	public boolean isFinished() {
 		// le jeu n'est jamais fini
 		return false;
+	}
+
+	/////////////////
+	//Getter&Setter//
+	/////////////////
+
+	public Maze getMaze() {
+		return maze;
 	}
 }

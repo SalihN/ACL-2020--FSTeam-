@@ -2,6 +2,7 @@ package model.game.monster;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public abstract class Monster {
     protected Point position;
@@ -14,5 +15,5 @@ public abstract class Monster {
         this.height = height;
     }
 
-    abstract public void draw(BufferedImage im);
+    abstract public void draw(BufferedImage im) throws IOException;
 }
