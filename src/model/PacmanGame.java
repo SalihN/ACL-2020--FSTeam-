@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import engine.Cmd;
 import engine.Game;
@@ -22,6 +24,8 @@ public class PacmanGame implements Game {
 	private Hero hero;
 	private Maze maze;
 	private int speed = 5;
+	private int time;
+	private TimerTask decount;
 
 	/**
 	 * constructeur avec fichier source pour le help
@@ -42,6 +46,19 @@ public class PacmanGame implements Game {
 			System.out.println("Help not available");
 		}
 		hero.setPosition(new Point(maze.getWidth()/2, maze.getHeight()/2));
+		time = 60;
+		Timer timer = new Timer();
+		decount = new TimerTask() {
+			@Override
+			public void run() {
+				countDown();
+			}
+		};
+		timer.schedule(decount, 100, 1000);
+	}
+
+	private void countDown(){
+		time--;
 	}
 
 	/**
@@ -78,10 +95,13 @@ public class PacmanGame implements Game {
 	public void draw(BufferedImage im) throws IOException {
 		maze.draw(im);
 		hero.draw(im);
+		Graphics2D crayon = (Graphics2D) im.getGraphics();
+		crayon.setColor(Color.red);
+		crayon.drawString(Integer.toString(time), maze.getWidth()-20, 20);
 	}
 
 	private boolean check(int x, int y){
-		//LEFT
+			//LEFT
 		if(x < 0 && y == 0) {
 			return !maze.isAWall(hero.getPosition().x + x, hero.getPosition().y + y + hero.getHeight()/2);
 			//RIGHT
@@ -101,8 +121,11 @@ public class PacmanGame implements Game {
 	 */
 	@Override
 	public boolean isFinished() {
-		// le jeu n'est jamais fini
-		return false;
+		if(maze.getFloor(hero.getPosition().x, hero.getPosition().y).isTreasorFloor() || time == 0){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	/////////////////

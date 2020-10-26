@@ -2,6 +2,7 @@ package model.game;
 
 import model.game.floor.Floor;
 import model.game.floor.NormalFloor;
+import model.game.floor.TreasureFloor;
 import model.game.floor.Wall;
 import model.game.monster.Monster;
 import model.game.monster.NormalMonster;
@@ -35,6 +36,9 @@ public class Maze {
                     break;
                 case 'n' :
                     listFloor.add(new NormalFloor(new Point(colonne, ligne), WIDTH, HEIGHT));
+                    break;
+                case 't' :
+                    listFloor.add(new TreasureFloor(new Point(colonne, ligne), WIDTH, HEIGHT));
                     break;
             }
             colonne += WIDTH;

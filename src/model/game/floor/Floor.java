@@ -8,6 +8,7 @@ public abstract class Floor {
     protected Point position;
     protected int width;
     protected int height;
+    protected BufferedImage im;
 
     public Floor(Point p, int w, int h){
         position = p;
@@ -15,9 +16,16 @@ public abstract class Floor {
         height = h;
     }
 
-    public abstract void draw(BufferedImage im) throws IOException;
+    public void draw(BufferedImage im) throws IOException{
+        Graphics2D crayon = (Graphics2D) im.getGraphics();
+        crayon.drawImage(this.im,position.x,position.y,width,height,null);
+    }
 
     public Point getPosition() {
         return position;
+    }
+
+    public boolean isTreasorFloor(){
+        return false;
     }
 }
