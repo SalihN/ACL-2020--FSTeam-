@@ -26,7 +26,7 @@ public class Maze {
         ligne = 0;
     }
 
-    public void generate(String string){
+    public void generate(String string) throws IOException {
         colonne = 0;
         for (char ch: string.toCharArray()) {
             switch(ch){
@@ -43,7 +43,7 @@ public class Maze {
     }
 
     public void draw(BufferedImage im) throws IOException {
-        for(Floor floor : listFloor){
+        for (Floor floor : listFloor) {
             floor.draw(im);
         }
         for(Monster monster : listMonsters){

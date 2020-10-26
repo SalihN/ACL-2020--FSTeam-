@@ -8,14 +8,15 @@ import java.io.File;
 import java.io.IOException;
 
 public class Wall extends Floor {
-    public Wall(Point p, int w, int h) {
+    private BufferedImage im;
+    public Wall(Point p, int w, int h) throws IOException {
         super(p, w, h);
+        im = ImageIO.read(new File("resources/images/brick.png"));
     }
 
     @Override
     public void draw(BufferedImage im) throws IOException {
         Graphics2D crayon = (Graphics2D) im.getGraphics();
-        im = ImageIO.read(new File("resources/images/brick.png"));
-        crayon.drawImage(im,position.x,position.y,width,height,null);
+        crayon.drawImage(this.im,position.x,position.y,width,height,null);
     }
 }
