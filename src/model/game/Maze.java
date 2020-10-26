@@ -47,6 +47,7 @@ public class Maze {
             floor.draw(im);
         }
         for(Monster monster : listMonsters){
+            monster.move(this, WIDTH, HEIGHT);
             monster.draw(im);
         }
     }

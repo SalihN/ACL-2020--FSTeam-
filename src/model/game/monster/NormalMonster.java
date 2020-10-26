@@ -10,6 +10,7 @@ public class NormalMonster extends Monster {
 
     public NormalMonster(Point point, int width, int height) {
         super(point, width, height);
+        speed = 3;
     }
 
     @Override
@@ -18,4 +19,6 @@ public class NormalMonster extends Monster {
         im = ImageIO.read(new File("resources/images/normalmonster.png"));
         crayon.drawImage(im,position.x,position.y,width,height,null);
     }
+
+
 }
