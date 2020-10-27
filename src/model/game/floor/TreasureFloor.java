@@ -10,7 +10,7 @@ public class TreasureFloor extends Floor {
 
     public TreasureFloor(Point p, int w, int h) throws IOException {
         super(p, w, h);
-        im = ImageIO.read(new File("resources/images/treasurefloor.jpg"));
+        im = ImageIO.read(new File("resources/images/treasurefloor.png"));
     }
 
     @Override

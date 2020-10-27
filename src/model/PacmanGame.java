@@ -12,6 +12,7 @@ import engine.Cmd;
 import engine.Game;
 import model.game.Hero;
 import model.game.Maze;
+import model.game.floor.MagicalFloor;
 
 /**
  * @author Horatiu Cirstea, Vincent Thomas
@@ -27,11 +28,14 @@ public class PacmanGame implements Game {
 	private int time;
 	private TimerTask decount;
 
+	private int sizeOfPolice = 24;
+	Font font = new Font("TimesRoman", Font.PLAIN, sizeOfPolice);
+
 	/**
 	 * constructeur avec fichier source pour le help
 	 * 
 	 */
-	public PacmanGame(String source) {
+	public PacmanGame(String source) throws IOException {
 		hero = new Hero();
 		maze = new Maze();
 		BufferedReader helpReader;
@@ -97,7 +101,18 @@ public class PacmanGame implements Game {
 		hero.draw(im);
 		Graphics2D crayon = (Graphics2D) im.getGraphics();
 		crayon.setColor(Color.red);
-		crayon.drawString(Integer.toString(time), maze.getWidth()-20, 20);
+		crayon.setFont(font);
+		crayon.drawString(Integer.toString(time), maze.getWidth()-((sizeOfPolice+maze.WIDTH)/2), (sizeOfPolice/2 + maze.HEIGHT)/2);
+		update();
+	}
+
+	private void update() throws IOException {
+		if(maze.getFloor(hero.getPosition().x, hero.getPosition().y).isMagicalFloor()){
+			MagicalFloor magicalFloor = (MagicalFloor) maze.getFloor(hero.getPosition().x, hero.getPosition().y);
+			if(!magicalFloor.isActivate()){
+				magicalFloor.activate(hero);
+			}
+		}
 	}
 
 	private boolean check(int x, int y){
