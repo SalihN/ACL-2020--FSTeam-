@@ -10,6 +10,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * @author
+ * @version
+ *
+ * Labyrinthe du jeu
+ */
 public class Maze {
     private Collection<Floor> listFloor;
     private Collection<Monster> listMonsters;
@@ -24,6 +30,11 @@ public class Maze {
         ligne = 0;
     }
 
+    /**
+     * Permet de creer un labyrinthe à partir d'un fichier texte
+     * @param string
+     * @throws IOException
+     */
     public void generate(String string) throws IOException {
         colonne = 0;
         for (char ch: string.toCharArray()) {
@@ -46,6 +57,11 @@ public class Maze {
         ligne += HEIGHT;
     }
 
+    /**
+     * Permet de dessiner le labyrinthe ainsi que les monstres present dans ce labyrinthe
+     * @param im
+     * @throws IOException
+     */
     public void draw(BufferedImage im) throws IOException {
         for (Floor floor : listFloor) {
             floor.draw(im);
@@ -56,6 +72,12 @@ public class Maze {
         }
     }
 
+    /**
+     * Permetde savoir si une case est un mur ou non
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean isAWall(int x, int y){
         if(getFloor(x, y) instanceof Wall){
             return true;
@@ -64,6 +86,12 @@ public class Maze {
         }
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @return
+     */
     public Floor getFloor(int x, int y){
         for (Floor floor: listFloor) {
 

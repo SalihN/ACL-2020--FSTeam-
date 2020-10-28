@@ -6,6 +6,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Emanuel Gady,
+ * @version 1.0.0
+ *
+ * Mur du labyrinthe
+ */
 public class Wall extends Floor {
 
     public Wall(Point p, int w, int h) throws IOException {

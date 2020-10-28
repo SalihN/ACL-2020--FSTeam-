@@ -6,6 +6,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Emanuel Gady,
+ * @version 1.0.0
+ *
+ * Trésor du labyrinthe
+ */
 public class TreasureFloor extends Floor {
 
     public TreasureFloor(Point p, int w, int h) throws IOException {

@@ -24,7 +24,6 @@ import model.game.floor.MagicalFloor;
 public class PacmanGame implements Game {
 	private Hero hero;
 	private Maze maze;
-	private int speed = 5;
 	private int time;
 	private TimerTask decount;
 
@@ -74,23 +73,23 @@ public class PacmanGame implements Game {
 	public void evolve(Cmd commande) {
 		switch (commande){
 			case UP:
-				if(check(0, -speed)) {
-					hero.move(0, -speed);
+				if(check(0, -hero.getStats().getSpeed())) {
+					hero.move(0, -hero.getStats().getSpeed());
 				}
 				break;
 			case DOWN:
-				if(check(0, speed)) {
-					hero.move(0, speed);
+				if(check(0, hero.getStats().getSpeed())) {
+					hero.move(0, hero.getStats().getSpeed());
 				}
 				break;
 			case LEFT:
-				if(check(-speed, 0)) {
-					hero.move(-speed, 0);
+				if(check(-hero.getStats().getSpeed(), 0)) {
+					hero.move(-hero.getStats().getSpeed(), 0);
 				}
 				break;
 			case RIGHT:
-				if(check(speed,0)) {
-					hero.move(speed, 0);
+				if(check(hero.getStats().getSpeed(),0)) {
+					hero.move(hero.getStats().getSpeed(), 0);
 				}
 				break;
 		}

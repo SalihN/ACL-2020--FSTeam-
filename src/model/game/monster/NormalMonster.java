@@ -6,6 +6,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Emanuel Gady
+ * @version 1.0.0
+ *
+ * Monstre de base
+ */
 public class NormalMonster extends Monster {
 
     public NormalMonster(Point point, int width, int height) throws IOException{

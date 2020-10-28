@@ -6,6 +6,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Emanuel Gady,
+ * @version 1.0.0
+ *
+ * Heros present dans le labyrinthe
+ */
 public class Hero {
     private Stats stats;
     private Point position;
@@ -13,8 +19,9 @@ public class Hero {
     private int height;
     private BufferedImage im;
 
+
     public Hero() throws IOException {
-        stats = new Stats();
+        stats = new Stats(5,5);
         position = new Point(0,0);
         width = 20;
         height = 20;
@@ -22,22 +29,23 @@ public class Hero {
         im = ImageIO.read(new File("resources/images/hero.png"));
     }
 
+    /**
+     * Affiche l'image du Heros
+     * @param im
+     */
     public void draw(BufferedImage im){
         Graphics2D crayon = (Graphics2D) im.getGraphics();
         crayon.drawImage(this.im,position.x-(width/2),position.y-(height/2),width,height,null);
     }
 
+    /**
+     * Permet de deplacer le Heros
+     * @param x
+     * @param y
+     */
     public void move(int x, int y){
         position.x += x;
         position.y += y;
-    }
-
-    public void heal (int heal){
-        stats.heal(heal);
-    }
-
-    public void hit (int damage){
-        stats.hit(damage);
     }
 
     /////////////////
@@ -60,7 +68,7 @@ public class Hero {
         return height;
     }
 
-    public int getHP(){
-        return stats.getHP();
+    public Stats getStats() {
+        return stats;
     }
 }

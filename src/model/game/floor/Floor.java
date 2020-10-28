@@ -2,8 +2,13 @@ package model.game.floor;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
+/**
+ * @author Emanuel Gady,
+ * @version 1.0.0
+ *
+ * Ensemble des cases du labyrinthe
+ */
 public abstract class Floor {
     protected Point position;
     protected int width;
@@ -16,7 +21,11 @@ public abstract class Floor {
         height = h;
     }
 
-    public void draw(BufferedImage im) throws IOException{
+    /**
+     * Affiche l'image de la case du labyrinthe
+     * @param im
+     */
+    public void draw(BufferedImage im){
         Graphics2D crayon = (Graphics2D) im.getGraphics();
         crayon.drawImage(this.im,position.x,position.y,width,height,null);
     }

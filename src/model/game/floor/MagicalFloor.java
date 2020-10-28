@@ -9,6 +9,12 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * @author Emanuel Gady,
+ * @version 1.0.0
+ *
+ * Case magique du labyrinthe
+ */
 public class MagicalFloor extends Floor{
 
     private boolean isActivate;
@@ -27,7 +33,7 @@ public class MagicalFloor extends Floor{
      */
     public void activate(Hero hero) throws IOException {
         isActivate = true;
-        hero.heal(1);
+        hero.getStats().heal(1);
         desactivate();
         Timer timer = new Timer();
         decount = new TimerTask() {
@@ -41,7 +47,7 @@ public class MagicalFloor extends Floor{
             }
         };
         timer.schedule(decount, 10000);
-        System.out.println(hero.getHP());
+        System.out.println(hero.getStats().getHp()+" / "+hero.getStats().getHpMax());
     }
 
     /**
@@ -53,7 +59,7 @@ public class MagicalFloor extends Floor{
     }
 
     /**
-     *
+     * Fonction qui permet de réactiver une MagicalFloor
      * @throws IOException
      */
     private void reactivate() throws IOException {

@@ -7,6 +7,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
+
+/**
+ * @author
+ * @version 1.0.0
+ *
+ * Monstre present dans le labyrinthe
+ */
 public abstract class Monster {
     protected Point position;
     protected int width;
@@ -21,10 +28,21 @@ public abstract class Monster {
         this.height = height;
     }
 
+    /**
+     * Affiche l'image du monstre
+     * @param im
+     * @throws IOException
+     */
     public void draw(BufferedImage im) throws IOException{
 
     };
 
+    /**
+     * Permet de faire se deplacer un monstre dans le labyrinthe
+     * @param maze
+     * @param wallWidth
+     * @param wallHeight
+     */
     public void move(Maze maze, int wallWidth, int wallHeight){
             // RIGHT
         if(moveValue == 1) {

@@ -1,10 +1,20 @@
 package model.game;
 
+/**
+ * @author Emanuel Gady
+ * @version 1.1.0
+ *
+ * Applique des statistiques a chaque entité present dans le jeu
+ */
 public class Stats {
     private int hp;
+    private int hpMax;
+    private int speed;
 
-    public Stats(){
-        hp = 5;
+    public Stats(int hpMax, int speed){
+        hp = hpMax;
+        this.hpMax = hpMax;
+        this.speed = speed;
     }
 
     /**
@@ -12,20 +22,41 @@ public class Stats {
      * @param heal
      */
     public void heal(int heal){
-        //todo gerer les histoires de max et min
-        hp+=heal;
+        while (hp < hpMax && heal !=0) {
+            hp += 1;
+            heal--;
+        }
     }
 
     /**
      * Fonction qui permet de retirer de la vie
      * @param damage
      */
+    //todo Voir comment faire cette fonction proprement
     public void hit (int damage){
-        //todo gerer les histoires de max et min
-        hp-=damage;
+        if(hp - damage > 0) {
+            hp -= damage;
+        } else {
+            System.out.println("Mort");
+        }
     }
 
-    public int getHP() {
+    /////////////////
+    //Getter&Setter//
+    /////////////////
+    public int getHp() {
         return hp;
+    }
+
+    public int getHpMax(){
+        return hpMax;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 }

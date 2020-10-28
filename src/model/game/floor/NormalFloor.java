@@ -7,7 +7,10 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * @author Emanuel Gady,
+ * @version 1.0.0
  *
+ * Case normale du labyrinthe
  */
 public class NormalFloor extends Floor {
 
