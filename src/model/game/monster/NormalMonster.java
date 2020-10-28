@@ -8,16 +8,17 @@ import java.io.IOException;
 
 public class NormalMonster extends Monster {
 
-    public NormalMonster(Point point, int width, int height) {
+    public NormalMonster(Point point, int width, int height) throws IOException{
         super(point, width, height);
         speed = 3;
+        im = ImageIO.read(new File("resources/images/normalmonster.png"));
+
     }
 
     @Override
     public void draw(BufferedImage im) throws IOException {
         Graphics2D crayon = (Graphics2D) im.getGraphics();
-        im = ImageIO.read(new File("resources/images/normalmonster.png"));
-        crayon.drawImage(im,position.x,position.y,width,height,null);
+        crayon.drawImage(this.im,position.x-(width/2),position.y-(height/2),width,height,null);
     }
 
 

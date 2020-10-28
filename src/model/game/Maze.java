@@ -17,7 +17,7 @@ public class Maze {
     public final int WIDTH = 32;
     public final int HEIGHT = 32;
 
-    public Maze(){
+    public Maze() throws IOException {
         listFloor = new ArrayList<>();
         listMonsters = new ArrayList<>();
         listMonsters.add(new NormalMonster(new Point(100,100),20,20));
@@ -66,6 +66,7 @@ public class Maze {
 
     public Floor getFloor(int x, int y){
         for (Floor floor: listFloor) {
+
             if(floor.getPosition().x <= x && floor.getPosition().x+WIDTH >= x
             && floor.getPosition().y <= y && floor.getPosition().y+HEIGHT >= y){
                 return floor;

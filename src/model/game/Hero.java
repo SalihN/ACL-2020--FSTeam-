@@ -24,7 +24,7 @@ public class Hero {
 
     public void draw(BufferedImage im){
         Graphics2D crayon = (Graphics2D) im.getGraphics();
-        crayon.drawImage(this.im,position.x,position.y,width,height,null);
+        crayon.drawImage(this.im,position.x-(width/2),position.y-(height/2),width,height,null);
     }
 
     public void move(int x, int y){
