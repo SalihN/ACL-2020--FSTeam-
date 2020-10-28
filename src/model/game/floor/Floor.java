@@ -38,7 +38,13 @@ public abstract class Floor {
         return false;
     }
 
-    public boolean isMagicalFloor() {
+    public boolean isActivateFloor(){
         return false;
     }
+
+    public boolean isWall(){
+        return false;
+    }
+
+
 }

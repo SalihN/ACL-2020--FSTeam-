@@ -9,10 +9,12 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
- * @author
- * @version
+ * @author Alexis Richer
+ * @version 2.2.1
  *
  * Labyrinthe du jeu
  */
@@ -48,8 +50,14 @@ public class Maze {
                 case 't' :
                     listFloor.add(new TreasureFloor(new Point(colonne, ligne), WIDTH, HEIGHT));
                     break;
-                case 'm' :
-                    listFloor.add(new MagicalFloor(new Point(colonne, ligne), WIDTH, HEIGHT));
+                case 'h' :
+                    listFloor.add(new HealthFloor(new Point(colonne, ligne), WIDTH, HEIGHT));
+                    break;
+                case 'f' :
+                    listFloor.add(new FreezeFloor(new Point(colonne, ligne), WIDTH, HEIGHT));
+                    break;
+                case 's' :
+                    listFloor.add(new SlowFloor(new Point(colonne, ligne), WIDTH, HEIGHT));
                     break;
             }
             colonne += WIDTH;
@@ -67,7 +75,9 @@ public class Maze {
             floor.draw(im);
         }
         for(Monster monster : listMonsters){
-            monster.move(this, WIDTH, HEIGHT);
+            if(monster.isCanMove()) {
+                monster.move(this, WIDTH, HEIGHT);
+            }
             monster.draw(im);
         }
     }
@@ -79,7 +89,7 @@ public class Maze {
      * @return
      */
     public boolean isAWall(int x, int y){
-        if(getFloor(x, y) instanceof Wall){
+        if(getFloor(x, y).isWall()){
             return true;
         }else{
             return false;
@@ -87,9 +97,61 @@ public class Maze {
     }
 
     /**
-     *
-     * @param x
-     * @param y
+     * Permet d'empêcher les monstres de bouger un certain temps
+     */
+    public void freezeMonsters(int time) {
+        for(Monster monster : listMonsters){
+            monster.freeze();
+        }
+        Timer timer = new Timer();
+        TimerTask decount = new TimerTask() {
+            @Override
+            public void run() {
+                defreeze();
+            }
+        };
+        timer.schedule(decount, time*1000);
+    }
+
+    /**
+     * Permet aux monstres de rebouger
+     */
+    private void defreeze() {
+        for(Monster monster : listMonsters){
+            monster.setCanMove(true);
+        }
+    }
+
+    /**
+     * Permet de ralentir les monstres un certain temps
+     */
+    public void slowMonsters(int time, int slow) {
+        for(Monster monster : listMonsters){
+            monster.setSpeed(monster.getSpeed() - slow);
+        }
+        Timer timer = new Timer();
+        TimerTask decount = new TimerTask() {
+            @Override
+            public void run() {
+                deslow(slow);
+            }
+        };
+        timer.schedule(decount, time*1000);
+    }
+
+    /**
+     * Permet aux monstres de rebouger normalement
+     */
+    private void deslow(int slow) {
+        for(Monster monster : listMonsters){
+            monster.setSpeed(monster.getSpeed() + slow);
+        }
+    }
+
+    /**
+     * Renvoie le floor aux coordonnées
+     * @param x abscisses
+     * @param y ordonnées
      * @return
      */
     public Floor getFloor(int x, int y){

@@ -21,11 +21,13 @@ public abstract class Monster {
     protected int speed;
     protected BufferedImage im;
     private int moveValue = 1;
+    protected boolean canMove;
 
     public Monster(Point point, int width, int height){
         this.position = point;
         this.width = width;
         this.height = height;
+        canMove = true;
     }
 
     /**
@@ -87,4 +89,23 @@ public abstract class Monster {
         }
     }
 
+    public void freeze(){
+        canMove = false;
+    }
+
+    public boolean isCanMove() {
+        return canMove;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setCanMove(boolean canMove) {
+        this.canMove = canMove;
+    }
 }

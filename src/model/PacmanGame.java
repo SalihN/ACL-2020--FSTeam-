@@ -12,7 +12,7 @@ import engine.Cmd;
 import engine.Game;
 import model.game.Hero;
 import model.game.Maze;
-import model.game.floor.MagicalFloor;
+import model.game.floor.ActivateFloor;
 
 /**
  * @author Horatiu Cirstea, Vincent Thomas
@@ -107,12 +107,13 @@ public class PacmanGame implements Game {
 		update();
 	}
 
+	/**
+	 * Mets à jour les sols activables
+	 */
 	private void update() throws IOException {
-		if(maze.getFloor(hero.getPosition().x, hero.getPosition().y).isMagicalFloor()){
-			MagicalFloor magicalFloor = (MagicalFloor) maze.getFloor(hero.getPosition().x, hero.getPosition().y);
-			if(!magicalFloor.isActivate()){
-				magicalFloor.activate(hero);
-			}
+		if(maze.getFloor(hero.getPosition().x, hero.getPosition().y).isActivateFloor()){
+			ActivateFloor activateFloor = (ActivateFloor) maze.getFloor(hero.getPosition().x, hero.getPosition().y);
+			activateFloor.activate(hero, maze);
 		}
 	}
 

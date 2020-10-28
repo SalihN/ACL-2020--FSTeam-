@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author Emanuel Gady,
+ * @author Alexis Richer,
  * @version 1.0.0
  *
  * Heros present dans le labyrinthe
