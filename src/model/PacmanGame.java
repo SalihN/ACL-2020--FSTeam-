@@ -12,6 +12,7 @@ import engine.Cmd;
 import engine.Game;
 import model.game.Hero;
 import model.game.Maze;
+import model.game.floor.MagicalFloor;
 
 /**
  * @author Horatiu Cirstea, Vincent Thomas
@@ -27,11 +28,14 @@ public class PacmanGame implements Game {
 	private int time;
 	private TimerTask decount;
 
+	private int sizeOfPolice = 24;
+	Font font = new Font("TimesRoman", Font.PLAIN, sizeOfPolice);
+
 	/**
 	 * constructeur avec fichier source pour le help
 	 * 
 	 */
-	public PacmanGame(String source) {
+	public PacmanGame(String source) throws IOException {
 		hero = new Hero();
 		maze = new Maze();
 		BufferedReader helpReader;
@@ -97,22 +101,59 @@ public class PacmanGame implements Game {
 		hero.draw(im);
 		Graphics2D crayon = (Graphics2D) im.getGraphics();
 		crayon.setColor(Color.red);
-		crayon.drawString(Integer.toString(time), maze.getWidth()-20, 20);
+		crayon.setFont(font);
+		crayon.drawLine(0,maze.getHeight()/2,maze.getWidth(),maze.getHeight()/2);
+		crayon.drawLine(maze.getWidth()/2,0,maze.getWidth()/2,maze.getHeight());
+		crayon.drawString(Integer.toString(time), maze.getWidth()-((sizeOfPolice+maze.WIDTH)/2), (sizeOfPolice/2 + maze.HEIGHT)/2);
+		update();
 	}
 
+	private void update() throws IOException {
+		if(maze.getFloor(hero.getPosition().x, hero.getPosition().y).isMagicalFloor()){
+			MagicalFloor magicalFloor = (MagicalFloor) maze.getFloor(hero.getPosition().x, hero.getPosition().y);
+			if(!magicalFloor.isActivate()){
+				magicalFloor.activate(hero);
+			}
+		}
+	}
+
+	/***
+	 * check the collision to a wall where the player is going
+	 * @param x amount of x added by the move
+	 * @param y amount of y added by the move
+	 * @return
+	 */
 	private boolean check(int x, int y){
 			//LEFT
 		if(x < 0 && y == 0) {
-			return !maze.isAWall(hero.getPosition().x + x, hero.getPosition().y + y + hero.getHeight()/2);
+			return (!maze.isAWall(
+					hero.getPosition().x + x - hero.getWidth() /2,
+					hero.getPosition().y + y - hero.getHeight()/2
+			) &&!maze.isAWall(
+					hero.getPosition().x + x - hero.getWidth() /2 ,
+					hero.getPosition().y + y + hero.getHeight()/2
+			));
 			//RIGHT
 		}else if(x > 0 && y == 0 ){
-			return !maze.isAWall(hero.getPosition().x + x +hero.getWidth(), hero.getPosition().y + y + hero.getHeight()/2);
+			return (!maze.isAWall(
+					hero.getPosition().x + x + hero.getWidth() /2,
+					hero.getPosition().y + y - hero.getHeight()/2
+			) &&!maze.isAWall(
+					hero.getPosition().x + x + hero.getWidth() /2 ,
+					hero.getPosition().y + y + hero.getHeight()/2
+			));
 			//DOWN
 		}else if(x == 0 && y > 0){
-			return !maze.isAWall(hero.getPosition().x + x +hero.getWidth()/2, hero.getPosition().y + y + hero.getHeight());
+			return !maze.isAWall(
+					hero.getPosition().x + x,
+					hero.getPosition().y + y + hero.getHeight()/2
+			);
 			//UP
 		}else{
-			return !maze.isAWall(hero.getPosition().x + x +hero.getWidth()/2, hero.getPosition().y + y);
+			return !maze.isAWall(
+					hero.getPosition().x + x ,
+					hero.getPosition().y + y - hero.getHeight()/2
+			);
 		}
 	}
 

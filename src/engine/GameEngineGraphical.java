@@ -1,6 +1,7 @@
 package engine;
 
 import java.io.IOException;
+import java.sql.Time;
 
 /**
  * @author Horatiu Cirstea, Vincent Thomas
@@ -55,17 +56,20 @@ public class GameEngineGraphical {
 
 		// creation de l'interface graphique
 		this.gui = new GraphicalInterface(this.gamePainter,this.gameController);
-
+		long fpsCap = System.currentTimeMillis();
 		// boucle de game
 		while (!this.game.isFinished()) {
-			// demande controle utilisateur
-			Cmd c = this.gameController.getCommand();
-			// fait evoluer le game
-			this.game.evolve(c);
-			// affiche le game
-			this.gui.paint();
-			// met en attente
-			Thread.sleep(5);
+			// drawing of the screen every 0.016s = 16.6ms
+			if(System.currentTimeMillis() - fpsCap > (1000/60)) {
+				// demande controle utilisateur
+				Cmd c = this.gameController.getCommand();
+				// fait evoluer le game
+				this.game.evolve(c);
+				// affiche le game
+				this.gui.paint();
+				// rest fpscap timer
+				fpsCap = System.currentTimeMillis();
+			}
 		}
 		System.exit(0);
 	}

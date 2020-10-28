@@ -12,6 +12,7 @@ public abstract class Monster {
     protected int width;
     protected int height;
     protected int speed;
+    protected BufferedImage im;
     private int moveValue = 1;
 
     public Monster(Point point, int width, int height){
@@ -20,7 +21,9 @@ public abstract class Monster {
         this.height = height;
     }
 
-    abstract public void draw(BufferedImage im) throws IOException;
+    public void draw(BufferedImage im) throws IOException{
+
+    };
 
     public void move(Maze maze, int wallWidth, int wallHeight){
             // RIGHT

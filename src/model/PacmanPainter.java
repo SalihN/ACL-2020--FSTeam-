@@ -19,8 +19,8 @@ public class PacmanPainter implements GamePainter {
 	/**
 	 * la taille des cases
 	 */
-	protected static int WIDTH = 750;
-	protected static int HEIGHT = 500;
+	protected static int WIDTH;
+	protected static int HEIGHT;
 
 	/**
 	 * appelle constructeur parent
@@ -37,6 +37,7 @@ public class PacmanPainter implements GamePainter {
 	@Override
 	public void draw(BufferedImage im) throws IOException {
 		game.draw(im);
+
 	}
 
 	@Override

@@ -28,4 +28,8 @@ public abstract class Floor {
     public boolean isTreasorFloor(){
         return false;
     }
+
+    public boolean isMagicalFloor() {
+        return false;
+    }
 }
