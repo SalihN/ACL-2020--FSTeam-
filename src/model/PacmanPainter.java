@@ -27,8 +27,8 @@ public class PacmanPainter implements GamePainter {
 	 */
 	public PacmanPainter(PacmanGame game) {
 		this.game = game;
-		this.WIDTH = this.game.getMaze().getWidth();
-		this.HEIGHT = this.game.getMaze().getHeight();
+		WIDTH = this.game.getMaze().getWidth();
+		HEIGHT = this.game.getMaze().getHeight();
 	}
 
 	/**
