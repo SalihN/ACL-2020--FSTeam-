@@ -1,8 +1,8 @@
 package model.game;
 
 /**
- * @author Emanuel Gady
- * @version 1.1.0
+ * @author Emanuel Gady, Alexis Richer
+ * @version 1.1.1
  *
  * Applique des statistiques a chaque entité present dans le jeu
  */

@@ -9,8 +9,8 @@ import java.util.Random;
 
 
 /**
- * @author
- * @version 1.0.0
+ * @author Alexis Richer,
+ * @version 1.0.1
  *
  * Monstre present dans le labyrinthe
  */

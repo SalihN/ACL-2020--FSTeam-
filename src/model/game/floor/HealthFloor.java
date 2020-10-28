@@ -11,8 +11,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * @author Emanuel Gady,
- * @version 2.0.0
+ * @author Emanuel Gady, Alexis Richer
+ * @version 2.0.1
  *
  * Case magique du labyrinthe
  */

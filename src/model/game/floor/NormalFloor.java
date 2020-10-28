@@ -7,8 +7,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author Emanuel Gady,
- * @version 1.0.0
+ * @author Emanuel Gady, Alexis Richer
+ * @version 1.0.1
  *
  * Case normale du labyrinthe
  */

@@ -4,8 +4,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * @author Emanuel Gady,
- * @version 1.0.0
+ * @author Emanuel Gady, Alexis Richer
+ * @version 1.0.1
  *
  * Ensemble des cases du labyrinthe
  */
