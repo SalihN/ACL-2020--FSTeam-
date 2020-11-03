@@ -101,8 +101,6 @@ public class PacmanGame implements Game {
 		Graphics2D crayon = (Graphics2D) im.getGraphics();
 		crayon.setColor(Color.red);
 		crayon.setFont(font);
-		crayon.drawLine(0,maze.getHeight()/2,maze.getWidth(),maze.getHeight()/2);
-		crayon.drawLine(maze.getWidth()/2,0,maze.getWidth()/2,maze.getHeight());
 		crayon.drawString(Integer.toString(time), maze.getWidth()-((sizeOfPolice+maze.WIDTH)/2), (sizeOfPolice/2 + maze.HEIGHT)/2);
 		update();
 	}
