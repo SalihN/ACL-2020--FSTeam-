@@ -12,13 +12,7 @@ import java.io.IOException;
  *
  * Heros present dans le labyrinthe
  */
-public class Hero {
-    private Stats stats;
-    private Point position;
-    private int width;
-    private int height;
-    private BufferedImage im;
-
+public class Hero extends SolidObject {
 
     public Hero() throws IOException {
         stats = new Stats(5,5);
@@ -27,15 +21,6 @@ public class Hero {
         height = 20;
 
         im = ImageIO.read(new File("resources/images/hero.png"));
-    }
-
-    /**
-     * Affiche l'image du Heros
-     * @param im
-     */
-    public void draw(BufferedImage im){
-        Graphics2D crayon = (Graphics2D) im.getGraphics();
-        crayon.drawImage(this.im,position.x-(width/2),position.y-(height/2),width,height,null);
     }
 
     /**

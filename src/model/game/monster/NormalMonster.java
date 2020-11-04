@@ -18,14 +18,5 @@ public class NormalMonster extends Monster {
         super(point, width, height);
         speed = 3;
         im = ImageIO.read(new File("resources/images/normalmonster.png"));
-
     }
-
-    @Override
-    public void draw(BufferedImage im) throws IOException {
-        Graphics2D crayon = (Graphics2D) im.getGraphics();
-        crayon.drawImage(this.im,position.x-(width/2),position.y-(height/2),width,height,null);
-    }
-
-
 }

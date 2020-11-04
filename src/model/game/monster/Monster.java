@@ -1,6 +1,7 @@
 package model.game.monster;
 
 import model.game.Maze;
+import model.game.SolidObject;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,12 +15,9 @@ import java.util.Random;
  *
  * Monstre present dans le labyrinthe
  */
-public abstract class Monster {
-    protected Point position;
-    protected int width;
-    protected int height;
+public abstract class Monster extends SolidObject {
+    //TODO passer speed vers Stat
     protected int speed;
-    protected BufferedImage im;
     private int moveValue = 1;
     protected boolean canMove;
 
@@ -28,15 +26,6 @@ public abstract class Monster {
         this.width = width;
         this.height = height;
         canMove = true;
-    }
-
-    /**
-     * Affiche l'image du monstre
-     * @param im
-     * @throws IOException
-     */
-    public void draw(BufferedImage im) throws IOException{
-
     }
 
     /**
