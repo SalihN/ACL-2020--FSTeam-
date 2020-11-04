@@ -37,7 +37,7 @@ public abstract class Monster {
      */
     public void draw(BufferedImage im) throws IOException{
 
-    };
+    }
 
     /**
      * Permet de faire se deplacer un monstre dans le labyrinthe
