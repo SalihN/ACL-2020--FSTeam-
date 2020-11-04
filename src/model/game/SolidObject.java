@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
  */
 
 public abstract class SolidObject extends GameObject {
+    protected Stats stats;
 
     public void draw(BufferedImage im){
         Graphics2D crayon = (Graphics2D) im.getGraphics();

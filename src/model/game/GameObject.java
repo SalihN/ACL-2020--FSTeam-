@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;
  */
 
 public abstract class GameObject {
-    protected Stats stats;
     protected Point position;
     protected int width;
     protected int height;
