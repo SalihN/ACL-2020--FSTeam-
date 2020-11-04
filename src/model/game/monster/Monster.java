@@ -68,7 +68,7 @@ public abstract class Monster {
             }
         }   // LEFT
         else if(moveValue == 3) {
-            if(!maze.isAWall(position.x - speed + wallWidth/2, position.y)){
+            if(!maze.isAWall(position.x - speed - wallWidth/2, position.y)){
                 position.x -= speed;
             }
             else {
@@ -78,7 +78,7 @@ public abstract class Monster {
             }
         }   // UP
         else if(moveValue == 4) {
-            if(!maze.isAWall(position.x, position.y - speed + wallHeight/2)){
+            if(!maze.isAWall(position.x, position.y - speed - wallHeight/2)){
                 position.y -= speed;
             }
             else {
