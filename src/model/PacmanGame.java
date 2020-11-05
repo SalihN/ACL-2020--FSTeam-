@@ -37,17 +37,7 @@ public class PacmanGame implements Game {
 	public PacmanGame(String source) throws IOException {
 		hero = new Hero();
 		maze = new Maze();
-		BufferedReader helpReader;
-		try {
-			helpReader = new BufferedReader(new FileReader(source));
-			String ligne;
-			while ((ligne = helpReader.readLine()) != null) {
-				maze.generate(ligne);
-			}
-			helpReader.close();
-		} catch (IOException e) {
-			System.out.println("Help not available");
-		}
+		maze.generate(source);
 		hero.setPosition(new Point(maze.getWidth()/2, maze.getHeight()/2));
 		time = 60;
 		Timer timer = new Timer();
@@ -124,33 +114,52 @@ public class PacmanGame implements Game {
 	private boolean check(int x, int y){
 			//LEFT
 		if(x < 0 && y == 0) {
-			return (!maze.isAWall(
+			return (
+					// LEFT UP
+					!maze.isAWall(
 					hero.getPosition().x + x - hero.getWidth() /2,
-					hero.getPosition().y + y - hero.getHeight()/2
-			) &&!maze.isAWall(
+					hero.getPosition().y + y - hero.getHeight()/2)
+					//LEFT DOWN
+					&&!maze.isAWall(
 					hero.getPosition().x + x - hero.getWidth() /2 ,
-					hero.getPosition().y + y + hero.getHeight()/2
-			));
+					hero.getPosition().y + y + hero.getHeight()/2)
+			);
 			//RIGHT
 		}else if(x > 0 && y == 0 ){
-			return (!maze.isAWall(
+			return (
+					//RIGHT UP
+					!maze.isAWall(
 					hero.getPosition().x + x + hero.getWidth() /2,
 					hero.getPosition().y + y - hero.getHeight()/2
-			) &&!maze.isAWall(
+			)
+					//RIGHT DOWN
+					&&!maze.isAWall(
 					hero.getPosition().x + x + hero.getWidth() /2 ,
-					hero.getPosition().y + y + hero.getHeight()/2
-			));
+					hero.getPosition().y + y + hero.getHeight()/2)
+			);
 			//DOWN
 		}else if(x == 0 && y > 0){
-			return !maze.isAWall(
-					hero.getPosition().x + x,
-					hero.getPosition().y + y + hero.getHeight()/2
+			return (
+					//DOWN RIGHT
+					!maze.isAWall(
+					hero.getPosition().x + x +  hero.getWidth() /2,
+					hero.getPosition().y + y + hero.getHeight()/2)
+					//DOWN LEFT
+					&&!maze.isAWall(
+					hero.getPosition().x + x - hero.getWidth() /2 ,
+					hero.getPosition().y + y + hero.getHeight()/2)
 			);
 			//UP
 		}else{
-			return !maze.isAWall(
-					hero.getPosition().x + x ,
-					hero.getPosition().y + y - hero.getHeight()/2
+			return (
+					//UP LEFT
+					!maze.isAWall(
+					hero.getPosition().x + x -  hero.getWidth() /2,
+					hero.getPosition().y + y - hero.getHeight()/2)
+					//UP RIGHT
+					&&!maze.isAWall(
+					hero.getPosition().x + x + hero.getWidth() /2 ,
+					hero.getPosition().y + y - hero.getHeight()/2)
 			);
 		}
 	}
@@ -166,10 +175,6 @@ public class PacmanGame implements Game {
 			return false;
 		}
 	}
-
-	/////////////////
-	//Getter&Setter//
-	/////////////////
 
 	public Maze getMaze() {
 		return maze;
