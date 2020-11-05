@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * @author Alexis Richer
+ * @author Alexis Richer, Goetz Alexandre
  * @version 1.0.0
  *
  * Représente un objet graphique dans le jeu

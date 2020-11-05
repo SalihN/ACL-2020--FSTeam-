@@ -13,11 +13,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * @author Alexis Richer
+ * @author Alexis Richer, Goetz Alexandre
  * @version 2.2.1
  *
  * Labyrinthe du jeu
  */
+//TODO: rescale les tuiles à une résolution fix au lieu de changer la résolution en fonction du nombre de tuiles
+//TODO: Remettre le compteur ici
+//TODO: Vérifier que le fichier a bien un laby rectangulaire et sa taille au début du fichier
 public class Maze {
     private Floor[][] listFloor;
     private Collection<Monster> listMonsters;

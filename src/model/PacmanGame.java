@@ -60,6 +60,7 @@ public class PacmanGame implements Game {
 	 * @param commande
 	 */
 	@Override
+	// TODO: retirer le switch qui empêche de presser plusieurs touches en même temps
 	public void evolve(Cmd commande) {
 		switch (commande){
 			case UP:
@@ -84,7 +85,7 @@ public class PacmanGame implements Game {
 				break;
 		}
 	}
-
+	// TODO Maze = Niveau, pourquoi le compteur serait-il sur l'entièreté du jeu et pas dans le draw du niveau ?
 	public void draw(BufferedImage im) throws IOException {
 		maze.draw(im);
 		hero.draw(im);
@@ -98,6 +99,7 @@ public class PacmanGame implements Game {
 	/**
 	 * Mets à jour les sols activables
 	 */
+	// TODO: Collision entre deux physical object hors de Physical object, ils doivent savoir réagir eux même
 	private void update() throws IOException {
 		if(maze.getFloor(hero.getPosition().x, hero.getPosition().y).isActivateFloor()){
 			ActivateFloor activateFloor = (ActivateFloor) maze.getFloor(hero.getPosition().x, hero.getPosition().y);
@@ -111,6 +113,8 @@ public class PacmanGame implements Game {
 	 * @param y amount of y added by the move
 	 * @return
 	 */
+
+	// TODO même remarque que update()
 	private boolean check(int x, int y){
 			//LEFT
 		if(x < 0 && y == 0) {
@@ -165,9 +169,10 @@ public class PacmanGame implements Game {
 	}
 
 	/**
-	 * verifier si le jeu est fini
+	 * verifie si le jeu est fini
 	 */
 	@Override
+
 	public boolean isFinished() {
 		if(maze.getFloor(hero.getPosition().x, hero.getPosition().y).isTreasorFloor() || time == 0){
 			return true;
