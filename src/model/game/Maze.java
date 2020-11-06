@@ -190,4 +190,8 @@ public class Maze {
     public int getHeight(){
         return labyHeight * HEIGHT;
     }
+
+    public Collection<Monster> getListMonsters() {
+        return listMonsters;
+    }
 }

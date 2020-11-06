@@ -33,6 +33,7 @@ public class Hero extends SolidObject {
         position.y += y;
     }
 
+
     /////////////////
     //Getter&Setter//
     /////////////////

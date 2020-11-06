@@ -13,6 +13,7 @@ import engine.Game;
 import model.game.Hero;
 import model.game.Maze;
 import model.game.floor.ActivateFloor;
+import model.game.monster.Monster;
 
 /**
  * @author Horatiu Cirstea, Vincent Thomas
@@ -60,30 +61,25 @@ public class PacmanGame implements Game {
 	 * @param commande
 	 */
 	@Override
-	// TODO: retirer le switch qui empêche de presser plusieurs touches en même temps
 	public void evolve(Cmd commande) {
-		switch (commande){
-			case UP:
-				if(check(0, -hero.getStats().getSpeed())) {
-					hero.move(0, -hero.getStats().getSpeed());
-				}
-				break;
-			case DOWN:
-				if(check(0, hero.getStats().getSpeed())) {
-					hero.move(0, hero.getStats().getSpeed());
-				}
-				break;
-			case LEFT:
-				if(check(-hero.getStats().getSpeed(), 0)) {
-					hero.move(-hero.getStats().getSpeed(), 0);
-				}
-				break;
-			case RIGHT:
-				if(check(hero.getStats().getSpeed(),0)) {
-					hero.move(hero.getStats().getSpeed(), 0);
-				}
-				break;
+		int x=0;
+		int y=0;
+		if(commande == Cmd.UP){
+			y -= hero.getStats().getSpeed();
 		}
+		if(commande == Cmd.DOWN){
+			y += hero.getStats().getSpeed();
+		}
+		if(commande == Cmd.LEFT){
+			x -= hero.getStats().getSpeed();
+		}
+		if(commande == Cmd.RIGHT){
+			x +=  hero.getStats().getSpeed();
+		}
+		if(check(x,y)){
+			hero.move(x,y);
+		}
+
 	}
 	// TODO Maze = Niveau, pourquoi le compteur serait-il sur l'entièreté du jeu et pas dans le draw du niveau ?
 	public void draw(BufferedImage im) throws IOException {
@@ -99,11 +95,15 @@ public class PacmanGame implements Game {
 	/**
 	 * Mets à jour les sols activables
 	 */
-	// TODO: Collision entre deux physical object hors de Physical object, ils doivent savoir réagir eux même
 	private void update() throws IOException {
 		if(maze.getFloor(hero.getPosition().x, hero.getPosition().y).isActivateFloor()){
 			ActivateFloor activateFloor = (ActivateFloor) maze.getFloor(hero.getPosition().x, hero.getPosition().y);
 			activateFloor.activate(hero, maze);
+		}
+		for(Monster monster : getMaze().getListMonsters()){
+			if(hero.checkCollision(monster)){
+				hero.getStats().hit(1);
+			}
 		}
 	}
 
@@ -113,8 +113,6 @@ public class PacmanGame implements Game {
 	 * @param y amount of y added by the move
 	 * @return
 	 */
-
-	// TODO même remarque que update()
 	private boolean check(int x, int y){
 			//LEFT
 		if(x < 0 && y == 0) {

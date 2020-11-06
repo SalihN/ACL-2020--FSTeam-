@@ -13,4 +13,6 @@ import java.awt.image.BufferedImage;
 public abstract class SolidObject extends GameObject {
     protected Stats stats;
 
+
+
 }

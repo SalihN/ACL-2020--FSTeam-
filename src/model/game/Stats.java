@@ -36,8 +36,6 @@ public class Stats {
     public void hit (int damage){
         if(hp - damage > 0) {
             hp -= damage;
-        } else {
-            System.out.println("Mort");
         }
     }
 

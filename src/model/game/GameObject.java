@@ -29,6 +29,27 @@ public abstract class GameObject {
                 null);
     }
 
+    /**
+     * check collision between this object and another one
+     * @param objectToCheck
+     * @return
+     */
+    public boolean checkCollision(GameObject objectToCheck){
+        boolean right,top,bottom,left;
+
+        bottom = this.position.y + this.height/2  < objectToCheck.position.y - objectToCheck.height/2  ;
+        top = this.position.y - this.height/2  > objectToCheck.position.y + objectToCheck.height/2;
+        right = this.position.x + this.width/2  < objectToCheck.position.x - objectToCheck.width/2;
+        left = this.position.x - this.width/2 > objectToCheck.position.x + objectToCheck.width/2;
+
+        if(top || right || left || bottom ){
+            return false;
+        }
+        else{
+           return true;
+        }
+    }
+
     public Point getPosition() {
         return position;
     }
