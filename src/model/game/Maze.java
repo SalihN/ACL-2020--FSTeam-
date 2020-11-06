@@ -32,6 +32,10 @@ public class Maze {
     public Maze() throws IOException {
         listMonsters = new ArrayList<>();
         listMonsters.add(new NormalMonster(new Point(100,100),20,20));
+        listMonsters.add(new NormalMonster(new Point(100,600),20,20));
+        listMonsters.add(new NormalMonster(new Point(400,200),20,20));
+        listMonsters.add(new NormalMonster(new Point(600,600),20,20));
+        listMonsters.add(new NormalMonster(new Point(100,400),20,20));
         labyHeight = 0;labyWidth=0;
     }
 
