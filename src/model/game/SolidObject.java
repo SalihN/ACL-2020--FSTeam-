@@ -1,7 +1,5 @@
 package model.game;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 
 /**
  * @author Alexis Richer

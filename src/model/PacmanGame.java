@@ -2,8 +2,7 @@ package model;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,6 +13,8 @@ import model.game.Hero;
 import model.game.Maze;
 import model.game.floor.ActivateFloor;
 import model.game.monster.Monster;
+
+import javax.imageio.ImageIO;
 
 /**
  * @author Horatiu Cirstea, Vincent Thomas
@@ -28,6 +29,8 @@ public class PacmanGame implements Game {
 	private int time;
 	private TimerTask decount;
 
+	private BufferedImage life;
+
 	private int sizeOfPolice = 24;
 	Font font = new Font("TimesRoman", Font.PLAIN, sizeOfPolice);
 
@@ -40,6 +43,7 @@ public class PacmanGame implements Game {
 		maze = new Maze();
 		maze.generate(source);
 		hero.setPosition(new Point(maze.getWidth()/2, maze.getHeight()/2));
+		life = ImageIO.read(new File("resources/images/lifebar.png"));
 		time = 60;
 		Timer timer = new Timer();
 		decount = new TimerTask() {
@@ -85,10 +89,16 @@ public class PacmanGame implements Game {
 	public void draw(BufferedImage im) throws IOException {
 		maze.draw(im);
 		hero.draw(im);
+
 		Graphics2D crayon = (Graphics2D) im.getGraphics();
 		crayon.setColor(Color.red);
 		crayon.setFont(font);
 		crayon.drawString(Integer.toString(time), maze.getWidth()-((sizeOfPolice+maze.WIDTH)/2), (sizeOfPolice/2 + maze.HEIGHT)/2);
+
+		//Affiche la barre de vie juste en dessous du heros
+		float ratioVieVieMax = (float) hero.getStats().getHp() / (float) hero.getStats().getHpMax();
+		crayon.drawImage(life,hero.getPosition().x - hero.getWidth()/2 ,hero.getPosition().y + hero.getHeight()/2 + 2,(int)(hero.getWidth() * ratioVieVieMax),hero.getHeight()/4,null);
+
 		update();
 	}
 
@@ -104,6 +114,10 @@ public class PacmanGame implements Game {
 			if(hero.checkCollision(monster)){
 				hero.getStats().hit(1);
 			}
+		}
+		if(hero.isDead()){
+			//todo Retourner un menu du jeu
+			hero.getStats().setSpeed(0); //Actuellement, une fois le heros mort il ne peut plus bouger
 		}
 	}
 

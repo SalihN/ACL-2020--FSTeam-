@@ -7,8 +7,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author Alexis Richer,
- * @version 1.0.0
+ * @author Alexis Richer, Emanuel Gady
+ * @version 1.0.1
  *
  * Heros present dans le labyrinthe
  */
@@ -31,6 +31,18 @@ public class Hero extends SolidObject {
     public void move(int x, int y){
         position.x += x;
         position.y += y;
+    }
+
+    /**
+     * Permet de savoir sur le heros est mort ou non
+     * @return
+     */
+    public boolean isDead(){
+        if(stats.getHp() == 0){
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
