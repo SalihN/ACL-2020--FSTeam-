@@ -19,16 +19,14 @@ public class PacmanPainter implements GamePainter {
 	/**
 	 * la taille des cases
 	 */
-	protected static int WIDTH;
-	protected static int HEIGHT;
+	public final static  int tileWidth = 800;
+	public final static int tileHeight = 800;
 
 	/**
 	 * appelle constructeur parent
 	 */
 	public PacmanPainter(PacmanGame game) {
 		this.game = game;
-		WIDTH = this.game.getMaze().getWidth();
-		HEIGHT = this.game.getMaze().getHeight();
 	}
 
 	/**
@@ -37,17 +35,16 @@ public class PacmanPainter implements GamePainter {
 	@Override
 	public void draw(BufferedImage im) throws IOException {
 		game.draw(im);
-
 	}
 
 	@Override
 	public int getWidth() {
-		return WIDTH;
+		return tileWidth;
 	}
 
 	@Override
 	public int getHeight() {
-		return HEIGHT;
+		return tileHeight;
 	}
 
 }

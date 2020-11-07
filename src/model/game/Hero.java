@@ -69,4 +69,6 @@ public class Hero extends SolidObject {
     public Stats getStats() {
         return stats;
     }
+
+
 }

@@ -1,6 +1,7 @@
 package model.game;
 
 import model.PacmanGame;
+import model.PacmanPainter;
 import model.game.floor.*;
 import model.game.monster.Monster;
 import model.game.monster.NormalMonster;
@@ -19,7 +20,6 @@ import java.util.TimerTask;
  *
  * Labyrinthe du jeu
  */
-//TODO: rescale les tuiles à une résolution fix au lieu de changer la résolution en fonction du nombre de tuiles
 //TODO: Vérifier que le fichier a bien un laby rectangulaire et sa taille au début du fichier
 public class Maze {
     private Hero hero;
@@ -27,8 +27,8 @@ public class Maze {
     private Collection<Monster> listMonsters;
     private int labyHeight, labyWidth;
     //TILE SIZE
-    public final int WIDTH = 32;
-    public final int HEIGHT = 32;
+    public  int tileWidth = 32;
+    public  int tileHeight = 32;
 
     private TimerTask decount;
     private int time;
@@ -41,7 +41,6 @@ public class Maze {
         labyHeight = 0;
         labyWidth=0;
         reset();
-        listMonsters.add(new NormalMonster(new Point(100,100),20,20));
     }
 
     /**
@@ -63,8 +62,15 @@ public class Maze {
         // lecture du nombre de lignes et de colonnes
         line = buff.readLine();
         this.labyHeight = Integer.parseInt(line);
+        tileHeight = (int) Math.ceil((double)PacmanPainter.tileHeight / labyHeight);
+
         line = buff.readLine();
         this.labyWidth = Integer.parseInt(line);
+        tileWidth = (int) Math.ceil((double)PacmanPainter.tileWidth / labyWidth);
+
+        hero.setWidth(tileWidth);
+        hero.setHeight(tileHeight);
+
         resetPosition();
         listFloor = new Floor[labyHeight][labyWidth];
         // lecture de la structure du labyrinthe
@@ -74,23 +80,26 @@ public class Maze {
             for(int i=0;i<line.length();i++){
                 switch(line.charAt(i)){
                     case 'w' :
-                        listFloor[rowNumber][i] = new Wall(new Point(i * HEIGHT, rowNumber * WIDTH), WIDTH, HEIGHT);
+                        listFloor[rowNumber][i] = new Wall(new Point(i * tileWidth , rowNumber * tileHeight), tileWidth, tileHeight);
                         break;
                     case 'n' :
-                        listFloor[rowNumber][i] = new NormalFloor(new Point(i * HEIGHT, rowNumber * WIDTH), WIDTH, HEIGHT);
+                        listFloor[rowNumber][i] = new NormalFloor(new Point(i * tileWidth, rowNumber * tileHeight), tileWidth, tileHeight);
                         break;
                     case 't' :
-                        listFloor[rowNumber][i] = new TreasureFloor(new Point(i * HEIGHT, rowNumber * WIDTH), WIDTH, HEIGHT);
+                        listFloor[rowNumber][i] = new TreasureFloor(new Point(i * tileWidth, rowNumber * tileHeight), tileWidth, tileHeight);
                         break;
                     case 'h' :
-                        listFloor[rowNumber][i] = new HealthFloor(new Point(i * HEIGHT, rowNumber * WIDTH), WIDTH, HEIGHT);
+                        listFloor[rowNumber][i] = new HealthFloor(new Point(i * tileWidth, rowNumber * tileHeight), tileWidth, tileHeight);
                         break;
                     case 'f' :
-                        listFloor[rowNumber][i] = new FreezeFloor(new Point(i * HEIGHT, rowNumber * WIDTH), WIDTH, HEIGHT);
+                        listFloor[rowNumber][i] = new FreezeFloor(new Point(i * tileWidth, rowNumber * tileHeight), tileWidth, tileHeight);
                         break;
                     case 's' :
-                        listFloor[rowNumber][i] = new SlowFloor(new Point(i * HEIGHT, rowNumber * WIDTH), WIDTH, HEIGHT);
+                        listFloor[rowNumber][i] = new SlowFloor(new Point(i * tileWidth, rowNumber * tileHeight), tileWidth, tileHeight);
                         break;
+                    case 'm' :
+                        listFloor[rowNumber][i] = new NormalFloor(new Point(i * tileWidth, rowNumber * tileHeight), tileWidth, tileHeight);
+                        listMonsters.add(new NormalMonster(new Point(i * tileWidth, rowNumber * tileHeight), tileWidth, tileHeight));
                 }
             }
             rowNumber++;
@@ -105,7 +114,6 @@ public class Maze {
         timer.schedule(decount, 100, 1000);
     }
 
-
     private void countDown(){
         time--;
     }
@@ -116,7 +124,6 @@ public class Maze {
      * @throws IOException
      */
     public void draw(BufferedImage im) throws IOException {
-
         for(int i = 0; i< labyHeight;i++){
             for(int j = 0; j< labyWidth;j++){
                 listFloor[i][j].draw(im);
@@ -124,7 +131,7 @@ public class Maze {
         }
         for(Monster monster : listMonsters){
             if(monster.isCanMove()) {
-                monster.move(this, WIDTH, HEIGHT);
+                monster.move(this, tileWidth, tileHeight);
             }
             monster.draw(im);
         }
@@ -132,7 +139,7 @@ public class Maze {
         Graphics2D crayon = (Graphics2D) im.getGraphics();
         crayon.setColor(Color.red);
         crayon.setFont(font);
-        crayon.drawString(Integer.toString(time), getWidth()-((sizeOfPolice+WIDTH)/2), (sizeOfPolice/2 + HEIGHT)/2);
+        crayon.drawString(Integer.toString(time), getWidth()-((sizeOfPolice+tileWidth)/2), (sizeOfPolice/2 + tileHeight)/2);
     }
 
     /**
@@ -230,15 +237,15 @@ public class Maze {
      * @return
      */
     public Floor getFloor(int x, int y){
-        return listFloor[(y/HEIGHT)][(x/WIDTH)];
+        return listFloor[(y/tileHeight)][(x/tileWidth)];
     }
 
     public int getWidth(){
-        return labyWidth * WIDTH;
+        return labyWidth * tileWidth;
     }
 
     public int getHeight(){
-        return labyHeight * HEIGHT;
+        return labyHeight * tileHeight;
     }
 
     public Collection<Monster> getListMonsters() {

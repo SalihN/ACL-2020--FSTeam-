@@ -66,7 +66,6 @@ public class PacmanGame implements Game {
 		if(check(x,y)){
 			hero.move(x,y);
 		}
-
 	}
 
 	public void draw(BufferedImage im) throws IOException {
@@ -93,6 +92,7 @@ public class PacmanGame implements Game {
 		for(Monster monster : getMaze().getListMonsters()){
 			if(hero.checkCollision(monster)){
 				hero.getStats().hit(1);
+				System.out.println("aie");
 			}
 		}
 		if(hero.isDead()){
