@@ -20,7 +20,6 @@ import java.util.TimerTask;
  *
  * Labyrinthe du jeu
  */
-//TODO: Vérifier que le fichier a bien un laby rectangulaire et sa taille au début du fichier
 public class Maze {
     private Hero hero;
     private Floor[][] listFloor;
@@ -51,22 +50,21 @@ public class Maze {
      */
     public void generate() throws IOException {
         BufferedReader buff = null;
-        String level = "resources/mazes/maze"+ PacmanGame.cpt + ".txt";
+        String level = "resources/mazes/maze" + PacmanGame.cpt + ".txt";
         String line;
         try {
             buff = new BufferedReader(new FileReader(level));
-        }
-        catch(FileNotFoundException err){
+        } catch (FileNotFoundException err) {
             System.exit(0);
         }
         // lecture du nombre de lignes et de colonnes
         line = buff.readLine();
-        this.labyHeight = Integer.parseInt(line)+2;
-        tileHeight = (int) Math.ceil((double)PacmanPainter.tileHeight / labyHeight);
+        this.labyHeight = Integer.parseInt(line) + 2;
+        tileHeight = (int) Math.ceil((double) PacmanPainter.tileHeight / labyHeight);
 
         line = buff.readLine();
-        this.labyWidth = Integer.parseInt(line)+2;
-        tileWidth = (int) Math.ceil((double)PacmanPainter.tileWidth / labyWidth);
+        this.labyWidth = Integer.parseInt(line) + 2;
+        tileWidth = (int) Math.ceil((double) PacmanPainter.tileWidth / labyWidth);
 
         hero.setWidth(tileWidth);
         hero.setHeight(tileHeight);
@@ -77,54 +75,78 @@ public class Maze {
         int rowNumber = 0;
 
         //Construction des murs
-        for(int i = 0 ; i < labyWidth ; i++){
-            listFloor[i][0] = new Wall(new Point(i * tileWidth , 0), tileWidth, tileHeight);
+        for (int i = 0; i < labyWidth; i++) {
+            listFloor[i][0] = new Wall(new Point(i * tileWidth, 0), tileWidth, tileHeight);
         }
-        for(int i = 0 ; i < labyWidth ; i++){
-            listFloor[i][labyHeight-1] = new Wall(new Point(i * tileWidth , (labyHeight-1) * tileHeight), tileWidth, tileHeight);
+        for (int i = 0; i < labyWidth; i++) {
+            listFloor[i][labyHeight - 1] = new Wall(new Point(i * tileWidth, (labyHeight - 1) * tileHeight), tileWidth, tileHeight);
         }
-        for(int i = 0 ; i < labyHeight ; i++){
-            listFloor[0][i] = new Wall(new Point(0 , i * tileHeight), tileWidth, tileHeight);
+        for (int i = 0; i < labyHeight; i++) {
+            listFloor[0][i] = new Wall(new Point(0, i * tileHeight), tileWidth, tileHeight);
         }
-        for(int i = 0 ; i < labyHeight ; i++){
-            listFloor[labyWidth-1][i] = new Wall(new Point((labyWidth-1) * tileWidth , i * tileHeight), tileWidth, tileHeight);
+        for (int i = 0; i < labyHeight; i++) {
+            listFloor[labyWidth - 1][i] = new Wall(new Point((labyWidth - 1) * tileWidth, i * tileHeight), tileWidth, tileHeight);
         }
+        // we wont read lines that goes beyond the given height
+        for (int i = 1; i < labyHeight - 1; i++) {
+            // skip empty lines
 
-        while((line = buff.readLine()) != null){
-
-            for(int j=0 ; j<line.length() ; j++){
-                int i = j+1;
-                switch(line.charAt(j)){
-                    case 'w' :
-                        listFloor[rowNumber][i] = new Wall(new Point(i * tileWidth , rowNumber * tileHeight), tileWidth, tileHeight);
-                        break;
-                    case 'n' :
-                        listFloor[rowNumber][i] = new NormalFloor(new Point(i * tileWidth, rowNumber * tileHeight), tileWidth, tileHeight);
-                        break;
-                    case 't' :
-                        listFloor[rowNumber][i] = new TreasureFloor(new Point(i * tileWidth, rowNumber * tileHeight), tileWidth, tileHeight);
-                        break;
-                    case 'h' :
-                        listFloor[rowNumber][i] = new HealthFloor(new Point(i * tileWidth, rowNumber * tileHeight), tileWidth, tileHeight);
-                        break;
-                    case 'f' :
-                        listFloor[rowNumber][i] = new FreezeFloor(new Point(i * tileWidth, rowNumber * tileHeight), tileWidth, tileHeight);
-                        break;
-                    case 's' :
-                        listFloor[rowNumber][i] = new SlowFloor(new Point(i * tileWidth, rowNumber * tileHeight), tileWidth, tileHeight);
-                        break;
-                    case 'm' :
-                        listFloor[rowNumber][i] = new NormalFloor(new Point(i * tileWidth, rowNumber * tileHeight), tileWidth, tileHeight);
-                        listMonsters.add(new NormalMonster(new Point(i * tileWidth, rowNumber * tileHeight), tileWidth, tileHeight));
-                        break;
-                    case 'p' :
-                        listFloor[rowNumber][i] = new NormalFloor(new Point(i * tileWidth, rowNumber * tileHeight), tileWidth, tileHeight);
-                        hero.setPosition(new Point(i * tileWidth, rowNumber * tileHeight));
-                        break;
+            line = buff.readLine();
+            while(line.isBlank()){
+                line = buff.readLine();
+            }
+            for (int j = 1; j <= line.length() ; j++) {
+                // prevent from going beyond the given width
+                if (j < labyWidth - 1) {
+                    switch (line.charAt(j-1)) {
+                        //Wall
+                        case 'w':
+                            listFloor[i][j] = new Wall(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                            break;
+                        //Normal floor
+                        case 'n':
+                            listFloor[i][j] = new NormalFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                            break;
+                        // Treasure floor
+                        case 't':
+                            listFloor[i][j] = new TreasureFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                            break;
+                        // Heal floor
+                        case 'h':
+                            listFloor[i][j] = new HealthFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                            break;
+                        // Freeze floor
+                        case 'f':
+                            listFloor[i][j] = new FreezeFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                            break;
+                        // Slow floor
+                        case 's':
+                            listFloor[i][j] = new SlowFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                            break;
+                        //Normal Monster
+                        case 'm':
+                            listFloor[i][j] = new NormalFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                            listMonsters.add(new NormalMonster(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight));
+                            break;
+                        //Hero
+                        case 'p':
+                            listFloor[i][j] = new NormalFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                            hero.setPosition(new Point(j * tileWidth, i * tileHeight));
+                            break;
+                        default:
+                            listFloor[i][j] = new NormalFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                    }
+                    // check if the line is full according to the width given in the fill
+                    // if not the line with normal floor
+                    if (line.length() < labyWidth - 2) {
+                        for (int k = line.length(); k < labyWidth - 1; k++) {
+                            listFloor[i][k] = new NormalFloor(new Point(k * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                        }
+                    }
                 }
             }
-            rowNumber++;
         }
+
         Timer timer = new Timer();
         decount = new TimerTask() {
             @Override
@@ -134,6 +156,7 @@ public class Maze {
         };
         timer.schedule(decount, 100, 1000);
     }
+
 
     private void countDown(){
         time--;
