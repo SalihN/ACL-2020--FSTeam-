@@ -26,37 +26,20 @@ import javax.imageio.ImageIO;
 public class PacmanGame implements Game {
 	private Hero hero;
 	private Maze maze;
-	private int time;
-	private TimerTask decount;
+	public static int cpt;
 
 	private BufferedImage life;
-
-	private int sizeOfPolice = 24;
-	Font font = new Font("TimesRoman", Font.PLAIN, sizeOfPolice);
 
 	/**
 	 * constructeur avec fichier source pour le help
 	 * 
 	 */
-	public PacmanGame(String source) throws IOException {
+	public PacmanGame() throws IOException {
 		hero = new Hero();
-		maze = new Maze();
-		maze.generate(source);
-		hero.setPosition(new Point(maze.getWidth()/2, maze.getHeight()/2));
+		maze = new Maze(hero);
+		cpt = 0;
+		maze.generate();
 		life = ImageIO.read(new File("resources/images/lifebar.png"));
-		time = 60;
-		Timer timer = new Timer();
-		decount = new TimerTask() {
-			@Override
-			public void run() {
-				countDown();
-			}
-		};
-		timer.schedule(decount, 100, 1000);
-	}
-
-	private void countDown(){
-		time--;
 	}
 
 	/**
@@ -85,15 +68,12 @@ public class PacmanGame implements Game {
 		}
 
 	}
-	// TODO Maze = Niveau, pourquoi le compteur serait-il sur l'entièreté du jeu et pas dans le draw du niveau ?
+
 	public void draw(BufferedImage im) throws IOException {
 		maze.draw(im);
 		hero.draw(im);
 
 		Graphics2D crayon = (Graphics2D) im.getGraphics();
-		crayon.setColor(Color.red);
-		crayon.setFont(font);
-		crayon.drawString(Integer.toString(time), maze.getWidth()-((sizeOfPolice+maze.WIDTH)/2), (sizeOfPolice/2 + maze.HEIGHT)/2);
 
 		//Affiche la barre de vie juste en dessous du heros
 		float ratioVieVieMax = (float) hero.getStats().getHp() / (float) hero.getStats().getHpMax();
@@ -186,7 +166,7 @@ public class PacmanGame implements Game {
 	@Override
 
 	public boolean isFinished() {
-		if(maze.getFloor(hero.getPosition().x, hero.getPosition().y).isTreasorFloor() || time == 0){
+		if(maze.getTime() == 0){
 			return true;
 		}else{
 			return false;

@@ -1,5 +1,6 @@
 package model.game;
 
+import model.PacmanGame;
 import model.game.floor.*;
 import model.game.monster.Monster;
 import model.game.monster.NormalMonster;
@@ -19,9 +20,9 @@ import java.util.TimerTask;
  * Labyrinthe du jeu
  */
 //TODO: rescale les tuiles à une résolution fix au lieu de changer la résolution en fonction du nombre de tuiles
-//TODO: Remettre le compteur ici
 //TODO: Vérifier que le fichier a bien un laby rectangulaire et sa taille au début du fichier
 public class Maze {
+    private Hero hero;
     private Floor[][] listFloor;
     private Collection<Monster> listMonsters;
     private int labyHeight, labyWidth;
@@ -29,37 +30,42 @@ public class Maze {
     public final int WIDTH = 32;
     public final int HEIGHT = 32;
 
-    public Maze() throws IOException {
+    private TimerTask decount;
+    private int time;
+    private int sizeOfPolice = 24;
+    Font font = new Font("TimesRoman", Font.PLAIN, sizeOfPolice);
+
+    public Maze(Hero hero) throws IOException {
+        this.hero = hero;
         listMonsters = new ArrayList<>();
+        labyHeight = 0;
+        labyWidth=0;
+        reset();
         listMonsters.add(new NormalMonster(new Point(100,100),20,20));
-        listMonsters.add(new NormalMonster(new Point(100,600),20,20));
-        listMonsters.add(new NormalMonster(new Point(400,200),20,20));
-        listMonsters.add(new NormalMonster(new Point(600,600),20,20));
-        listMonsters.add(new NormalMonster(new Point(100,400),20,20));
-        labyHeight = 0;labyWidth=0;
     }
 
     /**
      * Permet de creer un labyrinthe à partir d'un fichier texte
      * Les deux première lignes du fichier sont la largeur et la longueur du labyrinthe
      * Les lignes suivantes sont la compositions de celui ci avec les symbole correspondant
-     * @param level
      * @throws IOException
      */
-    public void generate(String level) throws IOException {
+    public void generate() throws IOException {
         BufferedReader buff = null;
+        String level = "resources/mazes/maze"+ PacmanGame.cpt + ".txt";
         String line;
         try {
             buff = new BufferedReader(new FileReader(level));
         }
         catch(FileNotFoundException err){
-            System.out.println("File not found");
+            System.exit(0);
         }
         // lecture du nombre de lignes et de colonnes
         line = buff.readLine();
         this.labyHeight = Integer.parseInt(line);
         line = buff.readLine();
         this.labyWidth = Integer.parseInt(line);
+        resetPosition();
         listFloor = new Floor[labyHeight][labyWidth];
         // lecture de la structure du labyrinthe
         int rowNumber = 0;
@@ -89,6 +95,19 @@ public class Maze {
             }
             rowNumber++;
         }
+        Timer timer = new Timer();
+        decount = new TimerTask() {
+            @Override
+            public void run() {
+                countDown();
+            }
+        };
+        timer.schedule(decount, 100, 1000);
+    }
+
+
+    private void countDown(){
+        time--;
     }
 
     /**
@@ -109,6 +128,11 @@ public class Maze {
             }
             monster.draw(im);
         }
+
+        Graphics2D crayon = (Graphics2D) im.getGraphics();
+        crayon.setColor(Color.red);
+        crayon.setFont(font);
+        crayon.drawString(Integer.toString(time), getWidth()-((sizeOfPolice+WIDTH)/2), (sizeOfPolice/2 + HEIGHT)/2);
     }
 
     /**
@@ -178,6 +202,28 @@ public class Maze {
     }
 
     /**
+     * Charge le niveau suivant
+     */
+    public void nextLevel() throws IOException {
+        reset();
+        PacmanGame.cpt++;
+        generate();
+    }
+
+    /**
+     * Supprime le maze
+     */
+    private void reset(){
+        listMonsters.clear();
+        time = 60;
+
+    }
+
+    private void resetPosition() {
+        hero.setPosition(new Point(getWidth()/2, getHeight()/2));
+    }
+
+    /**
      * Return the floor position at the pixel (x,y)
      * @param x abscisses
      * @param y ordonnées
@@ -197,5 +243,9 @@ public class Maze {
 
     public Collection<Monster> getListMonsters() {
         return listMonsters;
+    }
+
+    public int getTime() {
+        return time;
     }
 }
