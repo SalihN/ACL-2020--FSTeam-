@@ -48,24 +48,9 @@ public class PacmanGame implements Game {
 	 * @param commande
 	 */
 	@Override
-	public void evolve(Cmd commande) {
-		int x=0;
-		int y=0;
-		if(commande == Cmd.UP){
-			y -= hero.getStats().getSpeed();
-		}
-		if(commande == Cmd.DOWN){
-			y += hero.getStats().getSpeed();
-		}
-		if(commande == Cmd.LEFT){
-			x -= hero.getStats().getSpeed();
-		}
-		if(commande == Cmd.RIGHT){
-			x +=  hero.getStats().getSpeed();
-		}
-		if(check(x,y)){
-			hero.move(x,y);
-		}
+	public void evolve(Cmd commande) throws IOException {
+		hero.move(commande,maze);
+		this.update();
 	}
 
 	public void draw(BufferedImage im) throws IOException {
@@ -76,9 +61,13 @@ public class PacmanGame implements Game {
 
 		//Affiche la barre de vie juste en dessous du heros
 		float ratioVieVieMax = (float) hero.getStats().getHp() / (float) hero.getStats().getHpMax();
-		crayon.drawImage(life,hero.getPosition().x - hero.getWidth()/2 ,hero.getPosition().y + hero.getHeight()/2 + 2,(int)(hero.getWidth() * ratioVieVieMax),hero.getHeight()/4,null);
+		crayon.drawImage(
+				life,
+				hero.getPosition().x - hero.getWidth()/2 ,hero.getPosition().y + hero.getHeight()/2 + 2,
+				(int)(hero.getWidth() * ratioVieVieMax),hero.getHeight()/4,
+				null
+		);
 
-		update();
 	}
 
 	/**
@@ -98,65 +87,6 @@ public class PacmanGame implements Game {
 		if(hero.isDead()){
 			//todo Retourner un menu du jeu
 			hero.getStats().setSpeed(0); //Actuellement, une fois le heros mort il ne peut plus bouger
-		}
-	}
-
-	/***
-	 * check the collision to a wall where the player is going
-	 * @param x amount of x added by the move
-	 * @param y amount of y added by the move
-	 * @return
-	 */
-	private boolean check(int x, int y){
-			//LEFT
-		if(x < 0 && y == 0) {
-			return (
-					// LEFT UP
-					!maze.isAWall(
-					hero.getPosition().x + x - hero.getWidth() /2,
-					hero.getPosition().y + y - hero.getHeight()/2)
-					//LEFT DOWN
-					&&!maze.isAWall(
-					hero.getPosition().x + x - hero.getWidth() /2 ,
-					hero.getPosition().y + y + hero.getHeight()/2)
-			);
-			//RIGHT
-		}else if(x > 0 && y == 0 ){
-			return (
-					//RIGHT UP
-					!maze.isAWall(
-					hero.getPosition().x + x + hero.getWidth() /2,
-					hero.getPosition().y + y - hero.getHeight()/2
-			)
-					//RIGHT DOWN
-					&&!maze.isAWall(
-					hero.getPosition().x + x + hero.getWidth() /2 ,
-					hero.getPosition().y + y + hero.getHeight()/2)
-			);
-			//DOWN
-		}else if(x == 0 && y > 0){
-			return (
-					//DOWN RIGHT
-					!maze.isAWall(
-					hero.getPosition().x + x +  hero.getWidth() /2,
-					hero.getPosition().y + y + hero.getHeight()/2)
-					//DOWN LEFT
-					&&!maze.isAWall(
-					hero.getPosition().x + x - hero.getWidth() /2 ,
-					hero.getPosition().y + y + hero.getHeight()/2)
-			);
-			//UP
-		}else{
-			return (
-					//UP LEFT
-					!maze.isAWall(
-					hero.getPosition().x + x -  hero.getWidth() /2,
-					hero.getPosition().y + y - hero.getHeight()/2)
-					//UP RIGHT
-					&&!maze.isAWall(
-					hero.getPosition().x + x + hero.getWidth() /2 ,
-					hero.getPosition().y + y - hero.getHeight()/2)
-			);
 		}
 	}
 

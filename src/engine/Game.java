@@ -1,5 +1,7 @@
 package engine;
 
+import java.io.IOException;
+
 /**
  * @author Horatiu Cirstea, Vincent Thomas
  *
@@ -14,7 +16,7 @@ public interface Game {
 	 * @param userCmd
 	 *            commande utilisateur
 	 */
-	public void evolve(Cmd userCmd);
+	public void evolve(Cmd userCmd) throws IOException;
 
 	/**
 	 * @return true si et seulement si le jeu est fini

@@ -131,7 +131,7 @@ public class Maze {
         }
         for(Monster monster : listMonsters){
             if(monster.isCanMove()) {
-                monster.move(this, tileWidth, tileHeight);
+                monster.move(this);
             }
             monster.draw(im);
         }
@@ -187,7 +187,7 @@ public class Maze {
      */
     public void slowMonsters(int time, int slow) {
         for(Monster monster : listMonsters){
-            monster.setSpeed(monster.getSpeed() - slow);
+            monster.getStats().setSpeed(monster.getStats().getSpeed() - slow);
         }
         Timer timer = new Timer();
         TimerTask decount = new TimerTask() {
@@ -204,7 +204,7 @@ public class Maze {
      */
     private void deslow(int slow) {
         for(Monster monster : listMonsters){
-            monster.setSpeed(monster.getSpeed() + slow);
+            monster.getStats().setSpeed(monster.getStats().getSpeed() + slow);
         }
     }
 

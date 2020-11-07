@@ -50,11 +50,90 @@ public abstract class GameObject {
         }
     }
 
+    /***
+     * Check if there's no wall in the direction we're going according to x and y values
+     * True if there's no wall
+     * False if there is a wall
+     * @param x x value we want to reach
+     * @param y y value we want to reach
+     * @param maze current maze
+     * @return
+     */
+
+    public boolean checkWall(int x, int y,Maze maze){
+        //LEFT
+        if(x < 0 && y == 0) {
+            return (
+                    // LEFT UP
+                    !maze.isAWall(
+                            this.getPosition().x + x - this.getWidth() /2,
+                            this.getPosition().y + y - this.getHeight()/2)
+                            //LEFT DOWN
+                            &&!maze.isAWall(
+                            this.getPosition().x + x - this.getWidth() /2 ,
+                            this.getPosition().y + y + this.getHeight()/2)
+            );
+            //RIGHT
+        }else if(x > 0 && y == 0 ){
+            return (
+                    //RIGHT UP
+                    !maze.isAWall(
+                            this.getPosition().x + x + this.getWidth() /2,
+                            this.getPosition().y + y - this.getHeight()/2
+                    )
+                            //RIGHT DOWN
+                            &&!maze.isAWall(
+                            this.getPosition().x + x + this.getWidth() /2 ,
+                            this.getPosition().y + y + this.getHeight()/2)
+            );
+            //DOWN
+        }else if(x == 0 && y > 0){
+            return (
+                    //DOWN RIGHT
+                    !maze.isAWall(
+                            this.getPosition().x + x +  this.getWidth() /2,
+                            this.getPosition().y + y + this.getHeight()/2)
+                            //DOWN LEFT
+                            &&!maze.isAWall(
+                            this.getPosition().x + x - this.getWidth() /2 ,
+                            this.getPosition().y + y + this.getHeight()/2)
+            );
+            //UP
+        }else{
+            return (
+                    //UP LEFT
+                    !maze.isAWall(
+                            this.getPosition().x + x -  this.getWidth() /2,
+                            this.getPosition().y + y - this.getHeight()/2)
+                            //UP RIGHT
+                            &&!maze.isAWall(
+                            this.getPosition().x + x + this.getWidth() /2 ,
+                            this.getPosition().y + y - this.getHeight()/2)
+            );
+        }
+    }
+
     public void setWidth(int width) {
         this.width = width;
     }
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public Point getPosition() {
+        return position;
+    }
+
+    public void setPosition(Point position) {
+        this.position = position;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }

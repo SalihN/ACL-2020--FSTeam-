@@ -10,4 +10,9 @@ package model.game;
 
 public abstract class SolidObject extends GameObject {
     protected Stats stats;
+
+    public Stats getStats() {
+        return stats;
+    }
+
 }

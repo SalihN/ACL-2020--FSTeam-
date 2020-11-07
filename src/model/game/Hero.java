@@ -1,5 +1,7 @@
 package model.game;
 
+import engine.Cmd;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -24,13 +26,29 @@ public class Hero extends SolidObject {
     }
 
     /**
-     * Permet de deplacer le Heros
-     * @param x
-     * @param y
+     * Déplacement du héro en fonction de la commande donnée dans le labyrinth
+     * @param commande
+     * @param maze
      */
-    public void move(int x, int y){
-        position.x += x;
-        position.y += y;
+    public void move(Cmd commande, Maze maze){
+        int x=0;
+        int y=0;
+        if(commande == Cmd.UP){
+            y -= this.getStats().getSpeed();
+        }
+        if(commande == Cmd.DOWN){
+            y += this.getStats().getSpeed();
+        }
+        if(commande == Cmd.LEFT){
+            x -= this.getStats().getSpeed();
+        }
+        if(commande == Cmd.RIGHT){
+            x +=  this.getStats().getSpeed();
+        }
+        if(this.checkWall(x,y,maze)){
+            position.x += x;
+            position.y += y;
+        }
     }
 
     /**
@@ -45,30 +63,8 @@ public class Hero extends SolidObject {
         }
     }
 
-
-    /////////////////
-    //Getter&Setter//
-    /////////////////
-
-    public void setPosition(Point position) {
-        this.position = position;
-    }
-
-    public Point getPosition() {
-        return position;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
     public Stats getStats() {
         return stats;
     }
-
 
 }

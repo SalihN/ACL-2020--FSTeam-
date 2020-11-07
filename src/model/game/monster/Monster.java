@@ -2,6 +2,7 @@ package model.game.monster;
 
 import model.game.Maze;
 import model.game.SolidObject;
+import model.game.Stats;
 
 import java.awt.*;
 import java.util.Random;
@@ -14,12 +15,11 @@ import java.util.Random;
  * Monstre present dans le labyrinthe
  */
 public abstract class Monster extends SolidObject {
-    //TODO passer speed vers Stat
-    protected int speed;
-    private int moveValue = 1;
+    protected int moveValue = 1;
     protected boolean canMove;
 
     public Monster(Point point, int width, int height){
+        this.stats = new Stats(1,3);
         this.position = point;
         this.width = width;
         this.height = height;
@@ -29,52 +29,43 @@ public abstract class Monster extends SolidObject {
     /**
      * Permet de faire se deplacer un monstre dans le labyrinthe
      * @param maze
-     * @param wallWidth
-     * @param wallHeight
      */
-    public void move(Maze maze, int wallWidth, int wallHeight){
-            // RIGHT
-        if(moveValue == 1) {
-            if(!maze.isAWall(position.x + speed + wallWidth/2, position.y)){
-                position.x += speed;
-            }
-            else {
-                Random rand = new Random();
-                moveValue = rand.nextInt(4-1+1) + 1;
-//                moveValue = 3;
-            }
-        }   // DOWN
-        else if(moveValue == 2) {
-            if(!maze.isAWall(position.x, position.y + speed + wallHeight/2)){
-                position.y += speed;
-            }
-            else {
-                Random rand = new Random();
-                moveValue = rand.nextInt(4-1+1) + 1;
-//                moveValue = 1;
-            }
-        }   // LEFT
-        else if(moveValue == 3) {
-            if(!maze.isAWall(position.x - speed - wallWidth/2, position.y)){
-                position.x -= speed;
-            }
-            else {
-                Random rand = new Random();
-                moveValue = rand.nextInt(4-1+1) + 1;
-//                moveValue = 4;
-            }
-        }   // UP
-        else if(moveValue == 4) {
-            if(!maze.isAWall(position.x, position.y - speed - wallHeight/2)){
-                position.y -= speed;
-            }
-            else {
-                Random rand = new Random();
-                moveValue = rand.nextInt(4-1+1) + 1;
-//                moveValue = 2;
-            }
+
+    public void move(Maze maze){
+        int x=0,y=0;
+        Random rand = new Random();
+
+        // RIGHT
+        if (moveValue == 1) {
+            x += stats.getSpeed();
         }
+        // LEFT
+        else if (moveValue == 2) {
+            x -= stats.getSpeed();
+        }
+        // UP
+        else if (moveValue == 3) {
+            y -= stats.getSpeed();
+        }
+        // DOWN
+        else if (moveValue == 4) {
+            y += stats.getSpeed();
+        }
+
+        if(!this.checkWall(x,y,maze)) {
+            int currentMoveValue = moveValue;
+            while(moveValue == currentMoveValue){
+                moveValue = rand.nextInt(4-1+1) + 1;
+            }
+            x = -x;
+            y = -y;
+
+        }
+        position.x += x;
+        position.y += y;
     }
+
+
 
     public void freeze(){
         canMove = false;
@@ -84,15 +75,8 @@ public abstract class Monster extends SolidObject {
         return canMove;
     }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
     public void setCanMove(boolean canMove) {
         this.canMove = canMove;
     }
+
 }
