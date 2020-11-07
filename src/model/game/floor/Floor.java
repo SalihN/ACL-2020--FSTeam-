@@ -36,6 +36,4 @@ public abstract class Floor extends GameObject {
     public boolean isWall(){
         return false;
     }
-
-
 }

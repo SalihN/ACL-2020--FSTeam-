@@ -61,24 +61,40 @@ public class Maze {
         }
         // lecture du nombre de lignes et de colonnes
         line = buff.readLine();
-        this.labyHeight = Integer.parseInt(line);
+        this.labyHeight = Integer.parseInt(line)+2;
         tileHeight = (int) Math.ceil((double)PacmanPainter.tileHeight / labyHeight);
 
         line = buff.readLine();
-        this.labyWidth = Integer.parseInt(line);
+        this.labyWidth = Integer.parseInt(line)+2;
         tileWidth = (int) Math.ceil((double)PacmanPainter.tileWidth / labyWidth);
 
         hero.setWidth(tileWidth);
         hero.setHeight(tileHeight);
 
-        resetPosition();
+
         listFloor = new Floor[labyHeight][labyWidth];
         // lecture de la structure du labyrinthe
         int rowNumber = 0;
+
+        //Construction des murs
+        for(int i = 0 ; i < labyWidth ; i++){
+            listFloor[i][0] = new Wall(new Point(i * tileWidth , 0), tileWidth, tileHeight);
+        }
+        for(int i = 0 ; i < labyWidth ; i++){
+            listFloor[i][labyHeight-1] = new Wall(new Point(i * tileWidth , (labyHeight-1) * tileHeight), tileWidth, tileHeight);
+        }
+        for(int i = 0 ; i < labyHeight ; i++){
+            listFloor[0][i] = new Wall(new Point(0 , i * tileHeight), tileWidth, tileHeight);
+        }
+        for(int i = 0 ; i < labyHeight ; i++){
+            listFloor[labyWidth-1][i] = new Wall(new Point((labyWidth-1) * tileWidth , i * tileHeight), tileWidth, tileHeight);
+        }
+
         while((line = buff.readLine()) != null){
 
-            for(int i=0;i<line.length();i++){
-                switch(line.charAt(i)){
+            for(int j=0 ; j<line.length() ; j++){
+                int i = j+1;
+                switch(line.charAt(j)){
                     case 'w' :
                         listFloor[rowNumber][i] = new Wall(new Point(i * tileWidth , rowNumber * tileHeight), tileWidth, tileHeight);
                         break;
@@ -100,6 +116,11 @@ public class Maze {
                     case 'm' :
                         listFloor[rowNumber][i] = new NormalFloor(new Point(i * tileWidth, rowNumber * tileHeight), tileWidth, tileHeight);
                         listMonsters.add(new NormalMonster(new Point(i * tileWidth, rowNumber * tileHeight), tileWidth, tileHeight));
+                        break;
+                    case 'p' :
+                        listFloor[rowNumber][i] = new NormalFloor(new Point(i * tileWidth, rowNumber * tileHeight), tileWidth, tileHeight);
+                        hero.setPosition(new Point(i * tileWidth, rowNumber * tileHeight));
+                        break;
                 }
             }
             rowNumber++;
@@ -224,10 +245,6 @@ public class Maze {
         listMonsters.clear();
         time = 60;
 
-    }
-
-    private void resetPosition() {
-        hero.setPosition(new Point(getWidth()/2, getHeight()/2));
     }
 
     /**
