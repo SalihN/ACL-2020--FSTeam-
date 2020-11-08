@@ -234,7 +234,7 @@ public class Maze {
      * @return true if it's a wall, else return a false
      */
     public boolean isAWall(int x, int y){
-        return getFloor(x, y).isWall();
+        return !getFloor(x, y).isWall();
     }
 
     /**

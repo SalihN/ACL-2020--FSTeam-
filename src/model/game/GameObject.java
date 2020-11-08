@@ -58,50 +58,50 @@ public abstract class GameObject {
         if(x < 0 && y == 0) {
             return (
                     // LEFT UP
-                    !maze.isAWall(
-                            this.getPosition().x + x - this.getWidth() /2,
-                            this.getPosition().y + y - this.getHeight()/2)
+                    maze.isAWall(
+                            this.getPosition().x + x - this.getWidth() / 2,
+                            this.getPosition().y + y - this.getHeight() / 2)
                             //LEFT DOWN
-                            &&!maze.isAWall(
-                            this.getPosition().x + x - this.getWidth() /2 ,
-                            this.getPosition().y + y + this.getHeight()/2)
+                            && maze.isAWall(
+                            this.getPosition().x + x - this.getWidth() / 2,
+                            this.getPosition().y + y + this.getHeight() / 2)
             );
             //RIGHT
         }else if(x > 0 && y == 0 ){
             return (
                     //RIGHT UP
-                    !maze.isAWall(
-                            this.getPosition().x + x + this.getWidth() /2,
-                            this.getPosition().y + y - this.getHeight()/2
+                    maze.isAWall(
+                            this.getPosition().x + x + this.getWidth() / 2,
+                            this.getPosition().y + y - this.getHeight() / 2
                     )
                             //RIGHT DOWN
-                            &&!maze.isAWall(
-                            this.getPosition().x + x + this.getWidth() /2 ,
-                            this.getPosition().y + y + this.getHeight()/2)
+                            && maze.isAWall(
+                            this.getPosition().x + x + this.getWidth() / 2,
+                            this.getPosition().y + y + this.getHeight() / 2)
             );
             //DOWN
         }else if(x == 0 && y > 0){
             return (
                     //DOWN RIGHT
-                    !maze.isAWall(
-                            this.getPosition().x + x +  this.getWidth() /2,
-                            this.getPosition().y + y + this.getHeight()/2)
+                    maze.isAWall(
+                            this.getPosition().x + x + this.getWidth() / 2,
+                            this.getPosition().y + y + this.getHeight() / 2)
                             //DOWN LEFT
-                            &&!maze.isAWall(
-                            this.getPosition().x + x - this.getWidth() /2 ,
-                            this.getPosition().y + y + this.getHeight()/2)
+                            && maze.isAWall(
+                            this.getPosition().x + x - this.getWidth() / 2,
+                            this.getPosition().y + y + this.getHeight() / 2)
             );
             //UP
         }else{
             return (
                     //UP LEFT
-                    !maze.isAWall(
-                            this.getPosition().x + x -  this.getWidth() /2,
-                            this.getPosition().y + y - this.getHeight()/2)
+                    maze.isAWall(
+                            this.getPosition().x + x - this.getWidth() / 2,
+                            this.getPosition().y + y - this.getHeight() / 2)
                             //UP RIGHT
-                            &&!maze.isAWall(
-                            this.getPosition().x + x + this.getWidth() /2 ,
-                            this.getPosition().y + y - this.getHeight()/2)
+                            && maze.isAWall(
+                            this.getPosition().x + x + this.getWidth() / 2,
+                            this.getPosition().y + y - this.getHeight() / 2)
             );
         }
     }
