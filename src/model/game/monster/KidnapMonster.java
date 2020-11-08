@@ -16,35 +16,52 @@ import java.io.IOException;
  */
 public class KidnapMonster extends Monster {
     private final Point startingPos;
+    private boolean isTracking,isReturning;
     public KidnapMonster(Point point, int width, int height) throws IOException {
         super(point, width, height);
         startingPos = new Point(point);
         stats.setSpeed(2);
+        isTracking = true;
+        isReturning = false;
         im = ImageIO.read(new File("resources/images/kidnapmonster.png"));
     }
 
+    /**
+     * Fonction de traque du héro
+     * @param maze Labyrinthe dans lequel le monstre évolue
+     */
     @Override
     public void move(Maze maze) {
-        int x=0,y=0;
-        if(position.x > maze.getHero().getPosition().x){
-            x -= getStats().getSpeed();
+        // traque du héro
+        if(isTracking && !isReturning) {
+            goTo(maze.getHero().getPosition());
         }
-        if(position.x < maze.getHero().getPosition().x){
-            x += getStats().getSpeed();
+        //  Le héro est ramené à sa case départ
+        if(!isTracking && !isReturning){
+            goTo(maze.getHero().getHeroStartingPos());
+            maze.getHero().goTo(position);
+            // Arrivé au départ du héro
+            if(position.equals(maze.getHero().getHeroStartingPos())){
+                isReturning = true;
+                maze.getHero().setCatched(false);
+            }
         }
-        if(position.y > maze.getHero().getPosition().y){
-            y -= getStats().getSpeed();
+        // Retour à la case de départ du Kidnappeur
+        if(!isTracking && isReturning){
+            goTo(startingPos);
+            // Arrivé à sa case, retour en traque
+            if(position.equals(startingPos)){
+                isReturning = false;
+                isTracking = true;
+            }
         }
-        if(position.y < maze.getHero().getPosition().y){
-            y += getStats().getSpeed();
-        }
-        position.x += x;
-        position.y += y;
     }
 
     @Override
     public void action(Hero hero) {
-        position = new Point(startingPos);
-        hero.setPosition(new Point(hero.getHeroStartingPos()));
+        if(isTracking){
+            isTracking = false;
+            hero.setCatched(true);
+        }
     }
 }

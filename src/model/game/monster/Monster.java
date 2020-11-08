@@ -22,8 +22,6 @@ public abstract class Monster extends SolidObject {
     protected int moveValue = 1;
     protected boolean canMove;
 
-    private Timer timer;
-
     public Monster(Point point, int width, int height){
         this.stats = new Stats(1,3);
         this.position = point;
@@ -36,7 +34,6 @@ public abstract class Monster extends SolidObject {
      * Permet de faire se deplacer un monstre dans le labyrinthe
      * @param maze Labyrinthe dans lequel le monstre évolue
      */
-
     public void move(Maze maze){
         int x=0,y=0;
         Random rand = new Random();
@@ -73,14 +70,14 @@ public abstract class Monster extends SolidObject {
 
     /**
      * Effets appliqués sur le heros lorsque le monstre entre  en collision avec le Heros
-     * @param hero
+     * @param hero héro avec lequel le monstre est entré en collision
      */
     public void action(Hero hero) throws IOException {
         if(!hero.isInvincible()) {
             hero.getStats().hit(1);
             hero.setInvincible(true);
 
-            timer = new Timer();
+            Timer timer = new Timer();
             TimerTask decount = new TimerTask() {
                 @Override
                 public void run() {
@@ -96,14 +93,25 @@ public abstract class Monster extends SolidObject {
         }
     }
 
+    /**
+     * Fige l'ennemi sur place
+     */
     public void freeze(){
         canMove = false;
     }
 
+    /**
+     *
+     * @return True si le monstre peut bouger
+     */
     public boolean isCanMove() {
         return canMove;
     }
 
+    /**
+     *
+     * @param canMove figé ou non
+     */
     public void setCanMove(boolean canMove) {
         this.canMove = canMove;
     }

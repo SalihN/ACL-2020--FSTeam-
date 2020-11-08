@@ -17,8 +17,9 @@ public class Hero extends SolidObject {
 
     private Point heroStartingPos;
     private boolean isInvincible;
-    private File image;
-    private File image2;
+    private boolean isCatched;
+    private final File image;
+    private final File image2;
 
     private int timeOfInvincibility; //En millisecondes
 
@@ -30,6 +31,8 @@ public class Hero extends SolidObject {
         height = 20;
 
         isInvincible = false;
+        isCatched = false;
+
         timeOfInvincibility = 500;
 
         image = new File("resources/images/hero.png");
@@ -46,6 +49,7 @@ public class Hero extends SolidObject {
     public void move(Cmd commande, Maze maze){
         int x=0;
         int y=0;
+
         if(commande == Cmd.UP){
             y -= this.getStats().getSpeed();
         }
@@ -58,7 +62,7 @@ public class Hero extends SolidObject {
         if(commande == Cmd.RIGHT){
             x +=  this.getStats().getSpeed();
         }
-        if(this.checkWall(x,y,maze)){
+        if(this.checkWall(x,y,maze) && !isCatched){
             position.x += x;
             position.y += y;
         }
@@ -88,24 +92,49 @@ public class Hero extends SolidObject {
         return stats.getHp() <= 0;
     }
 
-    public Stats getStats() {
-        return stats;
-    }
-
+    /**
+     *
+     * @return l'état invicible du héro
+     */
     public boolean isInvincible() {
         return isInvincible;
     }
 
+    /**
+     * change le sprite du héro quand il est en invincibilité
+     * @param invincible nouvel état
+     * @throws IOException Impossible de lire l'image
+     */
     public void setInvincible(boolean invincible) throws IOException {
         isInvincible = invincible;
-        if(invincible == true){
+        if(invincible){
             im = ImageIO.read(image2);
         } else {
             im = ImageIO.read(image);
         }
     }
 
+    /**
+     *
+     * @return temps d'invincibilité du héro
+     */
     public int getTimeOfInvincibility() {
         return timeOfInvincibility;
+    }
+
+    /**
+     *
+     * @return Héro attrapé par un monstre ou non
+     */
+    public boolean isCatched() {
+        return isCatched;
+    }
+
+    /**
+     * Permet de changer l'état d'attrapé à non attrapé
+     * @param catched nouvelle valeur pour isCatched
+     */
+    public void setCatched(boolean catched) {
+        isCatched = catched;
     }
 }
