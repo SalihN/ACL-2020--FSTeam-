@@ -23,7 +23,6 @@ public class Maze {
     private Hero hero;
     private Floor[][] listFloor;
     private Collection<Monster> listMonsters;
-    private Point chestPosition;
     private int labyHeight, labyWidth;
     //TILE SIZE
     public  int tileWidth = 32;
@@ -43,7 +42,6 @@ public class Maze {
         listMonsters = new ArrayList<>();
         labyHeight = 0;
         labyWidth=0;
-        chestPosition = new Point(0,0);
         reset();
     }
 
@@ -134,8 +132,6 @@ public class Maze {
                         // Treasure floor
                         case 't':
                             listFloor[i][j] = new TreasureFloor(new Point(x, y), tileWidth, tileHeight);
-                            chestPosition.x = j * tileWidth;
-                            chestPosition.y = i * tileHeight;
                             break;
                         // Heal floor
                         case 'h':
@@ -355,15 +351,6 @@ public class Maze {
     public int getTime() {
         return time;
     }
-
-    /**
-     *
-     * @return les positions du trésor
-     */
-    public Point getChestPosition() {
-        return chestPosition;
-    }
-
     /**
      *
      * @return le Héro
