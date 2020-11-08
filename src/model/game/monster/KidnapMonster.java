@@ -19,7 +19,7 @@ public class KidnapMonster extends Monster {
     public KidnapMonster(Point point, int width, int height) throws IOException {
         super(point, width, height);
         startingPos = new Point(point);
-        stats.setSpeed(1);
+        stats.setSpeed(2);
         im = ImageIO.read(new File("resources/images/kidnapmonster.png"));
     }
 
