@@ -19,8 +19,8 @@ public class PacmanPainter implements GamePainter {
 	/**
 	 * la taille des cases
 	 */
-	public final static  int tileWidth = 800;
-	public final static int tileHeight = 800;
+	public final static  int tileWidth = 720;
+	public final static int tileHeight = 720;
 
 	/**
 	 * appelle constructeur parent

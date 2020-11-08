@@ -5,6 +5,7 @@ import model.PacmanPainter;
 import model.game.floor.*;
 import model.game.monster.Monster;
 import model.game.monster.NormalMonster;
+import model.game.monster.StrongMonster;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -132,6 +133,11 @@ public class Maze {
                         case 'p':
                             listFloor[i][j] = new NormalFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
                             hero.setPosition(new Point(j * tileWidth, i * tileHeight));
+                            break;
+                        //Strong Monster
+                        case 'a':
+                            listFloor[i][j] = new NormalFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                            listMonsters.add(new StrongMonster(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight));
                             break;
                         default:
                             listFloor[i][j] = new NormalFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);

@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.util.Random;
 
 /**
- * @author Emanuel Gady
- * @version 1.0.0
+ * @author Emanuel Gady, Goetz Alexandre
+ * @version 1.1.0
  *
  * Monstre de base
  */
