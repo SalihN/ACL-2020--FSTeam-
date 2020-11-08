@@ -6,18 +6,23 @@ import model.game.SolidObject;
 import model.game.Stats;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
- * @author Alexis Richer, Goetz Alexandre
- * @version 1.1
+ * @author Alexis Richer, Goetz Alexandre, Emanuel Gady
+ * @version 1.2
  *
  * Monstre present dans le labyrinthe
  */
 public abstract class Monster extends SolidObject {
     protected int moveValue = 1;
     protected boolean canMove;
+
+    private Timer timer;
 
     public Monster(Point point, int width, int height){
         this.stats = new Stats(1,3);
@@ -66,8 +71,29 @@ public abstract class Monster extends SolidObject {
         position.y += y;
     }
 
-    public void action(Hero hero){
-        hero.getStats().hit(1 );
+    /**
+     * Effets appliqués sur le heros lorsque le monstre entre  en collision avec le Heros
+     * @param hero
+     */
+    public void action(Hero hero) throws IOException {
+        if(!hero.isInvincible()) {
+            hero.getStats().hit(1);
+            hero.setInvincible(true);
+
+            timer = new Timer();
+            TimerTask decount = new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        hero.setInvincible(false);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            timer.schedule(decount, hero.getTimeOfInvincibility());
+
+        }
     }
 
     public void freeze(){

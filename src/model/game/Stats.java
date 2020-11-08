@@ -32,8 +32,6 @@ public class Stats {
      * Fonction qui permet de retirer de la vie
      * @param damage
      */
-    //todo Voir comment faire cette fonction proprement
-    //todo Lorque qu'il y a UNE collision, cette collision est détéctée plusieurs fois (Car les 2 images restent l'une sur l'autre pendant plusieur draw) et donc le heros perd tous ses HP d'un coup
     public void hit (int damage){
         if(hp - damage >= 0) {
             hp -= damage;

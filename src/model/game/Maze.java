@@ -14,8 +14,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * @author Alexis Richer, Goetz Alexandre
- * @version 3.1
+ * @author Alexis Richer, Goetz Alexandre, Gady Emanuel
+ * @version 3.2
  *
  * Labyrinthe du jeu
  */

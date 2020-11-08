@@ -16,6 +16,11 @@ import java.io.IOException;
 public class Hero extends SolidObject {
 
     private Point heroStartingPos;
+    private boolean isInvincible;
+    private File image;
+    private File image2;
+
+    private int timeOfInvincibility; //En millisecondes
 
     public Hero() throws IOException {
         stats = new Stats(5,5);
@@ -24,7 +29,13 @@ public class Hero extends SolidObject {
         width = 20;
         height = 20;
 
-        im = ImageIO.read(new File("resources/images/hero.png"));
+        isInvincible = false;
+        timeOfInvincibility = 500;
+
+        image = new File("resources/images/hero.png");
+        image2 = new File("resources/images/heroInvincible.png");
+
+        im = ImageIO.read(image);
     }
 
     /**
@@ -81,4 +92,20 @@ public class Hero extends SolidObject {
         return stats;
     }
 
+    public boolean isInvincible() {
+        return isInvincible;
+    }
+
+    public void setInvincible(boolean invincible) throws IOException {
+        isInvincible = invincible;
+        if(invincible == true){
+            im = ImageIO.read(image2);
+        } else {
+            im = ImageIO.read(image);
+        }
+    }
+
+    public int getTimeOfInvincibility() {
+        return timeOfInvincibility;
+    }
 }
