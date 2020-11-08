@@ -4,7 +4,6 @@ import engine.Cmd;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -16,8 +15,11 @@ import java.io.IOException;
  */
 public class Hero extends SolidObject {
 
+    private Point heroStartingPos;
+
     public Hero() throws IOException {
         stats = new Stats(5,5);
+        heroStartingPos = new Point(0,0);
         position = new Point(0,0);
         width = 20;
         height = 20;
@@ -27,8 +29,8 @@ public class Hero extends SolidObject {
 
     /**
      * Déplacement du héro en fonction de la commande donnée dans le labyrinth
-     * @param commande
-     * @param maze
+     * @param commande commande reçu par le clavier
+     * @param maze labyrinthe dans lequel le héro évolue
      */
     public void move(Cmd commande, Maze maze){
         int x=0;
@@ -52,15 +54,27 @@ public class Hero extends SolidObject {
     }
 
     /**
+     *
+     * @return La position à laquelle le héro commence le labyrinthe
+     */
+    public Point getHeroStartingPos() {
+        return heroStartingPos;
+    }
+
+    /**
+     *
+     * @param heroStartingPos position à laquelle le héro commence le labyrinthe
+     */
+    public void setHeroStartingPos(Point heroStartingPos) {
+        this.heroStartingPos = heroStartingPos;
+    }
+
+    /**
      * Permet de savoir sur le heros est mort ou non
-     * @return
+     * @return retourne 0 si les points de vie du héro son inférieur ou égal à 0
      */
     public boolean isDead(){
-        if(stats.getHp() == 0){
-            return true;
-        } else {
-            return false;
-        }
+        return stats.getHp() <= 0;
     }
 
     public Stats getStats() {

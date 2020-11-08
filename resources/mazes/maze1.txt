@@ -2,7 +2,7 @@
 23
 wnhhhnnnnnnnnnwnnnnnnnn
 nnhthnnnnnnnnnnwwnnnnnn
-nnhhhnnnnnnnnnwwnnnnnnn
+nnhhhnnnnnnnnnwwnnnnann
 nnnnnnnnnnnnnnwnnnnnnnn
 nnnnnnnnnnnnnnnwnnwwwww
 nmnnnnnnnnnnnnnnnnwnnnn
@@ -15,11 +15,11 @@ wwnnnnnnnnnnnnwnnnnnnnn
 nnnnnnnnnnnnnnnwnnwwwww
 nnnnhnnnnnnnnsnnnnwnnnn
 nnnnnnnnnnwwnnnnnwwnnnn
-nnnnnwnnnnnnnnnwnnnnnnn
+nnnnnwnnnannnnnwnnnnnnn
 nnwwwwnnnnnnnnnwnnnnnnn
 wwwnnnnnnnnnnnnwwwwwwww
 nnnnnnnnnnnnnnnnnnnnnnn
-nnnnnnnnnnnnnnnnnnnmnnn
 nnnnnnnnnnnnnnnnnnnnnnn
-nnnnnnnnnnnnnnpnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnknn
+knnnnnnnnnnnnnpnnnnnnnn
 nmnnnnnnnnnnnnnnnnnmnnn

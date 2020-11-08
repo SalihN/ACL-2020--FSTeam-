@@ -18,7 +18,7 @@ public abstract class GameObject {
 
     /**
      * Affiche l'image de la case du labyrinthe
-     * @param im
+     * @param im frame buffer
      */
     public void draw(BufferedImage im){
         Graphics2D crayon = (Graphics2D) im.getGraphics();
@@ -30,9 +30,9 @@ public abstract class GameObject {
     }
 
     /**
-     * check collision between this object and another one
-     * @param objectToCheck
-     * @return
+     * Regarde si il y a collision entre l'objet et un autre objet donné
+     * @param objectToCheck Objet avec lequel on cherche à vérifie si il y a collision
+     * @return vrai si il y a effectivement une collision, faux sinon
      */
     public boolean checkCollision(GameObject objectToCheck){
         boolean right,top,bottom,left;
@@ -42,22 +42,15 @@ public abstract class GameObject {
         right = this.position.x + this.width/2  < objectToCheck.position.x - objectToCheck.width/2;
         left = this.position.x - this.width/2 > objectToCheck.position.x + objectToCheck.width/2;
 
-        if(top || right || left || bottom ){
-            return false;
-        }
-        else{
-           return true;
-        }
+        return !top && !right && !left && !bottom;
     }
 
     /***
-     * Check if there's no wall in the direction we're going according to x and y values
-     * True if there's no wall
-     * False if there is a wall
-     * @param x x value we want to reach
-     * @param y y value we want to reach
-     * @param maze current maze
-     * @return
+     * Vérification qu'il n'y a pas de mur dans la direction (x,y) vers laquel l'objet se dirige
+     * @param x déplacement en x
+     * @param y déplacement en y
+     * @param maze labyrinthe dans lequel l'objet évolue
+     * @return retourne vrai si il n'y a pas de mur
      */
 
     public boolean checkWall(int x, int y,Maze maze){
@@ -113,26 +106,50 @@ public abstract class GameObject {
         }
     }
 
+    /**
+     *
+     * @param width largeur souhaité pour l'objet
+     */
     public void setWidth(int width) {
         this.width = width;
     }
 
+    /**
+     *
+     * @param height hauteur souhaité pour l'objet
+     */
     public void setHeight(int height) {
         this.height = height;
     }
 
+    /**
+     *
+     * @return position de l'objet
+     */
     public Point getPosition() {
         return position;
     }
 
+    /**
+     *
+     * @param position position où mettre l'objet
+     */
     public void setPosition(Point position) {
         this.position = position;
     }
 
+    /**
+     *
+     * @return largeur de l'objet
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     *
+     * @return hauteur de l'objet
+     */
     public int getHeight() {
         return height;
     }

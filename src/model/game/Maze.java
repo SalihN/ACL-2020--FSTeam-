@@ -3,9 +3,7 @@ package model.game;
 import model.PacmanGame;
 import model.PacmanPainter;
 import model.game.floor.*;
-import model.game.monster.Monster;
-import model.game.monster.NormalMonster;
-import model.game.monster.StrongMonster;
+import model.game.monster.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,7 +15,7 @@ import java.util.TimerTask;
 
 /**
  * @author Alexis Richer, Goetz Alexandre
- * @version 2.2.1
+ * @version 3.1
  *
  * Labyrinthe du jeu
  */
@@ -25,6 +23,7 @@ public class Maze {
     private Hero hero;
     private Floor[][] listFloor;
     private Collection<Monster> listMonsters;
+    private Point chestPosition;
     private int labyHeight, labyWidth;
     //TILE SIZE
     public  int tileWidth = 32;
@@ -35,11 +34,16 @@ public class Maze {
     private int sizeOfPolice = 24;
     Font font = new Font("TimesRoman", Font.PLAIN, sizeOfPolice);
 
-    public Maze(Hero hero) throws IOException {
+    /**
+     *
+     * @param hero Héro évoluant dans le labyrinthe
+     */
+    public Maze(Hero hero){
         this.hero = hero;
         listMonsters = new ArrayList<>();
         labyHeight = 0;
         labyWidth=0;
+        chestPosition = new Point(0,0);
         reset();
     }
 
@@ -47,7 +51,7 @@ public class Maze {
      * Permet de creer un labyrinthe à partir d'un fichier texte
      * Les deux première lignes du fichier sont la largeur et la longueur du labyrinthe
      * Les lignes suivantes sont la compositions de celui ci avec les symbole correspondant
-     * @throws IOException
+     * @throws IOException if the file cannot be read
      */
     public void generate() throws IOException {
         BufferedReader buff = null;
@@ -73,20 +77,31 @@ public class Maze {
 
         listFloor = new Floor[labyHeight][labyWidth];
         // lecture de la structure du labyrinthe
-        int rowNumber = 0;
+        //Construction des murs extérieure du laby
 
-        //Construction des murs
         for (int i = 0; i < labyWidth; i++) {
-            listFloor[i][0] = new Wall(new Point(i * tileWidth, 0), tileWidth, tileHeight);
+            listFloor[i][0] = new Wall(
+                    new Point(i * tileWidth + tileWidth/2, tileHeight/2),
+                    tileWidth, tileHeight
+            );
         }
         for (int i = 0; i < labyWidth; i++) {
-            listFloor[i][labyHeight - 1] = new Wall(new Point(i * tileWidth, (labyHeight - 1) * tileHeight), tileWidth, tileHeight);
+            listFloor[i][labyHeight - 1] = new Wall(
+                    new Point(i * tileWidth + tileWidth/2, (labyHeight - 1) * tileHeight + tileHeight/2),
+                    tileWidth, tileHeight
+            );
         }
         for (int i = 0; i < labyHeight; i++) {
-            listFloor[0][i] = new Wall(new Point(0, i * tileHeight), tileWidth, tileHeight);
+            listFloor[0][i] = new Wall(
+                    new Point(tileWidth/2, i * tileHeight + tileHeight/2),
+                    tileWidth, tileHeight
+            );
         }
         for (int i = 0; i < labyHeight; i++) {
-            listFloor[labyWidth - 1][i] = new Wall(new Point((labyWidth - 1) * tileWidth, i * tileHeight), tileWidth, tileHeight);
+            listFloor[labyWidth - 1][i] = new Wall(
+                    new Point((labyWidth - 1) * tileWidth + tileWidth/2 , i * tileHeight + tileHeight/2),
+                    tileWidth, tileHeight
+            );
         }
         // we wont read lines that goes beyond the given height
         for (int i = 1; i < labyHeight - 1; i++) {
@@ -99,54 +114,73 @@ public class Maze {
             for (int j = 1; j <= line.length() ; j++) {
                 // prevent from going beyond the given width
                 if (j < labyWidth - 1) {
+
+                    int x= j * tileWidth + tileWidth/2;
+                    int y = i * tileHeight + tileHeight/2;
                     switch (line.charAt(j-1)) {
                         //Wall
                         case 'w':
-                            listFloor[i][j] = new Wall(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                            listFloor[i][j] = new Wall(new Point(x, y), tileWidth, tileHeight);
                             break;
                         //Normal floor
                         case 'n':
-                            listFloor[i][j] = new NormalFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                            listFloor[i][j] = new NormalFloor(new Point(x, y), tileWidth, tileHeight);
                             break;
                         // Treasure floor
                         case 't':
-                            listFloor[i][j] = new TreasureFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                            listFloor[i][j] = new TreasureFloor(new Point(x, y), tileWidth, tileHeight);
+                            chestPosition.x = j * tileWidth;
+                            chestPosition.y = i * tileHeight;
                             break;
                         // Heal floor
                         case 'h':
-                            listFloor[i][j] = new HealthFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                            listFloor[i][j] = new HealthFloor(new Point(x, y), tileWidth, tileHeight);
                             break;
                         // Freeze floor
                         case 'f':
-                            listFloor[i][j] = new FreezeFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                            listFloor[i][j] = new FreezeFloor(new Point(x, y), tileWidth, tileHeight);
                             break;
                         // Slow floor
                         case 's':
-                            listFloor[i][j] = new SlowFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                            listFloor[i][j] = new SlowFloor(new Point(x, y), tileWidth, tileHeight);
                             break;
                         //Normal Monster
                         case 'm':
-                            listFloor[i][j] = new NormalFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
-                            listMonsters.add(new NormalMonster(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight));
+                            listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
+                            listMonsters.add(new NormalMonster(new Point(x,y), tileWidth, tileHeight));
                             break;
                         //Hero
                         case 'p':
-                            listFloor[i][j] = new NormalFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
-                            hero.setPosition(new Point(j * tileWidth, i * tileHeight));
+                            listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
+                            hero.setPosition(new Point(x,y));
+                            hero.setHeroStartingPos(new Point(x,y));
                             break;
                         //Strong Monster
                         case 'a':
-                            listFloor[i][j] = new NormalFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
-                            listMonsters.add(new StrongMonster(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight));
+                            listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
+                            listMonsters.add(new StrongMonster(new Point(x,y), tileWidth, tileHeight));
+                            break;
+                        //Guardian Monster
+                        case 'g':
+                            listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
+                            listMonsters.add(new GuardianMonster(new Point(x,y), tileWidth, tileHeight));
+                            break;
+                        //Kidnapping Monster
+                        case 'k':
+                            listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
+                            listMonsters.add(new KidnapMonster(new Point(x,y), tileWidth, tileHeight));
                             break;
                         default:
-                            listFloor[i][j] = new NormalFloor(new Point(j * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                            listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
                     }
                     // check if the line is full according to the width given in the fill
                     // if not the line with normal floor
                     if (line.length() < labyWidth - 2) {
                         for (int k = line.length(); k < labyWidth - 1; k++) {
-                            listFloor[i][k] = new NormalFloor(new Point(k * tileWidth, i * tileHeight), tileWidth, tileHeight);
+                            listFloor[i][k] = new NormalFloor(
+                                    new Point(k * tileWidth + tileWidth/2, i * tileHeight + tileHeight/2),
+                                    tileWidth, tileHeight
+                            );
                         }
                     }
                 }
@@ -170,10 +204,9 @@ public class Maze {
 
     /**
      * Permet de dessiner le labyrinthe ainsi que les monstres present dans ce labyrinthe
-     * @param im
-     * @throws IOException
+     * @param im frame buffer
      */
-    public void draw(BufferedImage im) throws IOException {
+    public void draw(BufferedImage im) {
         for(int i = 0; i< labyHeight;i++){
             for(int j = 0; j< labyWidth;j++){
                 listFloor[i][j].draw(im);
@@ -190,20 +223,18 @@ public class Maze {
         crayon.setColor(Color.red);
         crayon.setFont(font);
         crayon.drawString(Integer.toString(time), getWidth()-((sizeOfPolice+tileWidth)/2), (sizeOfPolice/2 + tileHeight)/2);
+        //crayon.drawLine(0,getHeight()/2,getWidth(),getHeight()/2);
+        //crayon.drawLine(getWidth()/2,0,getWidth()/2,getHeight());
     }
 
     /**
      * Permetde savoir si une case est un mur ou non
-     * @param x
-     * @param y
-     * @return
+     * @param x x position of the floor tile
+     * @param y y position of the floor tile
+     * @return true if it's a wall, else return a false
      */
     public boolean isAWall(int x, int y){
-        if(getFloor(x, y).isWall()){
-            return true;
-        }else{
-            return false;
-        }
+        return getFloor(x, y).isWall();
     }
 
     /**
@@ -268,7 +299,7 @@ public class Maze {
     }
 
     /**
-     * Supprime le maze
+     * Vie le contenu du labyrinthe
      */
     private void reset(){
         listMonsters.clear();
@@ -277,28 +308,59 @@ public class Maze {
     }
 
     /**
-     * Return the floor position at the pixel (x,y)
+     * renvoit le sol se trouvant aux coordonnées données
      * @param x abscisses
      * @param y ordonnées
-     * @return
      */
     public Floor getFloor(int x, int y){
         return listFloor[(y/tileHeight)][(x/tileWidth)];
     }
 
+    /**
+     *
+     * @return  la largeur du labyrinthe en pixel
+     */
     public int getWidth(){
         return labyWidth * tileWidth;
     }
 
+    /**
+     *
+     * @return la hauteur du labyrinthe en pixel
+     */
     public int getHeight(){
         return labyHeight * tileHeight;
     }
 
+    /**
+     *
+     * @return la liste des monstres présent dans le labyrinthe
+     */
     public Collection<Monster> getListMonsters() {
         return listMonsters;
     }
 
+    /**
+     *
+     * @return la valeur du temps restant pour finir le labyrinthe
+     */
     public int getTime() {
         return time;
+    }
+
+    /**
+     *
+     * @return les positions du trésor
+     */
+    public Point getChestPosition() {
+        return chestPosition;
+    }
+
+    /**
+     *
+     * @return le Héro
+     */
+    public Hero getHero() {
+        return hero;
     }
 }

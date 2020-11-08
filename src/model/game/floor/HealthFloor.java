@@ -50,7 +50,7 @@ public class HealthFloor extends ActivateFloor {
 
     /**
      * Fonction qui permet de desactiver un HealthFloor pendant un certain temps
-     * @throws IOException
+     * @throws IOException Image cannot be loaded
      */
     public void desactivate() throws IOException {
         im = ImageIO.read(new File("resources/images/healthflooractivate.png"));
@@ -58,7 +58,7 @@ public class HealthFloor extends ActivateFloor {
 
     /**
      * Fonction qui permet de réactiver une HealthFloor
-     * @throws IOException
+     * @throws IOException Image cannot be loaded
      */
     private void reactivate() throws IOException {
         isActivate = false;

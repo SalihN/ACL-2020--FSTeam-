@@ -5,7 +5,6 @@ import model.game.Maze;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -32,7 +31,7 @@ public class TreasureFloor extends ActivateFloor {
     }
 
     @Override
-    public void desactivate() throws IOException {
+    public void desactivate()  {
 
     }
 

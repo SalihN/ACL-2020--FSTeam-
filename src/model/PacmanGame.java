@@ -4,8 +4,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import engine.Cmd;
 import engine.Game;
@@ -45,7 +43,7 @@ public class PacmanGame implements Game {
 	/**
 	 * faire evoluer le jeu suite a une commande
 	 * 
-	 * @param commande
+	 * @param commande commande reçu par le clavier
 	 */
 	@Override
 	public void evolve(Cmd commande) throws IOException {
@@ -53,7 +51,7 @@ public class PacmanGame implements Game {
 		this.update();
 	}
 
-	public void draw(BufferedImage im) throws IOException {
+	public void draw(BufferedImage im){
 		maze.draw(im);
 		hero.draw(im);
 
@@ -80,8 +78,7 @@ public class PacmanGame implements Game {
 		}
 		for(Monster monster : getMaze().getListMonsters()){
 			if(hero.checkCollision(monster)){
-				hero.getStats().hit(1);
-				System.out.println("aie");
+				monster.action(hero);
 			}
 		}
 		if(hero.isDead()){
@@ -96,11 +93,7 @@ public class PacmanGame implements Game {
 	@Override
 
 	public boolean isFinished() {
-		if(maze.getTime() == 0){
-			return true;
-		}else{
-			return false;
-		}
+		return maze.getTime() == 0;
 	}
 
 	public Maze getMaze() {

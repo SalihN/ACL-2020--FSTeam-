@@ -4,9 +4,15 @@ import model.game.Stats;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
+/**
+ * @author Goetz Alexandre
+ * @version 1.0
+ *
+ * Un normal monster plus rapide et avec plus de point de vie
+ */
 
 public class StrongMonster extends Monster {
 

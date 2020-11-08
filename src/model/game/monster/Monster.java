@@ -1,5 +1,6 @@
 package model.game.monster;
 
+import model.game.Hero;
 import model.game.Maze;
 import model.game.SolidObject;
 import model.game.Stats;
@@ -28,7 +29,7 @@ public abstract class Monster extends SolidObject {
 
     /**
      * Permet de faire se deplacer un monstre dans le labyrinthe
-     * @param maze
+     * @param maze Labyrinthe dans lequel le monstre évolue
      */
 
     public void move(Maze maze){
@@ -65,7 +66,9 @@ public abstract class Monster extends SolidObject {
         position.y += y;
     }
 
-
+    public void action(Hero hero){
+        hero.getStats().hit(1 );
+    }
 
     public void freeze(){
         canMove = false;
