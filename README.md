@@ -59,7 +59,6 @@ Il faut utiliser les symboles suivant pour remplir le labyrinthe:
 * k : Monstre kidnappeur
 
 *Exemple de labyrinthe:*  
-<p align="center">
 11  
 11  
 nnnnnnnnnnn  
@@ -73,5 +72,4 @@ nnnnnnnnnnn
 nnwwwwnnnnn  
 nnnnnnnnnnn  
 nmnnknnnann  
-</p>
 
