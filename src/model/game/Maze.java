@@ -114,9 +114,14 @@ public class Maze {
             for (int j = 1; j <= line.length() ; j++) {
                 // prevent from going beyond the given width
                 if (j < labyWidth - 1) {
-
+                    //décalage des tuiles
                     int x= j * tileWidth + tileWidth/2;
                     int y = i * tileHeight + tileHeight/2;
+                    //
+
+                    int spriteRatioW = (int)(tileWidth * 0.8);
+                    int spriteRatioH = (int)(tileHeight* 0.8);
+
                     switch (line.charAt(j-1)) {
                         //Wall
                         case 'w':
@@ -147,31 +152,31 @@ public class Maze {
                         //Normal Monster
                         case 'm':
                             listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
-                            listMonsters.add(new NormalMonster(new Point(x,y), tileWidth, tileHeight));
+                            listMonsters.add(new NormalMonster(new Point(x,y), spriteRatioW, spriteRatioH));
                             break;
                         //Hero
                         case 'p':
                             listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
                             //,
-                            hero.setHeight((int)(tileWidth * 0.8));
-                            hero.setWidth((int)(tileHeight* 0.8));
+                            hero.setHeight(spriteRatioH);
+                            hero.setWidth(spriteRatioW);
                             hero.setPosition(new Point(x,y));
                             hero.setHeroStartingPos(new Point(x,y));
                             break;
                         //Strong Monster
                         case 'a':
                             listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
-                            listMonsters.add(new StrongMonster(new Point(x,y), tileWidth, tileHeight));
+                            listMonsters.add(new StrongMonster(new Point(x,y), spriteRatioW, spriteRatioH));
                             break;
                         //Guardian Monster
                         case 'g':
                             listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
-                            listMonsters.add(new GuardianMonster(new Point(x,y), tileWidth, tileHeight));
+                            listMonsters.add(new GuardianMonster(new Point(x,y),spriteRatioW, spriteRatioH));
                             break;
                         //Kidnapping Monster
                         case 'k':
                             listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
-                            listMonsters.add(new KidnapMonster(new Point(x,y), tileWidth, tileHeight));
+                            listMonsters.add(new KidnapMonster(new Point(x,y), spriteRatioW, spriteRatioH));
                             break;
                         default:
                             listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
