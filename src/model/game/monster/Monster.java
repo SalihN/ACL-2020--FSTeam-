@@ -73,7 +73,7 @@ public abstract class Monster extends SolidObject {
      * @param hero héro avec lequel le monstre est entré en collision
      */
     public void action(Hero hero) throws IOException {
-        if(!hero.isInvincible()) {
+        if(!hero.isInvincible() && !hero.isCatched()) {
             hero.getStats().hit(1);
             hero.setInvincible(true);
 

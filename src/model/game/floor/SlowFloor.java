@@ -24,7 +24,7 @@ public class SlowFloor extends ActivateFloor {
 
     @Override
     public void activate(Hero hero, Maze maze) throws IOException {
-        if(!isActivate) {
+        if(!isActivate && !hero.isCatched()) {
             isActivate = true;
             desactivate();
             maze.slowMonsters(10, 2);

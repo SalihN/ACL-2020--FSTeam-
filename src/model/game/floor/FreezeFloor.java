@@ -26,7 +26,7 @@ public class FreezeFloor extends ActivateFloor {
 
     @Override
     public void activate(Hero hero, Maze maze) throws IOException {
-        if(!isActivate) {
+        if(!isActivate && !hero.isCatched()) {
             isActivate = true;
             desactivate();
             maze.freezeMonsters(5);
