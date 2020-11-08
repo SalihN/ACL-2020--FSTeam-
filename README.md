@@ -26,13 +26,7 @@ ant jar
 Compilation du jeu  
 ```bash
 ant compile
-```
-
-
-
-ant / ant run: Compilation et lancement du jar du jeu  
-ant jar - 
-ant compile: 
+``` 
 
 ## Création de niveau :
 
