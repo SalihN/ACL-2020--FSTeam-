@@ -152,6 +152,9 @@ public class Maze {
                         //Hero
                         case 'p':
                             listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
+                            //,
+                            hero.setHeight((int)(tileWidth * 0.8));
+                            hero.setWidth((int)(tileHeight* 0.8));
                             hero.setPosition(new Point(x,y));
                             hero.setHeroStartingPos(new Point(x,y));
                             break;
