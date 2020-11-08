@@ -1,4 +1,10 @@
-# ACL-2020-FSTeam
+ # ACL-2020-FSTeam
+
+<p align="center">
+ 
+
+<img src="https://github.com/SalihN/ACL-2020-FSTeam/blob/main/resources/images/fsteam.png" width="50%" height="50%">
+</p>
 
 #### Auteurs:
 * Emanuel Gady
@@ -53,6 +59,7 @@ Il faut utiliser les symboles suivant pour remplir le labyrinthe:
 * k : Monstre kidnappeur
 
 *Exemple de labyrinthe:*  
+<p align="center">
 11  
 11  
 nnnnnnnnnnn  
@@ -66,4 +73,5 @@ nnnnnnnnnnn
 nnwwwwnnnnn  
 nnnnnnnnnnn  
 nmnnknnnann  
+</p>
 
