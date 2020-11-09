@@ -18,8 +18,6 @@ import java.util.TimerTask;
  */
 public class HealthFloor extends ActivateFloor {
 
-    private TimerTask decount;
-
     public HealthFloor(Point p, int w, int h) throws IOException {
         super(p, w, h);
         im = ImageIO.read(new File("resources/images/healthfloor.png"));
@@ -34,7 +32,7 @@ public class HealthFloor extends ActivateFloor {
             hero.getStats().heal(1);
             desactivate();
             Timer timer = new Timer();
-            decount = new TimerTask() {
+            TimerTask decount = new TimerTask() {
                 @Override
                 public void run() {
                     try {

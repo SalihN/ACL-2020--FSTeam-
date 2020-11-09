@@ -1,10 +1,12 @@
 package model.game;
 
+import engine.Cmd;
 import model.PacmanGame;
 import model.PacmanPainter;
 import model.game.floor.*;
 import model.game.monster.*;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -15,7 +17,7 @@ import java.util.TimerTask;
 
 /**
  * @author Alexis Richer, Goetz Alexandre, Gady Emanuel
- * @version 3.2
+ * @version 3.3
  *
  * Labyrinthe du jeu
  */
@@ -28,17 +30,19 @@ public class Maze {
     public  int tileWidth = 32;
     public  int tileHeight = 32;
 
+    private BufferedImage life;
+
     private TimerTask decount;
     private int time;
     private int sizeOfPolice = 24;
     Font font = new Font("TimesRoman", Font.PLAIN, sizeOfPolice);
 
     /**
-     *
-     * @param hero Héro évoluant dans le labyrinthe
+     * Constructeur labyrinthe
      */
-    public Maze(Hero hero){
-        this.hero = hero;
+    public Maze() throws IOException {
+        hero = new Hero();
+        life = ImageIO.read(new File("resources/images/lifebar.png"));
         listMonsters = new ArrayList<>();
         labyHeight = 0;
         labyWidth=0;
@@ -211,24 +215,72 @@ public class Maze {
      * @param im frame buffer
      */
     public void draw(BufferedImage im) {
+        // affichage des sols
         for(int i = 0; i< labyHeight;i++){
             for(int j = 0; j< labyWidth;j++){
                 listFloor[i][j].draw(im);
             }
         }
+
+        //affichage des monstres
         for(Monster monster : listMonsters){
-            if(monster.isCanMove()) {
-                monster.move(this);
-            }
             monster.draw(im);
         }
 
+        //affichage du compte à rebour
         Graphics2D crayon = (Graphics2D) im.getGraphics();
         crayon.setColor(Color.red);
         crayon.setFont(font);
         crayon.drawString(Integer.toString(time), getWidth()-((sizeOfPolice+tileWidth)/2), (sizeOfPolice/2 + tileHeight)/2);
+
+        //Affiche la barre de vie juste en dessous du heros
+        float ratioVieVieMax = (float) hero.getStats().getHp() / (float) hero.getStats().getHpMax();
+        crayon.drawImage(
+                life,
+                hero.getPosition().x - hero.getWidth()/2 ,hero.getPosition().y + hero.getHeight()/2 + 2,
+                (int)(hero.getWidth() * ratioVieVieMax),hero.getHeight()/4,
+                null
+        );
+
+        // Affichage du héro
+        hero.draw(im);
+
+        // Grande croix qui se coupe au centre de l'écran
         //crayon.drawLine(0,getHeight()/2,getWidth(),getHeight()/2);
         //crayon.drawLine(getWidth()/2,0,getWidth()/2,getHeight());
+    }
+
+    /**
+     * Evolution des événement du labyrinthe
+     * Déplacement du héro, activation des sols, collision, actions des monstres
+     * @param commande commande reçu par le clavier pour déplacer le héro
+     * @throws IOException /
+     */
+    public void update(Cmd commande) throws IOException {
+        //Déplacement du héro
+        hero.move(commande,this);
+
+        // Vérifie si un sol a été activé
+        if(getFloor(hero.getPosition().x, hero.getPosition().y).isActivateFloor()){
+            ActivateFloor activateFloor = (ActivateFloor) getFloor(hero.getPosition().x, hero.getPosition().y);
+            activateFloor.activate(hero, this);
+        }
+
+        //Déplacement  et collision des monstres
+        for(Monster monster : listMonsters) {
+            if (monster.isCanMove()) {
+                monster.move(this);
+            }
+            if(hero.checkCollision(monster)){
+                monster.action(hero);
+            }
+        }
+
+        // Vérification de l'état du héro
+        if(hero.isDead()){
+            //todo Retourner un menu du jeu
+            hero.getStats().setSpeed(0); //Actuellement, une fois le heros mort il ne peut plus bouger
+        }
     }
 
     /**
@@ -334,14 +386,6 @@ public class Maze {
      */
     public int getHeight(){
         return labyHeight * tileHeight;
-    }
-
-    /**
-     *
-     * @return la liste des monstres présent dans le labyrinthe
-     */
-    public Collection<Monster> getListMonsters() {
-        return listMonsters;
     }
 
     /**
