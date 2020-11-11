@@ -20,15 +20,15 @@ public class GuardianMonster extends Monster {
     public GuardianMonster(Point point, int width, int height) throws IOException {
         super(point, width, height);
         initialPosition = new Point(point);
-        getStats().setSpeed(4);
+        getStats().setSpeed(3);
         movingClockwise = true;
         im = ImageIO.read(new File("resources/images/guardianmonster.png"));
     }
 
+    //TODO: Utiliser goTo pour chaque coin gardienné pour éviter de glitcher à travers les murs
     @Override
     public void move(Maze maze) {
         int x=0,y=0;
-
         if(movingClockwise) {
             // en haut à gauche, vers la droite
             if (position.x <= initialPosition.x + 2 * maze.tileWidth && position.y <= initialPosition.y)

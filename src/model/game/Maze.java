@@ -35,7 +35,7 @@ public class Maze {
     private TimerTask decount;
     private int time;
     private int sizeOfPolice = 24;
-    Font font = new Font("TimesRoman", Font.PLAIN, sizeOfPolice);
+    Font font = new Font("TimesRoman", Font.BOLD, sizeOfPolice);
 
     /**
      * Constructeur labyrinthe
@@ -46,6 +46,14 @@ public class Maze {
         listMonsters = new ArrayList<>();
         labyHeight = 0;
         labyWidth=0;
+        Timer timer = new Timer();
+        decount = new TimerTask() {
+            @Override
+            public void run() {
+                countDown();
+            }
+        };
+        timer.schedule(decount, 100, 1000);
         reset();
     }
 
@@ -121,8 +129,8 @@ public class Maze {
                     int y = i * tileHeight + tileHeight/2;
                     //
 
-                    int spriteRatioW = (int)(tileWidth * 0.8);
-                    int spriteRatioH = (int)(tileHeight* 0.8);
+                    int spriteRatioW = (int)(tileWidth * 0.70);
+                    int spriteRatioH = (int)(tileHeight* 0.70);
 
                     switch (line.charAt(j-1)) {
                         //Wall
@@ -195,14 +203,8 @@ public class Maze {
             }
         }
 
-        Timer timer = new Timer();
-        decount = new TimerTask() {
-            @Override
-            public void run() {
-                countDown();
-            }
-        };
-        timer.schedule(decount, 100, 1000);
+
+
     }
 
 
@@ -231,7 +233,7 @@ public class Maze {
         Graphics2D crayon = (Graphics2D) im.getGraphics();
         crayon.setColor(Color.red);
         crayon.setFont(font);
-        crayon.drawString(Integer.toString(time), getWidth()-((sizeOfPolice+tileWidth)/2), (sizeOfPolice/2 + tileHeight)/2);
+        crayon.drawString(Integer.toString(time), getWidth()/2 - sizeOfPolice/2 , sizeOfPolice);
 
         //Affiche la barre de vie juste en dessous du heros
         float ratioVieVieMax = (float) hero.getStats().getHp() / (float) hero.getStats().getHpMax();

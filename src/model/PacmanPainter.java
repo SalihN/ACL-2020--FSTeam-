@@ -18,8 +18,8 @@ public class PacmanPainter implements GamePainter {
 	/**
 	 * la taille des cases
 	 */
-	public final static  int tileWidth = 720;
-	public final static int tileHeight = 720;
+	public final static  int tileWidth = 700;
+	public final static int tileHeight = 700;
 
 	/**
 	 * appelle constructeur parent
@@ -36,11 +36,19 @@ public class PacmanPainter implements GamePainter {
 		game.draw(im);
 	}
 
+	/**
+	 *
+	 * @return Largeur de l'écran du jeu
+	 */
 	@Override
 	public int getWidth() {
 		return tileWidth;
 	}
 
+	/**
+	 *
+	 * @return Hauteur de l'écran du jeu
+	 */
 	@Override
 	public int getHeight() {
 		return tileHeight;

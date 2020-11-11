@@ -17,12 +17,14 @@ import java.io.IOException;
 public class KidnapMonster extends Monster {
     private final Point startingPos;
     private boolean isTracking,isReturning;
+    private int heroPreviousSpeed;
     public KidnapMonster(Point point, int width, int height) throws IOException {
         super(point, width, height);
         startingPos = new Point(point);
         stats.setSpeed(2);
         isTracking = true;
         isReturning = false;
+        heroPreviousSpeed = 0 ;
         im = ImageIO.read(new File("resources/images/kidnapmonster.png"));
     }
 
@@ -40,7 +42,7 @@ public class KidnapMonster extends Monster {
         if(!isTracking && !isReturning){
             goTo(maze.getHero().getHeroStartingPos());
             maze.getHero().goTo(position);
-            // Arrivé au départ du héro
+            // Arrivé au départ du héro retour à sa case initiale
             if(position.equals(maze.getHero().getHeroStartingPos())){
                 isReturning = true;
                 maze.getHero().setCatched(false);
@@ -48,6 +50,12 @@ public class KidnapMonster extends Monster {
         }
         // Retour à la case de départ du Kidnappeur
         if(!isTracking && isReturning){
+
+            if(stats.getSpeed() != 2) {
+                stats.setSpeed(2);
+                maze.getHero().getStats().setSpeed(heroPreviousSpeed);
+            }
+
             goTo(startingPos);
             // Arrivé à sa case, retour en traque
             if(position.equals(startingPos)){
@@ -59,8 +67,13 @@ public class KidnapMonster extends Monster {
 
     @Override
     public void action(Hero hero) {
-        if(isTracking){
+        if(isTracking && stats.getSpeed() > 0){
             isTracking = false;
+            int catchedSpeed = 6;
+
+            stats.setSpeed(catchedSpeed);
+            heroPreviousSpeed = hero.getStats().getSpeed();
+            hero.getStats().setSpeed(catchedSpeed);
             hero.setCatched(true);
         }
     }
