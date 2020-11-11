@@ -32,6 +32,7 @@ public class Maze {
 
     private BufferedImage life;
 
+    private Timer timer;
     private TimerTask decount;
     private int time;
     private int sizeOfPolice = 24;
@@ -42,19 +43,24 @@ public class Maze {
      */
     public Maze() throws IOException {
         hero = new Hero();
+
         life = ImageIO.read(new File("resources/images/lifebar.png"));
         listMonsters = new ArrayList<>();
+
         labyHeight = 0;
         labyWidth=0;
-        Timer timer = new Timer();
-        decount = new TimerTask() {
+
+        time = 60;
+        timer = new Timer();
+        TimerTask decount = new TimerTask() {
             @Override
             public void run() {
                 countDown();
             }
         };
         timer.schedule(decount, 100, 1000);
-        reset();
+
+
     }
 
     /**
@@ -202,9 +208,6 @@ public class Maze {
                 }
             }
         }
-
-
-
     }
 
 
@@ -299,17 +302,16 @@ public class Maze {
      * Permet d'empêcher les monstres de bouger un certain temps
      */
     public void freezeMonsters(int time) {
-        for(Monster monster : listMonsters){
+        for (Monster monster : listMonsters) {
             monster.freeze();
         }
-        Timer timer = new Timer();
-        TimerTask decount = new TimerTask() {
+        TimerTask defreeze = new TimerTask() {
             @Override
             public void run() {
                 defreeze();
             }
         };
-        timer.schedule(decount, time*1000);
+        timer.schedule(defreeze, time * 1000);
     }
 
     /**
@@ -328,14 +330,13 @@ public class Maze {
         for(Monster monster : listMonsters){
             monster.getStats().setSpeed(monster.getStats().getSpeed() - slow);
         }
-        Timer timer = new Timer();
-        TimerTask decount = new TimerTask() {
+        TimerTask deslow = new TimerTask() {
             @Override
             public void run() {
                 deslow(slow);
             }
         };
-        timer.schedule(decount, time*1000);
+        timer.schedule(deslow, time*1000);
     }
 
     /**
@@ -362,7 +363,19 @@ public class Maze {
     private void reset(){
         listMonsters.clear();
         time = 60;
-
+        //arrête le timer et le vide de ses tâches
+        timer.cancel();
+        timer.purge();
+        // créer un nouveau thread de timer
+        timer = new Timer();
+        // remise en route du décompte
+        TimerTask decount = new TimerTask() {
+            @Override
+            public void run() {
+                countDown();
+            }
+        };
+        timer.schedule(decount, 100, 1000);
     }
 
     /**
