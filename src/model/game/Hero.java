@@ -63,8 +63,9 @@ public class Hero extends SolidObject {
             x +=  this.getStats().getSpeed();
         }
         if(this.checkWall(x,y,maze) && !isCatched){
-            position.x += x;
-            position.y += y;
+
+            position.x += Math.min(x,maze.tileWidth);
+            position.y += Math.min(y,maze.tileHeight);
         }
     }
 

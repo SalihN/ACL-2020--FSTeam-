@@ -34,8 +34,8 @@ public abstract class Monster extends SolidObject {
      * Permet de faire se deplacer un monstre dans le labyrinthe
      * @param maze Labyrinthe dans lequel le monstre évolue
      */
-    public void move(Maze maze){
-        int x=0,y=0;
+    public void move(Maze maze) {
+        int x = 0, y = 0;
         Random rand = new Random();
 
         // RIGHT
@@ -55,17 +55,16 @@ public abstract class Monster extends SolidObject {
             y += stats.getSpeed();
         }
 
-        if(!this.checkWall(x,y,maze)) {
+        if (!this.checkWall(x, y, maze)) {
             int currentMoveValue = moveValue;
-            while(moveValue == currentMoveValue){
-                moveValue = rand.nextInt(4-1+1) + 1;
+            while (moveValue == currentMoveValue) {
+                moveValue = rand.nextInt(4 - 1 + 1) + 1;
             }
-            x = -x;
-            y = -y;
-
         }
-        position.x += x;
-        position.y += y;
+        else {
+            position.x += Math.min(x,maze.tileWidth);
+            position.y += Math.min(y,maze.tileHeight);
+        }
     }
 
     /**
