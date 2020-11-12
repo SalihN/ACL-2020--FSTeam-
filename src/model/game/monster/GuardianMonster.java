@@ -25,7 +25,6 @@ public class GuardianMonster extends Monster {
         im = ImageIO.read(new File("resources/images/guardianmonster.png"));
     }
 
-    //TODO: Utiliser goTo pour chaque coin gardienné pour éviter de glitcher à travers les murs
     @Override
     public void move(Maze maze) {
         int x=0,y=0;
@@ -34,13 +33,13 @@ public class GuardianMonster extends Monster {
             if (position.x <= initialPosition.x + 2 * maze.tileWidth && position.y <= initialPosition.y)
                 x += getStats().getSpeed();
             // en bas à droite, vers la gauche
-            if (position.x >= initialPosition.x && position.y >= initialPosition.y + maze.tileHeight * 2)
+            else if (position.x >= initialPosition.x && position.y >= initialPosition.y + maze.tileHeight * 2)
                 x -= getStats().getSpeed();
             //en bas à gauche, vers le haut
-            if (position.x >= initialPosition.x + maze.tileWidth * 2 && position.y <= initialPosition.y + maze.tileHeight * 2)
+            else if (position.x >= initialPosition.x + maze.tileWidth * 2 && position.y <= initialPosition.y + maze.tileHeight * 2)
                 y += getStats().getSpeed();
             //en bas à droite, vers la gauche
-            if (position.x <= initialPosition.x && position.y >= initialPosition.y)
+            else if (position.x <= initialPosition.x && position.y >= initialPosition.y)
                 y -= getStats().getSpeed();
         }
         else{
@@ -48,23 +47,21 @@ public class GuardianMonster extends Monster {
             if (position.y >= initialPosition.y + 2 * maze.tileHeight && position.x <= initialPosition.x + 2 * maze.tileWidth)
                 x += getStats().getSpeed();
             // en haut à droite, vers la gauche
-            if (position.y <= initialPosition.y  && position.x >= initialPosition.x)
+            else if (position.y <= initialPosition.y  && position.x >= initialPosition.x)
                 x -= getStats().getSpeed();
             // en haut à gauche ,vers le bas
-            if (position.x <= initialPosition.x && position.y <= initialPosition.y + 2 * maze.tileHeight)
+            else if (position.x <= initialPosition.x && position.y <= initialPosition.y + 2 * maze.tileHeight)
                 y += getStats().getSpeed();
             // en bas à droite, vers le haut
-            if (position.x >= initialPosition.x + 2 * maze.tileWidth && position.y >= initialPosition.y)
+            else if (position.x >= initialPosition.x + 2 * maze.tileWidth && position.y >= initialPosition.y)
                 y -= getStats().getSpeed();
         }
         // changement d'orientation si on rencontre un mur
         if(!checkWall(x,y,maze)){
             movingClockwise = !movingClockwise;
-            x = -x;
-            y = -y;
+            //x = -x;
+            //y = -y;
         }
-
-        position.x += x;
-        position.y += y;
+        moveTo(x,y,maze);
     }
 }

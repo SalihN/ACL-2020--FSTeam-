@@ -52,7 +52,6 @@ public abstract class GameObject {
      * @param maze labyrinthe dans lequel l'objet évolue
      * @return retourne vrai si il n'y a pas de mur
      */
-    // TODO: gérer le cas où le déplacement est plus grand qu'une tuile
     public boolean checkWall(int x, int y,Maze maze){
         // out of bound check
         if(

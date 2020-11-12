@@ -62,8 +62,7 @@ public abstract class Monster extends SolidObject {
             }
         }
         else {
-            position.x += Math.min(x,maze.tileWidth);
-            position.y += Math.min(y,maze.tileHeight);
+            moveTo(x,y,maze);
         }
     }
 

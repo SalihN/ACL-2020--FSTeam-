@@ -58,4 +58,9 @@ public abstract class SolidObject extends GameObject {
         }
     }
 
+    protected void moveTo(int x, int y, Maze maze){
+        position.x += Math.min(x,maze.tileWidth);
+        position.y += Math.min(y,maze.tileHeight);
+    }
+
 }
