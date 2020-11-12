@@ -33,7 +33,6 @@ public class Maze {
     private BufferedImage life;
 
     private Timer timer;
-    private TimerTask decount;
     private int time;
     private int sizeOfPolice = 24;
     Font font = new Font("TimesRoman", Font.BOLD, sizeOfPolice);
@@ -292,10 +291,10 @@ public class Maze {
      * Permetde savoir si une case est un mur ou non
      * @param x x position of the floor tile
      * @param y y position of the floor tile
-     * @return true if it's a wall, else return a false
+     * @return return false if it's a not a wall, true if it is
      */
     public boolean isAWall(int x, int y){
-        return !getFloor(x, y).isWall();
+        return getFloor(x, y).isWall();
     }
 
     /**
@@ -417,4 +416,6 @@ public class Maze {
     public Hero getHero() {
         return hero;
     }
+
+
 }

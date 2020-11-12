@@ -54,18 +54,24 @@ public abstract class GameObject {
      */
     // TODO: gérer le cas où le déplacement est plus grand qu'une tuile
     public boolean checkWall(int x, int y,Maze maze){
-        if(x > maze.getWidth() - 1 || y > maze.getHeight() - 1){
+        // out of bound check
+        if(
+                this.getPosition().x + x + this.getWidth()> maze.getWidth()
+                || this.getPosition().y  + y + this.getHeight() > maze.getHeight()
+                ||this.getPosition().x + x < 0
+                || this.getPosition().y + y < 0
+        ){
             return false;
         }
         //LEFT
         if(x < 0 && y == 0) {
             return (
                     // LEFT UP
-                    maze.isAWall(
+                    !maze.isAWall(
                             this.getPosition().x + x - this.getWidth() / 2,
                             this.getPosition().y + y - this.getHeight() / 2)
                             //LEFT DOWN
-                            && maze.isAWall(
+                            && !maze.isAWall(
                             this.getPosition().x + x - this.getWidth() / 2,
                             this.getPosition().y + y + this.getHeight() / 2)
             );
@@ -73,12 +79,12 @@ public abstract class GameObject {
         }else if(x > 0 && y == 0 ){
             return (
                     //RIGHT UP
-                    maze.isAWall(
+                    !maze.isAWall(
                             this.getPosition().x + x + this.getWidth() / 2,
                             this.getPosition().y + y - this.getHeight() / 2
                     )
                             //RIGHT DOWN
-                            && maze.isAWall(
+                            && !maze.isAWall(
                             this.getPosition().x + x + this.getWidth() / 2,
                             this.getPosition().y + y + this.getHeight() / 2)
             );
@@ -86,11 +92,11 @@ public abstract class GameObject {
         }else if(x == 0 && y > 0){
             return (
                     //DOWN RIGHT
-                    maze.isAWall(
+                    !maze.isAWall(
                             this.getPosition().x + x + this.getWidth() / 2,
                             this.getPosition().y + y + this.getHeight() / 2)
                             //DOWN LEFT
-                            && maze.isAWall(
+                            && !maze.isAWall(
                             this.getPosition().x + x - this.getWidth() / 2,
                             this.getPosition().y + y + this.getHeight() / 2)
             );
@@ -98,11 +104,11 @@ public abstract class GameObject {
         }else{
             return (
                     //UP LEFT
-                    maze.isAWall(
+                    !maze.isAWall(
                             this.getPosition().x + x - this.getWidth() / 2,
                             this.getPosition().y + y - this.getHeight() / 2)
                             //UP RIGHT
-                            && maze.isAWall(
+                            && !maze.isAWall(
                             this.getPosition().x + x + this.getWidth() / 2,
                             this.getPosition().y + y - this.getHeight() / 2)
             );

@@ -77,6 +77,6 @@ public class Stats {
      * @param speed nouvelle vitesse souhaité
      */
     public void setSpeed(int speed) {
-        this.speed = speed;
+        this.speed = Math.max(0,speed);
     }
 }
