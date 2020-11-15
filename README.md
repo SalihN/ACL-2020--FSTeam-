@@ -51,7 +51,7 @@ Le nom du fichier doit être de la forme "mazeX.txt" où X est un nombre entier 
 Les niveaux sont joué dans l'ordre, donc si vous voulez modifier le niveau 0 il faut modifier le fichier "maze0.txt"
 Si vous voulez ajouter un nouveau niveau et y jouer faite en sorte que sont nombre soit le suivant dans la liste, sinon il ne sera pas joué   
 
-####Comment formater le fichier de labyrinthe
+#### Comment formater le fichier de labyrinthe
 
 Les deux premières lignes du labyrinthe doivent correspondre respectivement à: la hauteur et la largeur de celui ci  
 
