@@ -29,6 +29,7 @@ public class Maze {
     //TILE SIZE
     public  int tileWidth = 32;
     public  int tileHeight = 32;
+    private boolean isVictory;
 
     private BufferedImage life;
 
@@ -48,7 +49,7 @@ public class Maze {
 
         labyHeight = 0;
         labyWidth=0;
-
+        isVictory = false;
         time = 60;
         timer = new Timer();
         TimerTask decount = new TimerTask() {
@@ -75,7 +76,9 @@ public class Maze {
         try {
             buff = new BufferedReader(new FileReader(level));
         } catch (FileNotFoundException err) {
-            System.exit(0);
+            isVictory = true;
+            PacmanGame.cpt = 0;
+            return;
         }
         // lecture du nombre de lignes et de colonnes
         line = buff.readLine();
@@ -425,5 +428,7 @@ public class Maze {
         return hero;
     }
 
-
+    public boolean isVictory() {
+        return isVictory;
+    }
 }

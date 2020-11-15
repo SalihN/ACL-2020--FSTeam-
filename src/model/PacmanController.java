@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import engine.Cmd;
@@ -36,13 +37,21 @@ public class PacmanController implements GameController {
 		return this.commandeEnCours;
 	}
 
+	/**
+	 *
+	 *
+	 * @param cmd nouvelle Commande
+	 */
+	public void setCommand(Cmd cmd) {
+		this.commandeEnCours = cmd;
+	}
+
 	@Override
 	/**
 	 * met a jour les commandes en fonctions des touches appuyees
 	 */
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
-		// si on appuie sur 'q',commande joueur est gauche
 			case KeyEvent.VK_Q:
 				this.commandeEnCours = Cmd.LEFT;
 				break;
@@ -56,21 +65,18 @@ public class PacmanController implements GameController {
 				this.commandeEnCours = Cmd.UP;
 				break;
 			case KeyEvent.VK_UP:
-				this.commandeEnCours = Cmd.UP;
+				this.commandeEnCours = Cmd.MENU_UP;
 				break;
 			case KeyEvent.VK_DOWN:
-				this.commandeEnCours = Cmd.DOWN;
-				break;
-			case KeyEvent.VK_LEFT:
-				this.commandeEnCours = Cmd.LEFT;
-				break;
-			case KeyEvent.VK_RIGHT:
-				this.commandeEnCours = Cmd.RIGHT;
+				this.commandeEnCours = Cmd.MENU_DOWN;
 				break;
 			case KeyEvent.VK_ENTER:
 				this.commandeEnCours = Cmd.ENTRER;
+				break;
+			default:
+				this.commandeEnCours = Cmd.IDLE;
+				break;
 		}
-
 	}
 
 	@Override
@@ -82,11 +88,9 @@ public class PacmanController implements GameController {
 	}
 
 	@Override
-	/**
-	 * ne fait rien
-	 */
 	public void keyTyped(KeyEvent e) {
 
 	}
+
 
 }

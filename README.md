@@ -34,10 +34,13 @@ Compilation du jeu
 ant compile
 ``` 
 ## Comment jouer ? 
+#### Navigation dans les menus
+Utilisez les flèches directionelles pour naviguer dans les menus et appuyer sur Entrer pour valider votre choix  
 
-Utiliser les touches z,q,s,d ou les flèches directionnelles pour se déplacer avec le personnage  
+#### Commandes du personnage et labyrinthe
+Utilisez les touches z,q,s,d pour se déplacer avec le personnage    
 Parvenez à récupérer tous les trésors de tout les labyrinthe sans mourir et avant la fin du compte à rebours. Plusieurs bonus sont dispersés dans le labyrinthe pour vous aidez dans votre quête  
-Dans les menus utiliser z et q ou les flèches haut et bas pour se déplacer dans les menus  
+Dans les menus utilisez z et q ou les flèches haut et bas pour se déplacer dans les menus  
 
 ## Création de niveau :
 

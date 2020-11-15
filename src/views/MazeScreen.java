@@ -51,8 +51,11 @@ public class MazeScreen implements GameScreen {
     public void update(Cmd cmd) throws IOException {
         maze.update(cmd);
         if(maze.getTime() <= 0)
-            this.game.setCurrentState(PacmanGame.GameState.Quit);
-
+            this.game.setCurrentState(PacmanGame.GameState.Lost);
+        if(maze.getHero().isDead())
+            this.game.setCurrentState(PacmanGame.GameState.Lost);
+        if(maze.isVictory())
+            this.game.setCurrentState(PacmanGame.GameState.Victory);
     }
     /**
      *

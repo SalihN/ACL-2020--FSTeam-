@@ -6,6 +6,7 @@ import java.io.IOException;
 import engine.Cmd;
 import engine.Game;
 import model.game.Maze;
+import views.EndScreen;
 import views.GameScreen;
 import views.MazeScreen;
 import views.MenuScreen;
@@ -34,9 +35,6 @@ public class PacmanGame implements Game {
 	public PacmanGame() throws IOException {
 		currentScreen = new MenuScreen(this);
 		currentState = GameState.MainMenu;
-		/*maze = new Maze();
-		cpt = 0;
-		maze.generate();*/
 	}
 
 	/**
@@ -55,8 +53,6 @@ public class PacmanGame implements Game {
 	 */
 	public void draw(BufferedImage im) {
 		currentScreen.display(im);
-		//maze.draw(im);
-		//Graphics2D crayon = (Graphics2D) im.getGraphics();
 	}
 
 	/**
@@ -80,13 +76,24 @@ public class PacmanGame implements Game {
 	 * @param currentState permet de changer l'état courrant du jeu
 	 */
 	public void setCurrentState(GameState currentState) throws IOException {
-		if(currentState == GameState.Maze && this.currentState == GameState.MainMenu)
-			loadMaze();
+
+		swapScreen(currentState);
 		this.currentState = currentState;
 	}
 
-	private void loadMaze() throws IOException {
-		currentScreen = new MazeScreen(this);
+	/**
+	 * Change l'écran à afficher
+	 * @param currentState nouvel état du jeu
+	 * @throws IOException Chargement d'images non réussit
+	 */
+	private void swapScreen(GameState currentState) throws IOException {
+		if(currentState == GameState.Maze)
+			currentScreen = new MazeScreen(this);
+		if(currentState == GameState.Lost)
+			currentScreen = new EndScreen(this,"Lost");
+		if(currentState == GameState.Victory)
+			currentScreen = new EndScreen(this,"Victory");
+		if(currentState == GameState.MainMenu)
+			currentScreen = new MenuScreen(this);
 	}
-
 }

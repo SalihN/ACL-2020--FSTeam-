@@ -16,8 +16,7 @@ import java.io.IOException;
  */
 public class MenuScreen implements GameScreen{
 
-    private BufferedImage background;
-    private long inputCaps;
+    private final BufferedImage background;
 
     private final int sizeOfPolice = 40;
     enum Option{
@@ -42,13 +41,14 @@ public class MenuScreen implements GameScreen{
         background = ImageIO.read(new File("resources/images/MenuPrincipale/background.png"));
         font = new Font("TimesRoman", Font.BOLD,sizeOfPolice);
         currentOption = Option.PLAY;
-        inputCaps = System.currentTimeMillis();
         this.game = game;
+        // Comme c'est le menu principale on s'assure de revenir au premier niveau
+        PacmanGame.cpt = 0;
     }
 
     /**
      * Affichage de l'écran
-     * @param im
+     * @param im Ecran sur lequel le menu est dessiné
      */
     @Override
     public void display(BufferedImage im) {
@@ -72,25 +72,22 @@ public class MenuScreen implements GameScreen{
      */
     @Override
     public void update(Cmd cmd) throws IOException {
-        long cap = 1000 / 9;
-        if(System.currentTimeMillis() - inputCaps > cap ) {
-            if (cmd == Cmd.UP) {
-                currentOption = currentOption.getPrevious();
+        if (cmd == Cmd.MENU_UP) {
+            currentOption = currentOption.getPrevious();
+        }
+        if (cmd == Cmd.MENU_DOWN) {
+            currentOption = currentOption.getNext();
+        }
+        if (cmd == Cmd.ENTRER) {
+            if(currentOption == Option.PLAY){
+                game.setCurrentState(PacmanGame.GameState.Maze);
             }
-            if (cmd == Cmd.DOWN) {
-                currentOption = currentOption.getNext();
+            if(currentOption == Option.QUIT){
+                game.setCurrentState(PacmanGame.GameState.Quit);
             }
-            if (cmd == Cmd.ENTRER) {
-                if(currentOption == Option.PLAY){
-                    game.setCurrentState(PacmanGame.GameState.Maze);
-                }
-                if(currentOption == Option.QUIT){
-                    game.setCurrentState(PacmanGame.GameState.Quit);
-                }
-            }
-            inputCaps = System.currentTimeMillis();
         }
     }
+
 
     /**
      * Choisit la couleur dans laquelle l'option doit être affichée

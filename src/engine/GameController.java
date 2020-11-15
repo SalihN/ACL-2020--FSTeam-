@@ -17,5 +17,6 @@ public interface GameController extends KeyListener {
 	 * @return commande faite par le joueur
 	 */
 	public Cmd getCommand();
+	public void setCommand(Cmd cmd);
 
 }
