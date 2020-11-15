@@ -2,7 +2,7 @@ package model.game.monster;
 
 import model.game.Hero;
 import model.game.Maze;
-import model.game.SolidObject;
+import model.game.MovingObject;
 import model.game.Stats;
 
 import java.awt.*;
@@ -18,7 +18,7 @@ import java.util.TimerTask;
  *
  * Monstre present dans le labyrinthe
  */
-public abstract class Monster extends SolidObject {
+public abstract class Monster extends MovingObject {
     protected int moveValue = 1;
     protected boolean canMove;
 

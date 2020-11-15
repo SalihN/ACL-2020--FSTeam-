@@ -10,7 +10,7 @@ import java.awt.*;
  * Représente un objet ayant des collisions physiques dans le jeu
  */
 
-public abstract class SolidObject extends GameObject {
+public abstract class MovingObject extends GameObject {
     protected Stats stats;
 
     public Stats getStats() {

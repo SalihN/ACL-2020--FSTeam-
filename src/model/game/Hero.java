@@ -13,7 +13,7 @@ import java.io.IOException;
  *
  * Heros present dans le labyrinthe
  */
-public class Hero extends SolidObject {
+public class Hero extends MovingObject {
 
     private Point heroStartingPos;
     private boolean isInvincible;
