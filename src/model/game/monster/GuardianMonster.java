@@ -9,9 +9,9 @@ import java.io.IOException;
 
 /**
  * @author Goetz Alexandre
- * @version 1.0
+ * @version 1.0.1
  *
- * Monstre qui garde le trésor
+ * Monstre qui garde la tuile en bas à droite de lui en se déplacent tout autour
  */
 
 public class GuardianMonster extends Monster {

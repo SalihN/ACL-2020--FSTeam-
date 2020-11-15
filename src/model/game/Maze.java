@@ -249,9 +249,17 @@ public class Maze {
         // Affichage du héro
         hero.draw(im);
 
-        // Grande croix qui se coupe au centre de l'écran
-        //crayon.drawLine(0,getHeight()/2,getWidth(),getHeight()/2);
-        //crayon.drawLine(getWidth()/2,0,getWidth()/2,getHeight());
+        // drawMiddleCross(crayon);
+    }
+
+    /**
+     * Dessine une grande croix qui se coupe au centre de l'écran
+     * à utiliser pour le débuggage
+     * @param crayon outil pour dessiner sur l'écran
+     */
+    public void drawMiddleCross(Graphics2D crayon){
+        crayon.drawLine(0,getHeight()/2,getWidth(),getHeight()/2);
+        crayon.drawLine(getWidth()/2,0,getWidth()/2,getHeight());
     }
 
     /**

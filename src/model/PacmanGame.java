@@ -6,6 +6,9 @@ import java.io.IOException;
 import engine.Cmd;
 import engine.Game;
 import model.game.Maze;
+import views.GameScreen;
+import views.MazeScreen;
+import views.MenuScreen;
 
 /**
  * @author Horatiu Cirstea, Vincent Thomas
@@ -15,8 +18,13 @@ import model.game.Maze;
  * 
  */
 public class PacmanGame implements Game {
+	private GameScreen currentScreen;
 	private Maze maze;
 	public static int cpt;
+	public enum GameState{
+		Maze,MainMenu,Pause,Victory,Lost,Quit
+	}
+	private GameState currentState;
 
 
 	/**
@@ -24,9 +32,11 @@ public class PacmanGame implements Game {
 	 * 
 	 */
 	public PacmanGame() throws IOException {
-		maze = new Maze();
+		currentScreen = new MenuScreen(this);
+		currentState = GameState.MainMenu;
+		/*maze = new Maze();
 		cpt = 0;
-		maze.generate();
+		maze.generate();*/
 	}
 
 	/**
@@ -36,16 +46,17 @@ public class PacmanGame implements Game {
 	 */
 	@Override
 	public void evolve(Cmd commande) throws IOException {
-		maze.update(commande);
+		currentScreen.update(commande);
 	}
 
 	/**
 	 * Affichage de l'écran en cours
 	 * @param im frame buffer
 	 */
-	public void draw(BufferedImage im){
-		maze.draw(im);
-		Graphics2D crayon = (Graphics2D) im.getGraphics();
+	public void draw(BufferedImage im) {
+		currentScreen.display(im);
+		//maze.draw(im);
+		//Graphics2D crayon = (Graphics2D) im.getGraphics();
 	}
 
 	/**
@@ -53,14 +64,29 @@ public class PacmanGame implements Game {
 	 */
 	@Override
 	public boolean isFinished() {
-		return maze.getTime() == 0;
+		return currentState == GameState.Quit;
 	}
 
 	/**
 	 *
-	 * @return Labyrinthe en cours de partie
+	 * @return état courant du jeu
 	 */
-	public Maze getMaze() {
-		return maze;
+	public GameState getCurrentState() {
+		return currentState;
 	}
+
+	/**
+	 *
+	 * @param currentState permet de changer l'état courrant du jeu
+	 */
+	public void setCurrentState(GameState currentState) throws IOException {
+		if(currentState == GameState.Maze && this.currentState == GameState.MainMenu)
+			loadMaze();
+		this.currentState = currentState;
+	}
+
+	private void loadMaze() throws IOException {
+		currentScreen = new MazeScreen(this);
+	}
+
 }

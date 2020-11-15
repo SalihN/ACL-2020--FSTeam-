@@ -3,7 +3,7 @@
 <p align="center">
  
 
-<img src="https://github.com/SalihN/ACL-2020-FSTeam/blob/main/resources/images/fsteam.png" width="50%" height="50%">
+<img src="https://raw.githubusercontent.com/SalihN/ACL-2020-FSTeam/main/resources/images/fsteam.png" width="50%" height="50%">
 </p>
 
 #### Auteurs:
@@ -33,6 +33,11 @@ Compilation du jeu
 ```bash
 ant compile
 ``` 
+## Comment jouer ? 
+
+Utiliser les touches z,q,s,d ou les flèches directionnelles pour se déplacer avec le personnage  
+Parvenez à récupérer tous les trésors de tout les labyrinthe sans mourir et avant la fin du compte à rebours. Plusieurs bonus sont dispersés dans le labyrinthe pour vous aidez dans votre quête  
+Dans les menus utiliser z et q ou les flèches haut et bas pour se déplacer dans les menus  
 
 ## Création de niveau :
 
