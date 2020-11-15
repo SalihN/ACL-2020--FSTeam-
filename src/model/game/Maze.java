@@ -59,8 +59,6 @@ public class Maze {
             }
         };
         timer.schedule(decount, 100, 1000);
-
-
     }
 
     /**
@@ -82,10 +80,18 @@ public class Maze {
         }
         // lecture du nombre de lignes et de colonnes
         line = buff.readLine();
+        //passe les lignes vides
+        while(line.isBlank()){
+            line = buff.readLine();
+        }
         this.labyHeight = Integer.parseInt(line) + 2;
         tileHeight = (int) Math.ceil((double) PacmanPainter.tileHeight / labyHeight);
 
         line = buff.readLine();
+        //passe les lignes vides
+        while(line.isBlank()){
+            line = buff.readLine();
+        }
         this.labyWidth = Integer.parseInt(line) + 2;
         tileWidth = (int) Math.ceil((double) PacmanPainter.tileWidth / labyWidth);
 
@@ -98,44 +104,44 @@ public class Maze {
         //Construction des murs extérieure du laby
 
         for (int i = 0; i < labyWidth; i++) {
-            listFloor[i][0] = new Wall(
+            listFloor[0][i] = new Wall(
                     new Point(i * tileWidth + tileWidth/2, tileHeight/2),
                     tileWidth, tileHeight
             );
         }
-        for (int i = 0; i < labyWidth; i++) {
-            listFloor[i][labyHeight - 1] = new Wall(
+        for (int i = 0; i < labyWidth-1; i++) {
+            listFloor[labyHeight - 1][i] = new Wall(
                     new Point(i * tileWidth + tileWidth/2, (labyHeight - 1) * tileHeight + tileHeight/2),
                     tileWidth, tileHeight
             );
         }
         for (int i = 0; i < labyHeight; i++) {
-            listFloor[0][i] = new Wall(
+            listFloor[i][0] = new Wall(
                     new Point(tileWidth/2, i * tileHeight + tileHeight/2),
                     tileWidth, tileHeight
             );
         }
         for (int i = 0; i < labyHeight; i++) {
-            listFloor[labyWidth - 1][i] = new Wall(
+            listFloor[i][labyWidth-1] = new Wall(
                     new Point((labyWidth - 1) * tileWidth + tileWidth/2 , i * tileHeight + tileHeight/2),
-                    tileWidth, tileHeight
+                    tileWidth,tileHeight
             );
         }
-        // we wont read lines that goes beyond the given height
+        // Ignore les lignes au delà de la hauteur donné
         for (int i = 1; i < labyHeight - 1; i++) {
-            // skip empty lines
 
+            // ignore les lignes vides
             line = buff.readLine();
             while(line.isBlank()){
                 line = buff.readLine();
             }
             for (int j = 1; j <= line.length() ; j++) {
-                // prevent from going beyond the given width
+                // évite d'aller plus loin que la largeur donnée
                 if (j < labyWidth - 1) {
                     //décalage des tuiles
                     int x= j * tileWidth + tileWidth/2;
                     int y = i * tileHeight + tileHeight/2;
-                    //
+                    // ratio pour permettre aux objets mobiles de se déplacer
 
                     int spriteRatioW = (int)(tileWidth * 0.70);
                     int spriteRatioH = (int)(tileHeight* 0.70);
@@ -197,8 +203,8 @@ public class Maze {
                         default:
                             listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
                     }
-                    // check if the line is full according to the width given in the fill
-                    // if not the line with normal floor
+                    // finie la ligne avec des NormalFloor si elle n'a pas été complété
+                    // en concordance avec la largeur donnée
                     if (line.length() < labyWidth - 2) {
                         for (int k = line.length(); k < labyWidth - 1; k++) {
                             listFloor[i][k] = new NormalFloor(
@@ -212,7 +218,9 @@ public class Maze {
         }
     }
 
-
+    /**
+     * Réduit le chrono d'une seconde
+     */
     private void countDown(){
         time--;
     }
@@ -310,6 +318,7 @@ public class Maze {
 
     /**
      * Permet d'empêcher les monstres de bouger un certain temps
+     * @param time temps pendant lequel les monstres sont figés
      */
     public void freezeMonsters(int time) {
         for (Monster monster : listMonsters) {
@@ -343,7 +352,7 @@ public class Maze {
         TimerTask deslow = new TimerTask() {
             @Override
             public void run() {
-                deslow(slow);
+                deslow();
             }
         };
         timer.schedule(deslow, time*1000);
@@ -352,9 +361,9 @@ public class Maze {
     /**
      * Permet aux monstres de rebouger normalement
      */
-    private void deslow(int slow) {
+    private void deslow() {
         for(Monster monster : listMonsters){
-            monster.getStats().setSpeed(monster.getStats().getSpeed() + slow);
+            monster.getStats().setSpeed(monster.getStats().getBaseSpeed());
         }
     }
 
@@ -368,7 +377,7 @@ public class Maze {
     }
 
     /**
-     * Vie le contenu du labyrinthe
+     * Vide le contenu du labyrinthe
      */
     private void reset(){
         listMonsters.clear();

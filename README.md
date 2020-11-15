@@ -42,14 +42,22 @@ Utilisez les touches z,q,s,d pour se déplacer avec le personnage
 Parvenez à récupérer tous les trésors de tout les labyrinthe sans mourir et avant la fin du compte à rebours. Plusieurs bonus sont dispersés dans le labyrinthe pour vous aidez dans votre quête  
 Dans les menus utilisez z et q ou les flèches haut et bas pour se déplacer dans les menus  
 
-## Création de niveau :
+## Créer et modifier des labyrinthes :
 
-Les niveaux doivent être placés dans ressources/mazes.  
-Leur nom doit être de la forme "mazeX.txt"  
-X correspond au numéro du niveau  
-Les niveaux sont joué l'un à la suite de l'autre ( X + 1 )  
+#### Où placer les fichiers de labyrinthe et les modifiers
 
-Le deux premières lignes du fichier correspondent respectivement à la haut et la largeur du labyrinthe  
+Vous pouvez ajouter ou modifier de nouveaux niveaux vous même, pour cela ajouter les dans le dossier /ressources/mazes  
+Le nom du fichier doit être de la forme "mazeX.txt" où X est un nombre entier avec 0 inclu  
+Les niveaux sont joué dans l'ordre, donc si vous voulez modifier le niveau 0 il faut modifier le fichier "maze0.txt"
+Si vous voulez ajouter un nouveau niveau et y jouer faite en sorte que sont nombre soit le suivant dans la liste, sinon il ne sera pas joué   
+
+####Comment formater le fichier de labyrinthe
+
+Les deux premières lignes du labyrinthe doivent correspondre respectivement à: la hauteur et la largeur de celui ci  
+
+
+Il est recommandé d'avoir soit un labyrinthe au format de la fenêtre afin d'éviter des dépassement de fenêtres  
+La fenêtre  de base est rectangulaire et de taille 700x700
 
 les lignes suivantes représentent le labyrinthe  
 Il faut utiliser les symboles suivant pour remplir le labyrinthe:  
@@ -66,7 +74,11 @@ Il faut utiliser les symboles suivant pour remplir le labyrinthe:
 * g : Monstre gardien
 * k : Monstre kidnappeur
 
-*Exemple de labyrinthe:*  
+**/!\ Si par contre il manque des lignes le niveau ne se lancera pas**  
+Par contre si la taille d'une ligne ne correspond pas à la largeur donnée elle sera complétée avec des NormalFloor  
+
+
+**Exemple de labyrinthe:**  
 11  
 11  
 nnnnnnnnnnn  
@@ -80,4 +92,4 @@ nnnnnnnnnnn
 nnwwwwnnnnn  
 nnnnnnnnnnn  
 nmnnknnnann  
-
+  

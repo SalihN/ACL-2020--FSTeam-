@@ -11,6 +11,7 @@ public class Stats {
     private int hp;
     private int hpMax;
     private int speed;
+    private int baseSpeed;
 
     /**
      *
@@ -21,6 +22,7 @@ public class Stats {
         hp = hpMax;
         this.hpMax = hpMax;
         this.speed = speed;
+        this.baseSpeed = speed;
     }
 
     /**
@@ -43,10 +45,6 @@ public class Stats {
             hp -= damage;
         }
     }
-
-    /////////////////
-    //Getter&Setter//
-    /////////////////
 
     /**
      *
@@ -78,5 +76,13 @@ public class Stats {
      */
     public void setSpeed(int speed) {
         this.speed = Math.max(0,speed);
+    }
+
+    /**
+     *
+     * @return la vitesse d'origine du monstre
+     */
+    public int getBaseSpeed() {
+        return baseSpeed;
     }
 }

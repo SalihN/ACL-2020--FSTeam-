@@ -59,6 +59,8 @@ public class MenuScreen implements GameScreen{
                 PacmanPainter.tileWidth,PacmanPainter.tileHeight,null
         );
         crayon.setFont(font);
+        // anti aliasing sur le texte
+        crayon.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
 
         for(Option option : Option.values()){
             checkColorOption(option,crayon);

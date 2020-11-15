@@ -44,6 +44,11 @@ public class EndScreen implements GameScreen{
         font = new Font("TimesRoman", Font.BOLD,sizeOfPolice);
         currentOption = Option.RETRY;
     }
+
+    /**
+     * affiche le menu de fin en fonction de si la partie est gagné où perdue
+     * @param im image à afficher sur l'écran
+     */
     @Override
     public void display(BufferedImage im) {
         Graphics2D crayon = (Graphics2D) im.getGraphics();
@@ -54,13 +59,13 @@ public class EndScreen implements GameScreen{
         );
         crayon.setFont(font);
         crayon.setColor(Color.RED);
-
+        crayon.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
         String message = "You ";
         if(stateDisplayed.equals("lost"))
             message += stateDisplayed;
         if(stateDisplayed.equals("victory"))
             message += "won";
-        crayon.drawString(message,(PacmanPainter.tileWidth / 2) - (message.length() * sizeOfPolice / 4)    , PacmanPainter.tileHeight * 0.3f  );
+        crayon.drawString(message,(PacmanPainter.tileWidth / 2) - (message.length() * sizeOfPolice / 4) , PacmanPainter.tileHeight * 0.3f  );
 
         for(Option option : Option.values()){
             checkColorOption(option,crayon);
