@@ -73,9 +73,6 @@ public class PacmanController implements GameController {
 			case KeyEvent.VK_ENTER:
 				this.commandeEnCours = Cmd.ENTRER;
 				break;
-			default:
-				this.commandeEnCours = Cmd.IDLE;
-				break;
 		}
 	}
 

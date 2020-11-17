@@ -20,7 +20,7 @@ public class MenuScreen implements GameScreen{
 
     private final int sizeOfPolice = 40;
     enum Option{
-        PLAY,OPTIONS,QUIT;
+        PLAY,QUIT;
         private static Option[] vals = values();
         public Option getNext() {
             return Option.values()[(this.ordinal()+1) % vals.length];
