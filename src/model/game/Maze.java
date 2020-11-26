@@ -38,6 +38,8 @@ public class Maze {
     private int sizeOfPolice = 24;
     Font font = new Font("TimesRoman", Font.BOLD, sizeOfPolice);
 
+    private static int cpt;
+
     /**
      * Constructeur labyrinthe
      */
@@ -59,6 +61,7 @@ public class Maze {
             }
         };
         timer.schedule(decount, 100, 1000);
+        cpt = 0;
     }
 
     /**
@@ -69,13 +72,13 @@ public class Maze {
      */
     public void generate() throws IOException {
         BufferedReader buff = null;
-        String level = "resources/mazes/maze" + PacmanGame.cpt + ".txt";
+        String level = "resources/mazes/maze" + cpt + ".txt";
         String line;
         try {
             buff = new BufferedReader(new FileReader(level));
         } catch (FileNotFoundException err) {
             isVictory = true;
-            PacmanGame.cpt = 0;
+            cpt = 0;
             return;
         }
         // lecture du nombre de lignes et de colonnes
@@ -372,7 +375,7 @@ public class Maze {
      */
     public void nextLevel() throws IOException {
         reset();
-        PacmanGame.cpt++;
+        cpt++;
         generate();
     }
 

@@ -9,17 +9,16 @@ import java.io.IOException;
 
 
 /**
- * @author Goete Alexandre
+ * @author Goetz Alexandre
  * version 1.0.0
  */
 
 /**
  * Ecran d'une partie de jeu
- * Le labyrinthe et le héro sont représenter ici
+ * Le labyrinthe et le héros sont représentés ici
  */
 public class MazeScreen implements GameScreen {
     private Maze maze;
-    public static int cpt;
     private PacmanGame game;
 
     /**
@@ -28,7 +27,6 @@ public class MazeScreen implements GameScreen {
      */
     public MazeScreen(PacmanGame game) throws IOException {
         maze = new Maze();
-        cpt = 0;
         maze.generate();
         this.game = game;
     }

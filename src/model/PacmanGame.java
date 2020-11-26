@@ -1,11 +1,9 @@
 package model;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import engine.Cmd;
 import engine.Game;
-import model.game.Maze;
 import views.EndScreen;
 import views.GameScreen;
 import views.MazeScreen;
@@ -20,8 +18,6 @@ import views.MenuScreen;
  */
 public class PacmanGame implements Game {
 	private GameScreen currentScreen;
-	private Maze maze;
-	public static int cpt;
 	public enum GameState{
 		Maze,MainMenu,Pause,Victory,Lost,Quit
 	}
