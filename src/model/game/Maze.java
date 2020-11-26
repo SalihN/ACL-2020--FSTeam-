@@ -17,7 +17,7 @@ import java.util.TimerTask;
 
 /**
  * @author Alexis Richer, Goetz Alexandre, Gady Emanuel
- * @version 3.4
+ * @version 3.4.2
  *
  * Labyrinthe du jeu
  */
@@ -389,7 +389,7 @@ public class Maze {
      */
     private void reset(){
         listMonsters.clear();
-        addScore(10);
+        addScore(150 + time/2);
         time = 60;
         //arrête le timer et le vide de ses tâches
         timer.cancel();
@@ -455,7 +455,7 @@ public class Maze {
      * @param score
      */
     public void addScore(int score) {
-      hero.addScore(10);
+      hero.addScore(score);
     }
 
 }

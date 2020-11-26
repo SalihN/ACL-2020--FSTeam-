@@ -14,7 +14,7 @@ import java.util.TimerTask;
 
 /**
  * @author Alexis Richer, Goetz Alexandre, Emanuel Gady
- * @version 1.3
+ * @version 1.3.1
  *
  * Monstre present dans le labyrinthe
  */
@@ -73,7 +73,7 @@ public abstract class Monster extends MovingObject {
     public void action(Hero hero) throws IOException {
         if(!hero.isInvincible() && !hero.isCatched()) {
             hero.getStats().hit(1);
-            hero.addScore(-2);
+            hero.addScore(-20);
             hero.setInvincible(true);
 
             Timer timer = new Timer();
