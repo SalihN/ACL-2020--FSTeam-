@@ -8,18 +8,10 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * @author Alexis Richer,
- * @version 1.0.0
- *
- * Case ralentissant les monstres
- */
-
-public class SlowFloor extends ActivateFloor {
-
-    public SlowFloor(Point p, int w, int h) throws IOException {
+public class ScoreFloor extends ActivateFloor {
+    public ScoreFloor(Point p, int w, int h) throws IOException {
         super(p, w, h);
-        im = ImageIO.read(new File("resources/images/slowfloor.png"));
+        im = ImageIO.read(new File("resources/images/scorefloor.png"));
     }
 
     @Override
@@ -27,7 +19,7 @@ public class SlowFloor extends ActivateFloor {
         if(!isActivate) {
             isActivate = true;
             desactivate();
-            maze.slowMonsters(10, 2);
+            Hero.score += 5;
         }
     }
 

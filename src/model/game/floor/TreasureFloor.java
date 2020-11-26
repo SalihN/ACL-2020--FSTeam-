@@ -23,7 +23,7 @@ public class TreasureFloor extends ActivateFloor {
 
     @Override
     public void activate(Hero hero, Maze maze) throws IOException {
-        if(!isActivate && !hero.isCatched()) {
+        if(!isActivate) {
             isActivate = true;
             desactivate();
             maze.nextLevel();

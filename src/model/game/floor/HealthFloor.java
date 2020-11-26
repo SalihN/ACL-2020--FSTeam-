@@ -27,7 +27,7 @@ public class HealthFloor extends ActivateFloor {
      * Fonction qui heal le héros quand il marche dessus
      */
     public void activate(Hero hero, Maze maze) throws IOException {
-        if(!isActivate && !hero.isCatched()) {
+        if(!isActivate) {
             isActivate = true;
             hero.getStats().heal(1);
             desactivate();

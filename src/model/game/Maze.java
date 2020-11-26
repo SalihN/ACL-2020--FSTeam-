@@ -203,6 +203,10 @@ public class Maze {
                             listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
                             listMonsters.add(new KidnapMonster(new Point(x,y), spriteRatioW, spriteRatioH));
                             break;
+                        //Score
+                        case 'c':
+                            listFloor[i][j] = new ScoreFloor(new Point(x,y), tileWidth, tileHeight);
+                            break;
                         default:
                             listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
                     }
@@ -288,7 +292,7 @@ public class Maze {
         hero.move(commande,this);
 
         // Vérifie si un sol a été activé
-        if(getFloor(hero.getPosition().x, hero.getPosition().y).isActivateFloor()){
+        if(getFloor(hero.getPosition().x, hero.getPosition().y).isActivateFloor() && !hero.isCatched()){
             ActivateFloor activateFloor = (ActivateFloor) getFloor(hero.getPosition().x, hero.getPosition().y);
             activateFloor.activate(hero, this);
         }
