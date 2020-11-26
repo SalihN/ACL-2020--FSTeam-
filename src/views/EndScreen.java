@@ -3,6 +3,8 @@ package views;
 import engine.Cmd;
 import model.PacmanGame;
 import model.PacmanPainter;
+import model.game.Hero;
+import model.game.Maze;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -11,8 +13,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author Goetz Alexandre
- * @version 1.0.0
+ * @author Goetz Alexandre, Gady Emanuel
+ * @version 1.0.1
  */
 public class EndScreen implements GameScreen{
 
@@ -66,6 +68,8 @@ public class EndScreen implements GameScreen{
         if(stateDisplayed.equals("victory"))
             message += "won";
         crayon.drawString(message,(PacmanPainter.tileWidth / 2) - (message.length() * sizeOfPolice / 4) , PacmanPainter.tileHeight * 0.3f  );
+        crayon.drawString(Integer.toString(Hero.score),(PacmanPainter.tileWidth /2) - sizeOfPolice, PacmanPainter.tileHeight/2.5f);
+
 
         for(Option option : Option.values()){
             checkColorOption(option,crayon);
@@ -102,7 +106,6 @@ public class EndScreen implements GameScreen{
             if(currentOption == Option.QUIT)
                 game.setCurrentState(PacmanGame.GameState.Quit);
             if(currentOption == Option.RETRY) {
-                PacmanGame.cpt = 0;
                 game.setCurrentState(PacmanGame.GameState.Maze);
             }
             if(currentOption == Option.MENU) {

@@ -11,8 +11,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author Goetz Alexandre
- * @version 1.0.0
+ * @author Goetz Alexandre, Gady Emanuel
+ * @version 1.0.1
  */
 public class MenuScreen implements GameScreen{
 
@@ -43,7 +43,6 @@ public class MenuScreen implements GameScreen{
         currentOption = Option.PLAY;
         this.game = game;
         // Comme c'est le menu principale on s'assure de revenir au premier niveau
-        PacmanGame.cpt = 0;
     }
 
     /**

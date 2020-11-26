@@ -9,8 +9,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author Goetz Alexandre
- * @version 1.0
+ * @author Goetz Alexandre, Gady Emanuel
+ * @version 1.0.1
  *
  * Monstre qui ramène le heros au debut du labyrinthe
  */
@@ -75,6 +75,7 @@ public class KidnapMonster extends Monster {
             heroPreviousSpeed = hero.getStats().getSpeed();
             hero.getStats().setSpeed(catchedSpeed);
             hero.setCatched(true);
+            hero.addScore(-1);
         }
     }
 }

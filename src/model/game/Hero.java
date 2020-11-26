@@ -9,7 +9,7 @@ import java.io.IOException;
 
 /**
  * @author Alexis Richer, Emanuel Gady, Goetz Alexandre
- * @version 1.0.1
+ * @version 1.1.0
  *
  * Heros present dans le labyrinthe
  */
@@ -21,6 +21,8 @@ public class Hero extends MovingObject {
     private final File image;
     private final File image2;
 
+    public static int score;
+
     private int timeOfInvincibility; //En millisecondes
 
     public Hero() throws IOException {
@@ -29,6 +31,7 @@ public class Hero extends MovingObject {
         position = new Point(0,0);
         width = 20;
         height = 20;
+        score = 0;
 
         isInvincible = false;
         isCatched = false;
@@ -65,6 +68,21 @@ public class Hero extends MovingObject {
         if(this.checkWall(x,y,maze) && !isCatched){
             moveTo(x,y,maze);
         }
+    }
+
+    /**
+     * Ajoute du score
+     * @param score
+     */
+    public void addScore(int score) {
+        this.score += score;
+    }
+
+    /**
+     * Réinitialise le compteur de score
+     */
+    public void resetScore(){
+        this.score = 0;
     }
 
     /**
@@ -135,5 +153,9 @@ public class Hero extends MovingObject {
      */
     public void setCatched(boolean catched) {
         isCatched = catched;
+    }
+
+    public int getScore() {
+        return score;
     }
 }

@@ -17,7 +17,7 @@ import java.util.TimerTask;
 
 /**
  * @author Alexis Richer, Goetz Alexandre, Gady Emanuel
- * @version 3.3
+ * @version 3.4
  *
  * Labyrinthe du jeu
  */
@@ -38,7 +38,7 @@ public class Maze {
     private int sizeOfPolice = 24;
     Font font = new Font("TimesRoman", Font.BOLD, sizeOfPolice);
 
-    private static int cpt;
+    private int cpt;
 
     /**
      * Constructeur labyrinthe
@@ -250,6 +250,7 @@ public class Maze {
         crayon.setColor(Color.red);
         crayon.setFont(font);
         crayon.drawString(Integer.toString(time), getWidth()/2 - sizeOfPolice/2 , sizeOfPolice);
+        crayon.drawString(Integer.toString(hero.getScore()),sizeOfPolice/2, sizeOfPolice);
 
         //Affiche la barre de vie juste en dessous du heros
         float ratioVieVieMax = (float) hero.getStats().getHp() / (float) hero.getStats().getHpMax();
@@ -384,6 +385,7 @@ public class Maze {
      */
     private void reset(){
         listMonsters.clear();
+        addScore(10);
         time = 60;
         //arrête le timer et le vide de ses tâches
         timer.cancel();
@@ -443,4 +445,13 @@ public class Maze {
     public boolean isVictory() {
         return isVictory;
     }
+
+    /**
+     * Ajoute des points de score
+     * @param score
+     */
+    public void addScore(int score) {
+      hero.addScore(10);
+    }
+
 }
