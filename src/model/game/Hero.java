@@ -20,7 +20,9 @@ public class Hero extends MovingObject {
     private boolean isCatched;
     private final File image;
     private final File image2;
-
+    private enum Orientation{UP,DOWN,RIGHT,LEFT}
+    private Orientation orientation;
+    private double animeCap;
     public static int score;
 
     private int timeOfInvincibility; //En millisecondes
@@ -32,14 +34,17 @@ public class Hero extends MovingObject {
         width = 20;
         height = 20;
         score = 0;
+        nbAnimation=16;
+        orientation = Orientation.DOWN;
+        animeCap = System.currentTimeMillis();
 
         isInvincible = false;
         isCatched = false;
 
         timeOfInvincibility = 500;
 
-        image = new File("resources/images/hero.png");
-        image2 = new File("resources/images/heroInvincible.png");
+        image = new File("resources/images/newhero.png");
+        image2 = new File("resources/images/newheroinvincible.png");
 
         im = ImageIO.read(image);
     }
@@ -53,7 +58,7 @@ public class Hero extends MovingObject {
         int x=0;
         int y=0;
 
-        if(commande == Cmd.UP){
+        if(commande == Cmd.UP) {
             y -= this.getStats().getSpeed();
         }
         if(commande == Cmd.DOWN){
@@ -65,8 +70,54 @@ public class Hero extends MovingObject {
         if(commande == Cmd.RIGHT){
             x +=  this.getStats().getSpeed();
         }
+        if(System.currentTimeMillis() - animeCap > 1000/12) {
+            updateAnimation(commande);
+            animeCap = System.currentTimeMillis();
+        }
+
         if(this.checkWall(x,y,maze) && !isCatched){
             moveTo(x,y,maze);
+        }
+    }
+
+    private void updateAnimation(Cmd commande){
+        if(commande == Cmd.UP){
+            orientation = Orientation.UP;
+            if(currentAnimation == 10)
+                currentAnimation = 11;
+            else
+                currentAnimation = 10;
+        }
+        if(commande == Cmd.DOWN){
+            orientation = Orientation.DOWN;
+            if(currentAnimation == 1)
+                currentAnimation = 2;
+            else
+                currentAnimation = 1;
+        }
+        if(commande == Cmd.LEFT){
+            if(currentAnimation == 7)
+                currentAnimation = 8;
+            else
+                currentAnimation = 7;
+        }
+        if(commande == Cmd.RIGHT){
+            orientation = Orientation.RIGHT;
+            if(currentAnimation == 4)
+                currentAnimation = 5;
+            else
+                currentAnimation = 4;
+        }
+        if(commande == Cmd.IDLE){
+            if(orientation == Orientation.UP)
+                currentAnimation = 9;
+            if(orientation == Orientation.DOWN)
+                currentAnimation = 0;
+            if(orientation == Orientation.LEFT)
+                currentAnimation = 6;
+            if(orientation == Orientation.RIGHT)
+                currentAnimation = 5;
+
         }
     }
 
@@ -75,7 +126,7 @@ public class Hero extends MovingObject {
      * @param score
      */
     public void addScore(int score) {
-        this.score += score;
+        this.score = Math.max(0,this.score + score);
     }
 
     /**

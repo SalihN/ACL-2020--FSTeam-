@@ -60,7 +60,7 @@ public class GameEngineGraphical {
 		// boucle de game
 		while (!this.game.isFinished()) {
 			// drawing of the screen every 0.016s = 16.6ms
-			if(System.currentTimeMillis() - fpsCap > (1000/80)) {
+			if(System.currentTimeMillis() - fpsCap > (1000/60)) {
 				// demande controle utilisateur
 				Cmd c = this.gameController.getCommand();
 				// fait evoluer le game

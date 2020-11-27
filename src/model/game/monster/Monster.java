@@ -28,8 +28,20 @@ public abstract class Monster extends MovingObject {
         this.width = width;
         this.height = height;
         canMove = true;
+        this.nbAnimation = 2;
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                swapanime();
+            }
+        },0,500);
     }
 
+    public void swapanime(){
+        if(canMove)
+            currentAnimation = (currentAnimation + 1)%nbAnimation;
+    }
     /**
      * Permet de faire se deplacer un monstre dans le labyrinthe
      * @param maze Labyrinthe dans lequel le monstre évolue

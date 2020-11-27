@@ -306,12 +306,6 @@ public class Maze {
                 monster.action(hero);
             }
         }
-
-        // Vérification de l'état du héro
-        if(hero.isDead()){
-            //todo Retourner un menu du jeu
-            hero.getStats().setSpeed(0); //Actuellement, une fois le heros mort il ne peut plus bouger
-        }
     }
 
     /**

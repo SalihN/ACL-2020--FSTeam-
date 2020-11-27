@@ -2,6 +2,9 @@ package model.game;
 
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 
 /**
  * @author Alexis Richer, Goetz Alexandre
@@ -12,6 +15,30 @@ import java.awt.*;
 
 public abstract class MovingObject extends GameObject {
     protected Stats stats;
+    protected int currentAnimation;
+    protected int nbAnimation;
+    public MovingObject() {
+        currentAnimation = 0;
+        nbAnimation = 1;
+    }
+
+    @Override
+    public void draw(BufferedImage im) {
+        Graphics2D crayon = (Graphics2D) im.getGraphics();
+        crayon.drawImage(
+                this.im.getSubimage((this.im.getWidth()/ nbAnimation) * currentAnimation,0,this.im.getWidth() / nbAnimation,this.im.getHeight()),
+                position.x-(width/2),position.y-(height/2),
+                width,height,
+                null);
+    }
+
+    public int getCurrentAnimation() {
+        return currentAnimation;
+    }
+
+    public void setCurrentAnimation(int currentAnimation) {
+        this.currentAnimation = currentAnimation;
+    }
 
     public Stats getStats() {
         return stats;
