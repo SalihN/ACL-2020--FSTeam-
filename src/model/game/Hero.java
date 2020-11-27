@@ -96,6 +96,7 @@ public class Hero extends MovingObject {
                 currentAnimation = 1;
         }
         if(commande == Cmd.LEFT){
+            orientation = Orientation.LEFT;
             if(currentAnimation == 7)
                 currentAnimation = 8;
             else
@@ -116,7 +117,7 @@ public class Hero extends MovingObject {
             if(orientation == Orientation.LEFT)
                 currentAnimation = 6;
             if(orientation == Orientation.RIGHT)
-                currentAnimation = 5;
+                currentAnimation = 3;
 
         }
     }
