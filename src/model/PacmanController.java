@@ -1,6 +1,6 @@
 package model;
 
-import java.awt.event.InputEvent;
+
 import java.awt.event.KeyEvent;
 
 import engine.Cmd;
@@ -72,6 +72,9 @@ public class PacmanController implements GameController {
 				break;
 			case KeyEvent.VK_ENTER:
 				this.commandeEnCours = Cmd.ENTRER;
+				break;
+			case KeyEvent.VK_SPACE:
+				this.commandeEnCours = Cmd.SPACE;
 				break;
 		}
 	}

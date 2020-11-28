@@ -17,7 +17,7 @@ import java.util.TimerTask;
 
 /**
  * @author Alexis Richer, Goetz Alexandre, Gady Emanuel
- * @version 3.4.2
+ * @version 3.5.0
  *
  * Labyrinthe du jeu
  */
@@ -27,8 +27,8 @@ public class Maze {
     private Collection<Monster> listMonsters;
     private int labyHeight, labyWidth;
     //TILE SIZE
-    public  int tileWidth = 32;
-    public  int tileHeight = 32;
+    public int tileWidth = 32;
+    public int tileHeight = 32;
     private boolean isVictory;
 
     private BufferedImage life;
@@ -265,7 +265,7 @@ public class Maze {
                 null
         );
 
-        // Affichage du héro
+        // Affichage du héros et des boules de feu
         hero.draw(im);
 
         // drawMiddleCross(crayon);
@@ -306,6 +306,7 @@ public class Maze {
                 monster.action(hero);
             }
         }
+        hero.moveFireball(this);
     }
 
     /**

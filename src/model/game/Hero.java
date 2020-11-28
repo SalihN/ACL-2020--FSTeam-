@@ -4,12 +4,16 @@ import engine.Cmd;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * @author Alexis Richer, Emanuel Gady, Goetz Alexandre
- * @version 1.1.0
+ * @version 2.0.0
  *
  * Heros present dans le labyrinthe
  */
@@ -20,10 +24,14 @@ public class Hero extends MovingObject {
     private boolean isCatched;
     private final File image;
     private final File image2;
-    private enum Orientation{UP,DOWN,RIGHT,LEFT}
+
+    public enum Orientation{UP,DOWN,RIGHT,LEFT}
     private Orientation orientation;
     private double animeCap;
     public static int score;
+
+
+    private Collection<FireBall> fireBalls;
 
     private int timeOfInvincibility; //En millisecondes
 
@@ -47,6 +55,8 @@ public class Hero extends MovingObject {
         image2 = new File("resources/images/newheroinvincible.png");
 
         im = ImageIO.read(image);
+
+        fireBalls = new ArrayList<>();
     }
 
     /**
@@ -54,7 +64,7 @@ public class Hero extends MovingObject {
      * @param commande commande reçu par le clavier
      * @param maze labyrinthe dans lequel le héro évolue
      */
-    public void move(Cmd commande, Maze maze){
+    public void move(Cmd commande, Maze maze) throws IOException {
         int x=0;
         int y=0;
 
@@ -70,11 +80,13 @@ public class Hero extends MovingObject {
         if(commande == Cmd.RIGHT){
             x +=  this.getStats().getSpeed();
         }
+        if(commande == Cmd.SPACE){
+            fireBalls.add(new FireBall(this,position.x,position.y));
+        }
         if(System.currentTimeMillis() - animeCap > 1000/12) {
             updateAnimation(commande);
             animeCap = System.currentTimeMillis();
         }
-
         if(this.checkWall(x,y,maze) && !isCatched){
             moveTo(x,y,maze);
         }
@@ -122,6 +134,15 @@ public class Hero extends MovingObject {
         }
     }
 
+    @Override
+    public void draw(BufferedImage im) {
+        super.draw(im);
+        for(FireBall f : fireBalls){
+            f.draw(im);
+        }
+    }
+
+
     /**
      * Ajoute du score
      * @param score
@@ -135,6 +156,23 @@ public class Hero extends MovingObject {
      */
     public void resetScore(){
         this.score = 0;
+    }
+
+
+    /**
+     * Permet de faire bouger les boules de feu
+     * @param maze
+     */
+    public void moveFireball(Maze maze){
+        Iterator iterator = fireBalls.iterator();
+        while (iterator.hasNext()){
+            FireBall f = (FireBall) iterator.next();
+            if(!f.isDestroyed()) {
+                f.move(maze);
+            } else {
+                iterator.remove();
+            }
+        }
     }
 
     /**
@@ -209,5 +247,12 @@ public class Hero extends MovingObject {
 
     public int getScore() {
         return score;
+    }
+
+    /**
+     * @return la direction dans laquelle regarde le heros
+     */
+    public Orientation getOrientation() {
+        return orientation;
     }
 }
