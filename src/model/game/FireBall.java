@@ -1,20 +1,23 @@
 package model.game;
 
 
+import model.game.monster.Monster;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
- * @author Gady Emanuel
- * @version 1.0.0
+ * @author Gady Emanuel, Richer Alexis
+ * @version 2.0.0
  *
  * Classe qui représente une boule de feu tirée par le héros
  */
 public class FireBall extends MovingObject{
-
     private Hero hero;
     private boolean destroyed;
     private Hero.Orientation orientation;
@@ -23,12 +26,20 @@ public class FireBall extends MovingObject{
         this.hero = hero;
         im = ImageIO.read(new File("resources/images/fireball.png"));
         position = new Point(x,y);
-        width = hero.getWidth()/4;
-        height = hero.getHeight()/4;
+        width = hero.getWidth();
+        height = hero.getHeight();
         stats = new Stats(0,5);
         destroyed = false;
         orientation = hero.getOrientation();
 
+        this.nbAnimation = 29;
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                swapanime();
+            }
+        },0,20);
     }
 
     /**
@@ -61,6 +72,18 @@ public class FireBall extends MovingObject{
         else {
             moveTo(x,y,maze);
         }
+
+        for(Monster monster : maze.getListMonsters()){
+            if (monster.checkCollision(this)){
+                monster.setAlive(false);
+                destroyed = true;
+                hero.addScore(10);
+            }
+        }
+    }
+
+    private void swapanime(){
+            currentAnimation = (currentAnimation + 1)%nbAnimation;
     }
 
     public boolean isDestroyed() {

@@ -14,13 +14,14 @@ import java.util.TimerTask;
 
 /**
  * @author Alexis Richer, Goetz Alexandre, Emanuel Gady
- * @version 1.3.1
+ * @version 2.0
  *
  * Monstre present dans le labyrinthe
  */
 public abstract class Monster extends MovingObject {
     protected int moveValue = 1;
     protected boolean canMove;
+    private boolean isAlive;
 
     public Monster(Point point, int width, int height){
         this.stats = new Stats(1,3);
@@ -28,6 +29,8 @@ public abstract class Monster extends MovingObject {
         this.width = width;
         this.height = height;
         canMove = true;
+        isAlive = true;
+
         this.nbAnimation = 2;
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -38,7 +41,7 @@ public abstract class Monster extends MovingObject {
         },0,500);
     }
 
-    public void swapanime(){
+    private void swapanime(){
         if(canMove)
             currentAnimation = (currentAnimation + 1)%nbAnimation;
     }
@@ -127,4 +130,11 @@ public abstract class Monster extends MovingObject {
         this.canMove = canMove;
     }
 
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
 }

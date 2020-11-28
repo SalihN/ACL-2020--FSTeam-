@@ -1,7 +1,6 @@
 package model.game;
 
 import engine.Cmd;
-import model.PacmanGame;
 import model.PacmanPainter;
 import model.game.floor.*;
 import model.game.monster.*;
@@ -10,14 +9,11 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 /**
  * @author Alexis Richer, Goetz Alexandre, Gady Emanuel
- * @version 3.5.0
+ * @version 3.5.1
  *
  * Labyrinthe du jeu
  */
@@ -298,12 +294,18 @@ public class Maze {
         }
 
         //Déplacement  et collision des monstres
-        for(Monster monster : listMonsters) {
-            if (monster.isCanMove()) {
-                monster.move(this);
-            }
-            if(hero.checkCollision(monster)){
-                monster.action(hero);
+        Iterator iterator = listMonsters.iterator();
+        while (iterator.hasNext()){
+            Monster monster = (Monster) iterator.next();
+            if (monster.isAlive()) {
+                if (monster.isCanMove()) {
+                    monster.move(this);
+                }
+                if (hero.checkCollision(monster)) {
+                    monster.action(hero);
+                }
+            }else{
+                iterator.remove();
             }
         }
         hero.moveFireball(this);
@@ -443,6 +445,10 @@ public class Maze {
 
     public boolean isVictory() {
         return isVictory;
+    }
+
+    public Collection<Monster> getListMonsters() {
+        return listMonsters;
     }
 
     /**

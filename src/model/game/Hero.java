@@ -7,13 +7,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * @author Alexis Richer, Emanuel Gady, Goetz Alexandre
- * @version 2.0.0
+ * @version 2.0.1
  *
  * Heros present dans le labyrinthe
  */
@@ -32,6 +30,7 @@ public class Hero extends MovingObject {
 
 
     private Collection<FireBall> fireBalls;
+    private boolean launchedFireBall;
 
     private int timeOfInvincibility; //En millisecondes
 
@@ -57,6 +56,7 @@ public class Hero extends MovingObject {
         im = ImageIO.read(image);
 
         fireBalls = new ArrayList<>();
+        launchedFireBall = true;
     }
 
     /**
@@ -80,8 +80,17 @@ public class Hero extends MovingObject {
         if(commande == Cmd.RIGHT){
             x +=  this.getStats().getSpeed();
         }
-        if(commande == Cmd.SPACE){
-            fireBalls.add(new FireBall(this,position.x,position.y));
+        if(commande == Cmd.SPACE && launchedFireBall && !isCatched){
+            fireBalls.add(new FireBall(this,position.x, position.y));
+            launchedFireBall = false;
+            Timer timer = new Timer();
+            TimerTask decount = new TimerTask() {
+                @Override
+                public void run() {
+                    launchedFireBall = true;
+                }
+            };
+            timer.schedule(decount, 500);
         }
         if(System.currentTimeMillis() - animeCap > 1000/12) {
             updateAnimation(commande);
