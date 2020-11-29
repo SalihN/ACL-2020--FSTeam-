@@ -30,6 +30,7 @@ public class HealthFloor extends ActivateFloor {
         if(!isActivate) {
             isActivate = true;
             hero.getStats().heal(1);
+            Maze.sound("heal.wav");
             desactivate();
             Timer timer = new Timer();
             TimerTask decount = new TimerTask() {

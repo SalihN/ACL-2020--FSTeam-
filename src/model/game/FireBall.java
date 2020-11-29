@@ -74,7 +74,7 @@ public class FireBall extends MovingObject{
         }
 
         for(Monster monster : maze.getListMonsters()){
-            if (monster.checkCollision(this)){
+            if (monster.checkCollision(this) && !hero.isCatched()){
                 monster.setAlive(false);
                 destroyed = true;
                 hero.addScore(10);
