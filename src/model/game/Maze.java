@@ -285,7 +285,7 @@ public class Maze {
      */
     public void update(Cmd commande) throws IOException {
         //Déplacement du héro
-        hero.move(commande,this);
+        hero.action(commande,this);
 
         // Vérifie si un sol a été activé
         if(getFloor(hero.getPosition().x, hero.getPosition().y).isActivateFloor() && !hero.isCatched()){

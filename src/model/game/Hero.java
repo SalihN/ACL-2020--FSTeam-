@@ -15,6 +15,7 @@ import java.util.*;
  *
  * Heros present dans le labyrinthe
  */
+
 public class Hero extends MovingObject {
 
     private Point heroStartingPos;
@@ -64,7 +65,7 @@ public class Hero extends MovingObject {
      * @param commande commande reçu par le clavier
      * @param maze labyrinthe dans lequel le héro évolue
      */
-    public void move(Cmd commande, Maze maze) throws IOException {
+    public void action(Cmd commande, Maze maze) throws IOException {
         int x=0;
         int y=0;
 
