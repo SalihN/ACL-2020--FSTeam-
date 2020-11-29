@@ -42,6 +42,9 @@ public class EndScreen implements GameScreen{
         else{
             stateDisplayed = "lost";
         }
+        if(stateDisplayed.equals("victory")){
+            Maze.sound("victory.wav");
+        }
         background = ImageIO.read(new File("resources/images/"+ stateDisplayed +".png"));
         font = new Font("TimesRoman", Font.BOLD,sizeOfPolice);
         currentOption = Option.RETRY;
@@ -65,8 +68,9 @@ public class EndScreen implements GameScreen{
         String message = "You ";
         if(stateDisplayed.equals("lost"))
             message += stateDisplayed;
-        if(stateDisplayed.equals("victory"))
+        if(stateDisplayed.equals("victory")) {
             message += "won";
+        }
         crayon.drawString(message,(PacmanPainter.tileWidth / 2) - (message.length() * sizeOfPolice / 4) , PacmanPainter.tileHeight * 0.3f  );
         crayon.drawString(Integer.toString(Hero.score),(PacmanPainter.tileWidth /2) - sizeOfPolice, PacmanPainter.tileHeight/2.5f);
 

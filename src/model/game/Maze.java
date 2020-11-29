@@ -6,6 +6,10 @@ import model.game.floor.*;
 import model.game.monster.*;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -58,6 +62,24 @@ public class Maze {
         };
         timer.schedule(decount, 100, 1000);
         cpt = 0;
+    }
+
+    /**
+     * Permet de jouer un son
+     * @param path chemin du son
+     */
+    public static void sound(String path){
+        try{
+            File file = new File("resources/sounds/"+path);
+            AudioInputStream ais = AudioSystem.getAudioInputStream(file);
+            DataLine.Info info = new DataLine.Info(Clip.class, ais.getFormat());
+            Clip clip = (Clip) AudioSystem.getLine(info);
+            clip.open(ais);
+            clip.start();
+        } catch (Exception e){
+            System.out.println("check "+path+"\n");
+            e.printStackTrace();
+        }
     }
 
     /**

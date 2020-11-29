@@ -83,6 +83,7 @@ public class Hero extends MovingObject {
         }
         if(commande == Cmd.SPACE && launchedFireBall && !isCatched){
             fireBalls.add(new FireBall(this,position.x, position.y));
+            Maze.sound("fire.wav");
             launchedFireBall = false;
             Timer timer = new Timer();
             TimerTask decount = new TimerTask() {

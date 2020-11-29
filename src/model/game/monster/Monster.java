@@ -90,7 +90,7 @@ public abstract class Monster extends MovingObject {
             hero.getStats().hit(1);
             hero.addScore(-20);
             hero.setInvincible(true);
-
+            Maze.sound("ouf.wav");
             Timer timer = new Timer();
             TimerTask decount = new TimerTask() {
                 @Override

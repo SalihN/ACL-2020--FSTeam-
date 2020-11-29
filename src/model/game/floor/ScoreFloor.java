@@ -24,6 +24,7 @@ public class ScoreFloor extends ActivateFloor {
             isActivate = true;
             desactivate();
             Hero.score += 5;
+            Maze.sound("coin.wav");
         }
     }
 

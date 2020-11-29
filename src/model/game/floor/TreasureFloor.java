@@ -27,6 +27,7 @@ public class TreasureFloor extends ActivateFloor {
             isActivate = true;
             desactivate();
             maze.nextLevel();
+            Maze.sound("treasure.wav");
         }
     }
 

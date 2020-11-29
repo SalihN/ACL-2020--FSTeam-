@@ -78,6 +78,7 @@ public class FireBall extends MovingObject{
                 monster.setAlive(false);
                 destroyed = true;
                 hero.addScore(10);
+                Maze.sound("monster_death.wav");
             }
         }
     }
