@@ -1,7 +1,6 @@
 package views;
 
 import engine.Cmd;
-import engine.GameController;
 import model.PacmanGame;
 import model.PacmanPainter;
 
@@ -11,13 +10,18 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Nascimento Salih, Richer Alexis
+ * @version 1.0.1
+ */
+
 public class OptionScreen implements GameScreen {
 
     private final BufferedImage background;
 
     private final int sizeOfPolice = 40;
     enum Option{
-        ZQSD, WASD, RETOUR;
+        ZQSD, WASD, BACK;
         private static OptionScreen.Option[] vals = values();
         public OptionScreen.Option getNext() {
             return OptionScreen.Option.values()[(this.ordinal()+1) % vals.length];
@@ -26,10 +30,10 @@ public class OptionScreen implements GameScreen {
             return OptionScreen.Option.values()[this.ordinal()-1 >= 0  ? this.ordinal()-1 : vals.length - 1];
         }
     }
-    OptionScreen.Option currentOption;
-    OptionScreen.Option chosenMode;
-    Font font;
-    PacmanGame game;
+    private OptionScreen.Option currentOption;
+    private OptionScreen.Option chosenMode;
+    private Font font;
+    private PacmanGame game;
 
     /**
      * Menu de début de jeu
@@ -87,7 +91,7 @@ public class OptionScreen implements GameScreen {
                 game.qwertyMode();
                 chosenMode = Option.WASD;
             }
-            if(currentOption == Option.RETOUR){
+            if(currentOption == Option.BACK){
                 game.setCurrentState(PacmanGame.GameState.MainMenu);
             }
         }

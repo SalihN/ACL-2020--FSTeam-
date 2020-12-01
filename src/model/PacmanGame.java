@@ -21,6 +21,7 @@ public class PacmanGame implements Game {
 	}
 	private GameState currentState;
 	private PacmanController.KeyboardMode chosenMode;
+	private OptionScreen optionScreen;
 
 
 	/**
@@ -31,6 +32,7 @@ public class PacmanGame implements Game {
 		currentScreen = new MenuScreen(this);
 		currentState = GameState.MainMenu;
 		chosenMode = PacmanController.KeyboardMode.AZERTY;
+		optionScreen = new OptionScreen(this);
 	}
 
 	/**
@@ -93,7 +95,7 @@ public class PacmanGame implements Game {
 		if(currentState == GameState.MainMenu)
 			currentScreen = new MenuScreen(this);
 		if(currentState == GameState.OptionMenu)
-			currentScreen = new OptionScreen(this);
+			currentScreen = optionScreen;
 	}
 
 	/**

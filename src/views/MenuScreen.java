@@ -20,7 +20,7 @@ public class MenuScreen implements GameScreen{
 
     private final int sizeOfPolice = 40;
     enum Option{
-        PLAY, CONTRÔLES, QUIT;
+        PLAY, CONTROLS, QUIT;
         private static Option[] vals = values();
         public Option getNext() {
             return Option.values()[(this.ordinal()+1) % vals.length];
@@ -83,7 +83,7 @@ public class MenuScreen implements GameScreen{
             if(currentOption == Option.PLAY){
                 game.setCurrentState(PacmanGame.GameState.Maze);
             }
-            if(currentOption == Option.CONTRÔLES){
+            if(currentOption == Option.CONTROLS){
                 game.setCurrentState(PacmanGame.GameState.OptionMenu);
             }
             if(currentOption == Option.QUIT){
