@@ -111,4 +111,6 @@ public class HeroTest {
         hero.moveFireball(maze);
         assertEquals(0, hero.getNbFireBalls());
     }
+
+
 }
