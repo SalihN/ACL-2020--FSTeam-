@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
 
+/**
+ * @author Richer Alexis
+ * @version 1.0.1
+ */
+
 public class HeroTest {
     private Hero hero;
     private Maze maze;
