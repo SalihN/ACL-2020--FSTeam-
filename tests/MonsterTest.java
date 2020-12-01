@@ -1,5 +1,3 @@
-package tests;
-
 import engine.Cmd;
 import model.game.FireBall;
 import model.game.Hero;

@@ -159,14 +159,14 @@ public class Hero extends MovingObject {
      * @param score
      */
     public void addScore(int score) {
-        this.score = Math.max(0,this.score + score);
+        Hero.score = Math.max(0, Hero.score + score);
     }
 
     /**
      * Réinitialise le compteur de score
      */
     public void resetScore(){
-        this.score = 0;
+        score = 0;
     }
 
 
