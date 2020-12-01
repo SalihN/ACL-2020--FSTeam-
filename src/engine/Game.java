@@ -23,4 +23,10 @@ public interface Game {
 	 */
 	public boolean isFinished();
 
+	/**
+	 *
+	 * @return mode actuel des contrôles
+	 */
+	public GameController.KeyboardMode getChosenMode();
+
 }

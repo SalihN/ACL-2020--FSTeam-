@@ -61,6 +61,7 @@ public class GameEngineGraphical {
 		while (!this.game.isFinished()) {
 			// drawing of the screen every 0.016s = 16.6ms
 			if(System.currentTimeMillis() - fpsCap > (1000/60)) {
+				this.gameController.setCurrentMode(game.getChosenMode());
 				// demande controle utilisateur
 				Cmd c = this.gameController.getCommand();
 				// fait evoluer le game

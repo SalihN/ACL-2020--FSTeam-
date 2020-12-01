@@ -10,6 +10,10 @@ import java.awt.event.KeyListener;
  */
 public interface GameController extends KeyListener {
 
+	enum KeyboardMode{
+		AZERTY, QWERTY;
+	}
+
 	/**
 	 * quand on demande les commandes, le controleur retourne la commande en
 	 * cours
@@ -18,5 +22,10 @@ public interface GameController extends KeyListener {
 	 */
 	public Cmd getCommand();
 	public void setCommand(Cmd cmd);
+
+	/**
+	 * change le mode de contrôles du héros
+	 */
+	public void setCurrentMode(KeyboardMode keyboardMode);
 
 }
