@@ -266,4 +266,8 @@ public class Hero extends MovingObject {
     public Orientation getOrientation() {
         return orientation;
     }
+
+    public int getNbFireBalls() {
+        return fireBalls.size();
+    }
 }

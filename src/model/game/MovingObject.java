@@ -76,7 +76,7 @@ public abstract class MovingObject extends GameObject {
      * Réctification à faire quand le déplacement est plus petit que la vitesse
      * @param p Point à atteindre
      */
-    protected void moveCorrection(Point p){
+    private void moveCorrection(Point p){
         if(Math.abs(position.x - p.x) < getStats().getSpeed() || Math.abs(position.x + p.x) < getStats().getSpeed() ){
             position.x = p.x;
         }
