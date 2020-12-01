@@ -4,10 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import engine.Cmd;
 import engine.Game;
-import views.EndScreen;
-import views.GameScreen;
-import views.MazeScreen;
-import views.MenuScreen;
+import engine.GameController;
+import views.*;
 
 /**
  * @author Horatiu Cirstea, Vincent Thomas
@@ -19,9 +17,10 @@ import views.MenuScreen;
 public class PacmanGame implements Game {
 	private GameScreen currentScreen;
 	public enum GameState{
-		Maze,MainMenu,Pause,Victory,Lost,Quit
+		Maze,MainMenu, OptionMenu, Pause,Victory,Lost,Quit
 	}
 	private GameState currentState;
+	private PacmanController.KeyboardMode chosenMode;
 
 
 	/**
@@ -31,6 +30,7 @@ public class PacmanGame implements Game {
 	public PacmanGame() throws IOException {
 		currentScreen = new MenuScreen(this);
 		currentState = GameState.MainMenu;
+		chosenMode = PacmanController.KeyboardMode.AZERTY;
 	}
 
 	/**
@@ -58,6 +58,7 @@ public class PacmanGame implements Game {
 	public boolean isFinished() {
 		return currentState == GameState.Quit;
 	}
+
 
 	/**
 	 *
@@ -91,5 +92,27 @@ public class PacmanGame implements Game {
 			currentScreen = new EndScreen(this,"Victory");
 		if(currentState == GameState.MainMenu)
 			currentScreen = new MenuScreen(this);
+		if(currentState == GameState.OptionMenu)
+			currentScreen = new OptionScreen(this);
 	}
+
+	/**
+	 * Mode actuel des contrôles en ZQSD
+	 */
+	public void azertyMode(){
+		chosenMode = PacmanController.KeyboardMode.AZERTY;
+	}
+
+	/**
+	 * Mode actuel des contrôles en WASD
+	 */
+	public void qwertyMode(){
+		chosenMode = PacmanController.KeyboardMode.QWERTY;
+	}
+
+	@Override
+	public GameController.KeyboardMode getChosenMode() {
+		return chosenMode;
+	}
+
 }

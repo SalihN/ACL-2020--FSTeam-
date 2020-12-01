@@ -5,6 +5,8 @@ import java.awt.event.KeyEvent;
 
 import engine.Cmd;
 import engine.GameController;
+import views.MenuScreen;
+import views.OptionScreen;
 
 
 /**
@@ -14,6 +16,8 @@ import engine.GameController;
  * 
  */
 public class PacmanController implements GameController {
+
+	private KeyboardMode currentMode;
 
 	/**
 	 * commande en cours
@@ -25,6 +29,7 @@ public class PacmanController implements GameController {
 	 */
 	public PacmanController() {
 		this.commandeEnCours = Cmd.IDLE;
+		currentMode = KeyboardMode.AZERTY;
 	}
 
 	/**
@@ -46,36 +51,67 @@ public class PacmanController implements GameController {
 		this.commandeEnCours = cmd;
 	}
 
+
 	@Override
 	/**
 	 * met a jour les commandes en fonctions des touches appuyees
 	 */
 	public void keyPressed(KeyEvent e) {
-		switch (e.getKeyCode()) {
-			case KeyEvent.VK_Q:
-				this.commandeEnCours = Cmd.LEFT;
-				break;
-			case KeyEvent.VK_D:
-				this.commandeEnCours = Cmd.RIGHT;
-				break;
-			case KeyEvent.VK_S:
-				this.commandeEnCours = Cmd.DOWN;
-				break;
-			case KeyEvent.VK_Z:
-				this.commandeEnCours = Cmd.UP;
-				break;
-			case KeyEvent.VK_UP:
-				this.commandeEnCours = Cmd.MENU_UP;
-				break;
-			case KeyEvent.VK_DOWN:
-				this.commandeEnCours = Cmd.MENU_DOWN;
-				break;
-			case KeyEvent.VK_ENTER:
-				this.commandeEnCours = Cmd.ENTRER;
-				break;
-			case KeyEvent.VK_SPACE:
-				this.commandeEnCours = Cmd.SPACE;
-				break;
+		if(currentMode == KeyboardMode.AZERTY) {
+			switch (e.getKeyCode()) {
+				case KeyEvent.VK_Q:
+					this.commandeEnCours = Cmd.LEFT;
+					break;
+				case KeyEvent.VK_D:
+					this.commandeEnCours = Cmd.RIGHT;
+					break;
+				case KeyEvent.VK_S:
+					this.commandeEnCours = Cmd.DOWN;
+					break;
+				case KeyEvent.VK_Z:
+					this.commandeEnCours = Cmd.UP;
+					break;
+				case KeyEvent.VK_UP:
+					this.commandeEnCours = Cmd.MENU_UP;
+					break;
+				case KeyEvent.VK_DOWN:
+					this.commandeEnCours = Cmd.MENU_DOWN;
+					break;
+				case KeyEvent.VK_ENTER:
+					this.commandeEnCours = Cmd.ENTRER;
+					break;
+				case KeyEvent.VK_SPACE:
+					this.commandeEnCours = Cmd.SPACE;
+					break;
+			}
+		}
+		else {
+			switch (e.getKeyCode()) {
+				case KeyEvent.VK_A:
+					this.commandeEnCours = Cmd.LEFT;
+					break;
+				case KeyEvent.VK_D:
+					this.commandeEnCours = Cmd.RIGHT;
+					break;
+				case KeyEvent.VK_S:
+					this.commandeEnCours = Cmd.DOWN;
+					break;
+				case KeyEvent.VK_W:
+					this.commandeEnCours = Cmd.UP;
+					break;
+				case KeyEvent.VK_UP:
+					this.commandeEnCours = Cmd.MENU_UP;
+					break;
+				case KeyEvent.VK_DOWN:
+					this.commandeEnCours = Cmd.MENU_DOWN;
+					break;
+				case KeyEvent.VK_ENTER:
+					this.commandeEnCours = Cmd.ENTRER;
+					break;
+				case KeyEvent.VK_SPACE:
+					this.commandeEnCours = Cmd.SPACE;
+					break;
+			}
 		}
 	}
 
@@ -92,5 +128,9 @@ public class PacmanController implements GameController {
 
 	}
 
+	@Override
+	public void setCurrentMode(KeyboardMode keyboardMode) {
+		currentMode = keyboardMode;
+	}
 
 }
