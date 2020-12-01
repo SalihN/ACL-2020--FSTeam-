@@ -38,7 +38,8 @@ ant compile
 Utilisez les flèches directionelles pour naviguer dans les menus et appuyer sur Entrer pour valider votre choix  
 
 #### Commandes du personnage et labyrinthe
-Utilisez les touches z,q,s,d pour se déplacer avec le personnage    
+Utilisez les touches z,q,s,d (ou w,a,s,d) pour se déplacer avec le personnage   
+Appuyez sur espace pour lancer une boule de feu 
 Parvenez à récupérer tous les trésors de tout les labyrinthe sans mourir et avant la fin du compte à rebours. Plusieurs bonus sont dispersés dans le labyrinthe pour vous aidez dans votre quête  
 Dans les menus utilisez z et q ou les flèches haut et bas pour se déplacer dans les menus  
 
@@ -73,6 +74,7 @@ Il faut utiliser les symboles suivant pour remplir le labyrinthe:
 * a : Gros monstre 
 * g : Monstre gardien
 * k : Monstre kidnappeur
+* c : Coins
 
 **/!\ Si par contre il manque des lignes le niveau ne se lancera pas**  
 Par contre si la taille d'une ligne ne correspond pas à la largeur donnée elle sera complétée avec des NormalFloor  

@@ -1,7 +1,7 @@
 15
 15
 nhwnngnnnnnnnnn
-hhwnnhthnnnnnnn
+hhwnnhthnnncnnn
 nwwnnnnnnnnnnnn
 nwnnnnnwwwwwwww
 nwnnnnngnnnnnnh
@@ -13,5 +13,5 @@ wnnnnnnnnnnnnnw
 wwwwnnnwnnnwwww
 wnnnnnwwwnnnnnw
 wwwwnnnwwnnwwww
-nnnnnnpnnnnnnnn
+nnccnnpnnnnnnnn
 knnnnnnnnnnnnnm
