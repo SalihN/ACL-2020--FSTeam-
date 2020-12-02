@@ -33,6 +33,7 @@ public class StatsTest {
     /**
      * Test de la fonction de dommage
      */
+    @Test
     public void testDamage(){
         //dommage >= aux points de vies
         stats.hit(stats.getHpMax() + 1);
