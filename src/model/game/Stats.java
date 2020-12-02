@@ -30,10 +30,10 @@ public class Stats {
      * @param heal nombre de point de vie rendu au personnage
      */
     public void heal(int heal){
-        while (hp < hpMax && heal !=0) {
-            hp += 1;
-            heal--;
-        }
+        if(hp + heal >= hpMax)
+            hp = hpMax;
+        else
+            hp = Math.max(1,hp+heal);
     }
 
     /**
@@ -41,8 +41,11 @@ public class Stats {
      * @param damage nombre de point de vie perdu par le personnage
      */
     public void hit (int damage){
-        if(hp - damage >= 0) {
-            hp -= damage;
+        if(damage < 0){
+            heal(damage);
+        }
+        else{
+         hp = Math.max(0,hp-damage);
         }
     }
 
