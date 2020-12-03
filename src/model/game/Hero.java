@@ -153,6 +153,27 @@ public class Hero extends MovingObject {
         }
     }
 
+    public void takeDammages() throws IOException {
+        if(!isInvincible() && !isCatched()){
+            getStats().hit(1);
+            addScore(-20);
+            setInvincible(true);
+            Maze.sound("ouf.wav");
+            Timer timer = new Timer();
+            TimerTask decount = new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        setInvincible(false);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            timer.schedule(decount, getTimeOfInvincibility());
+        }
+    }
+
 
     /**
      * Ajoute du score
@@ -174,7 +195,7 @@ public class Hero extends MovingObject {
      * Permet de faire bouger les boules de feu
      * @param maze
      */
-    public void moveFireball(Maze maze){
+    public void moveFireball(Maze maze) throws IOException {
         Iterator iterator = fireBalls.iterator();
         while (iterator.hasNext()){
             FireBall f = (FireBall) iterator.next();

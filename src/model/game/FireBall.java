@@ -19,7 +19,7 @@ import java.util.TimerTask;
  */
 public class FireBall extends MovingObject{
     private Hero hero;
-    private boolean destroyed;
+    protected boolean destroyed;
     private Hero.Orientation orientation;
 
     public FireBall(Hero hero ,int x, int y) throws IOException {
@@ -43,10 +43,10 @@ public class FireBall extends MovingObject{
     }
 
     /**
-     * Permet de faire se deplacer un monstre dans le labyrinthe
-     * @param maze Labyrinthe dans lequel le monstre évolue
+     * Permet de faire se deplacer une boule de feu dans le labyrinthe
+     * @param maze Labyrinthe dans lequel le joueur évolue
      */
-    public void move(Maze maze) {
+    public void move(Maze maze) throws IOException {
         int x = 0, y = 0;
 
         // RIGHT
@@ -83,7 +83,7 @@ public class FireBall extends MovingObject{
         }
     }
 
-    private void swapanime(){
+    protected void swapanime(){
             currentAnimation = (currentAnimation + 1)%nbAnimation;
     }
 
