@@ -19,8 +19,8 @@ import java.util.TimerTask;
 
 public class FireBallOcto extends FireBall {
 
-    public FireBallOcto(int x, int y) throws IOException {
-        super(new Hero(),x,y);
+    public FireBallOcto(Hero hero, int x, int y) throws IOException {
+        super(hero, x, y);
         im = ImageIO.read(new File("resources/images/fireball.png"));
         position = new Point(x,y);
         stats = new Stats(0,5);

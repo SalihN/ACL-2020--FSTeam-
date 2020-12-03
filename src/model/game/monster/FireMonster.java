@@ -1,6 +1,6 @@
 package model.game.monster;
 
-import model.game.FireBall;
+import model.game.Hero;
 import model.game.Maze;
 
 import javax.imageio.ImageIO;
@@ -22,7 +22,7 @@ public class FireMonster extends Monster {
     private ArrayList<FireBallOcto> listFireBalls;
     private int cpt;
 
-    public FireMonster(Point point, int width, int height) throws IOException {
+    public FireMonster(Hero hero, Point point, int width, int height) throws IOException {
         super(point, width, height);
         im = ImageIO.read(new File("resources/images/octorok.png"));
         listFireBalls = new ArrayList<>();
@@ -33,7 +33,7 @@ public class FireMonster extends Monster {
             public void run() {
                 try {
                     if(isAlive())
-                    launchFireBall();
+                    launchFireBall(hero);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -48,8 +48,8 @@ public class FireMonster extends Monster {
     }
 
 
-    private void launchFireBall() throws IOException {
-        listFireBalls.add(new FireBallOcto(this.position.x, this.position.y+getHeight()/2));
+    private void launchFireBall(Hero hero) throws IOException {
+        listFireBalls.add(new FireBallOcto(hero, this.position.x, this.position.y+getHeight()/2));
     }
 
     @Override
