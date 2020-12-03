@@ -403,6 +403,7 @@ public class Maze {
      * Charge le niveau suivant
      */
     public void nextLevel() throws IOException {
+        kill();
         reset();
         cpt++;
         generate();
