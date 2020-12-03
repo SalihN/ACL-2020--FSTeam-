@@ -41,7 +41,7 @@ public abstract class Monster extends MovingObject {
         },0,500);
     }
 
-    private void swapanime(){
+    protected void swapanime(){
         if(canMove)
             currentAnimation = (currentAnimation + 1)%nbAnimation;
     }

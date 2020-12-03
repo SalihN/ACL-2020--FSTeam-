@@ -490,6 +490,5 @@ public class Maze {
         for (Monster monster : listMonsters) {
             monster.setAlive(false);
         }
-        listMonsters.clear();
     }
 }

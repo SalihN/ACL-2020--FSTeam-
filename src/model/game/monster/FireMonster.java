@@ -20,11 +20,13 @@ import java.util.TimerTask;
 
 public class FireMonster extends Monster {
     private ArrayList<FireBallOcto> listFireBalls;
+    private int cpt;
 
     public FireMonster(Point point, int width, int height) throws IOException {
         super(point, width, height);
         im = ImageIO.read(new File("resources/images/octorok.png"));
         listFireBalls = new ArrayList<>();
+        cpt = 0;
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -38,6 +40,13 @@ public class FireMonster extends Monster {
             }
         },0,1500);
     }
+    protected void swapanime(){
+        if(canMove && cpt%2 == 0) {
+            currentAnimation = (currentAnimation + 1) % nbAnimation;
+        }
+        cpt++;
+    }
+
 
     private void launchFireBall() throws IOException {
         listFireBalls.add(new FireBallOcto(this.position.x, this.position.y+getHeight()/2));
