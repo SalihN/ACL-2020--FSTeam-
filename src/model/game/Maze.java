@@ -224,7 +224,7 @@ public class Maze {
                         //Octopus Monster
                         case 'o':
                             listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
-                            listMonsters.add(new OctoMonster(new Point(x,y), spriteRatioW, spriteRatioH));
+                            listMonsters.add(new FireMonster(new Point(x,y), spriteRatioW, spriteRatioH));
                             break;
                         //Score
                         case 'c':

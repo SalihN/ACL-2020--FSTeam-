@@ -18,10 +18,10 @@ import java.util.TimerTask;
  * @version 1.0.0
  */
 
-public class OctoMonster extends Monster {
+public class FireMonster extends Monster {
     private ArrayList<FireBallOcto> listFireBalls;
 
-    public OctoMonster(Point point, int width, int height) throws IOException {
+    public FireMonster(Point point, int width, int height) throws IOException {
         super(point, width, height);
         im = ImageIO.read(new File("resources/images/octorok.png"));
         listFireBalls = new ArrayList<>();
