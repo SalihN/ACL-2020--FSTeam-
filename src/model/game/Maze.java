@@ -192,6 +192,10 @@ public class Maze {
                         case 's':
                             listFloor[i][j] = new SlowFloor(new Point(x, y), tileWidth, tileHeight);
                             break;
+                            //
+                        case 'j':
+                            listFloor[i][j] = new SpikeFloor(new Point(x, y), tileWidth, tileHeight);
+                            break;
                         //Normal Monster
                         case 'm':
                             listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
