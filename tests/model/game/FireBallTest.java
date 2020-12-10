@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
@@ -20,7 +21,7 @@ public class FireBallTest {
         maze = createMock(Maze.class);
         maze.tileWidth = 32;
         maze.tileHeight = 32;
-        fireBall = new FireBall(maze.getHero(), 20,20);
+        fireBall = new FireBall(new Hero(), 20,20);
     }
     @After
     public void tearDown(){
@@ -30,10 +31,11 @@ public class FireBallTest {
      * On vérifie le déplacement d'une bouge de feu
      */
     @Test
-    public void testMove(){
+    public void testMove() throws IOException {
         expect(maze.isAWall(anyInt(), anyInt())).andReturn(false).anyTimes();
         expect(maze.getWidth()).andReturn(500).anyTimes();
         expect(maze.getHeight()).andReturn(500).anyTimes();
+        expect(maze.getListMonsters()).andReturn(new ArrayList<>()).anyTimes();
         replay(maze);
 
         fireBall.move(maze);

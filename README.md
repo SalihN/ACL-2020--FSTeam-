@@ -99,4 +99,12 @@ nmnnknnnann
 Ce qui nous donne:
 
 <img src="https://raw.githubusercontent.com/SalihN/ACL-2020-FSTeam/main/resources/images/maze1Exemple.png" width="50%" height="50%">
-  
+
+
+####Comment lancer les tests :
+
+Récupérer EasyMock sur le site officiel : https://easymock.org/
+
+Récupérer également Objenesis : http://objenesis.org/download.html
+
+Ajouter les deux en librairie.

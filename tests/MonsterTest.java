@@ -37,7 +37,7 @@ public class MonsterTest {
     }
 
     @Test
-    public void testCheckWall(){
+    public void testCheckWall() throws IOException {
         expect(maze.isAWall(anyInt(), anyInt())).andReturn(true).anyTimes();
         expect(maze.getWidth()).andReturn(500).anyTimes();
         expect(maze.getHeight()).andReturn(500).anyTimes();
@@ -51,7 +51,7 @@ public class MonsterTest {
      * On teste la réaction du monstre s'il veut bouger alors qu'il peut
      */
     @Test
-    public void testMove() {
+    public void testMove() throws IOException {
         expect(maze.isAWall(anyInt(), anyInt())).andReturn(false).anyTimes();
         expect(maze.getWidth()).andReturn(500).anyTimes();
         expect(maze.getHeight()).andReturn(500).anyTimes();
@@ -65,7 +65,7 @@ public class MonsterTest {
      * On teste la réaction du monstre s'il veut bouger alors qu'il est freeze
      */
     @Test
-    public void testCantMove() {
+    public void testCantMove() throws IOException {
         expect(maze.isAWall(anyInt(), anyInt())).andReturn(false).anyTimes();
         expect(maze.getWidth()).andReturn(500).anyTimes();
         expect(maze.getHeight()).andReturn(500).anyTimes();

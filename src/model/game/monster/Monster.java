@@ -41,7 +41,7 @@ public abstract class Monster extends MovingObject {
         },0,500);
     }
 
-    private void swapanime(){
+    protected void swapanime(){
         if(canMove)
             currentAnimation = (currentAnimation + 1)%nbAnimation;
     }
@@ -49,7 +49,7 @@ public abstract class Monster extends MovingObject {
      * Permet de faire se deplacer un monstre dans le labyrinthe
      * @param maze Labyrinthe dans lequel le monstre évolue
      */
-    public void move(Maze maze) {
+    public void move(Maze maze) throws IOException {
         int x = 0, y = 0;
         Random rand = new Random();
 
@@ -86,25 +86,7 @@ public abstract class Monster extends MovingObject {
      * @param hero héro avec lequel le monstre est entré en collision
      */
     public void action(Hero hero) throws IOException {
-        if(!hero.isInvincible() && !hero.isCatched()) {
-            hero.getStats().hit(1);
-            hero.addScore(-20);
-            hero.setInvincible(true);
-            Maze.sound("ouf.wav");
-            Timer timer = new Timer();
-            TimerTask decount = new TimerTask() {
-                @Override
-                public void run() {
-                    try {
-                        hero.setInvincible(false);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-            timer.schedule(decount, hero.getTimeOfInvincibility());
-
-        }
+            hero.takeDammages();
     }
 
     /**

@@ -33,12 +33,11 @@ public class StatsTest {
     /**
      * Test de la fonction de dommage
      */
+    @Test
     public void testDamage(){
         //dommage >= aux points de vies
         stats.hit(stats.getHpMax() + 1);
-        assertNotEquals(0,stats.getHp());
-        stats.hit(-5);
-        assertNotEquals(2,stats.getHp());
+        assertEquals(0, stats.getHp());
     }
 
 }

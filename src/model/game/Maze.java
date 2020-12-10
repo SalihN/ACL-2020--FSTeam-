@@ -225,6 +225,11 @@ public class Maze {
                             listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
                             listMonsters.add(new KidnapMonster(new Point(x,y), spriteRatioW, spriteRatioH));
                             break;
+                        //Octopus Monster
+                        case 'o':
+                            listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
+                            listMonsters.add(new FireMonster(hero, new Point(x,y), spriteRatioW, spriteRatioH));
+                            break;
                         //Score
                         case 'c':
                             listFloor[i][j] = new ScoreFloor(new Point(x,y), tileWidth, tileHeight);
@@ -402,6 +407,7 @@ public class Maze {
      * Charge le niveau suivant
      */
     public void nextLevel() throws IOException {
+        kill();
         reset();
         cpt++;
         generate();
@@ -485,4 +491,9 @@ public class Maze {
       hero.addScore(score);
     }
 
+    public void kill() {
+        for (Monster monster : listMonsters) {
+            monster.setAlive(false);
+        }
+    }
 }
