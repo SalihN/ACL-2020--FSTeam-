@@ -68,7 +68,7 @@ Il faut utiliser les symboles suivant pour remplir le labyrinthe:
 * h : sol soignant le héro
 * f : sol figeant les monstres
 * s : sol ralentiseur de monstre
-* j : sol ralentiseur de monstre
+* j : sol avec des piques
 * m : Monstre normal 
 * p : Position du héro 
   * /!\ seulement le "p" le plus en bas à droite est retenu
