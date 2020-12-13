@@ -32,7 +32,7 @@ public class FireMonster extends Monster {
             @Override
             public void run() {
                 try {
-                    if(isAlive())
+                    if(isAlive() && canMove)
                     launchFireBall(hero);
                 } catch (IOException e) {
                     e.printStackTrace();

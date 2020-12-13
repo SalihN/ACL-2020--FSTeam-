@@ -5,6 +5,7 @@ import model.game.Maze;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
@@ -22,16 +23,26 @@ import java.util.TimerTask;
 public class TeleportFloor extends ActivateFloor {
 
     private TeleportFloor teleportFloor;
+    protected int currentAnimation;
+    protected int nbAnimation;
 
     public TeleportFloor(Point p, int w, int h, TeleportFloor teleportFloor) throws IOException {
         super(p, w, h);
         this.teleportFloor = teleportFloor;
         im = ImageIO.read(new File("resources/images/teleportfloor.png"));
+        currentAnimation = 0;
+        nbAnimation = 4;
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                swapanime();
+            }
+        },0,200);
     }
 
     @Override
     public void activate(Hero hero, Maze maze) throws IOException {
-
         if(!isActivate) {
             isActivate = true;
             teleportFloor.activate(hero,maze);
@@ -91,5 +102,19 @@ public class TeleportFloor extends ActivateFloor {
      */
     public void relayTP(TeleportFloor floor) {
         teleportFloor = floor;
+    }
+
+    @Override
+    public void draw(BufferedImage im) {
+        Graphics2D crayon = (Graphics2D) im.getGraphics();
+        crayon.drawImage(
+                this.im.getSubimage((this.im.getWidth()/ nbAnimation) * currentAnimation,0,this.im.getWidth() / nbAnimation,this.im.getHeight()),
+                position.x-(width/2),position.y-(height/2),
+                width,height,
+                null);
+    }
+
+    protected void swapanime(){
+            currentAnimation = (currentAnimation + 1)%nbAnimation;
     }
 }
