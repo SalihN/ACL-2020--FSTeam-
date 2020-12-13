@@ -26,7 +26,7 @@ public class SpikeFloor extends ActivateFloor {
     public SpikeFloor(Point p, int w, int h) throws IOException {
         super(p, w, h);
         im = imSpikeUp;
-       this.delay = 3000;
+       this.delay = 1000;
         Timer t = new Timer();
         t.schedule( new TimerTask() {
         @Override

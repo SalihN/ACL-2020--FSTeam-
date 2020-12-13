@@ -89,6 +89,7 @@ public class Maze {
      * @throws IOException if the file cannot be read
      */
     public void generate() throws IOException {
+        TeleportFloor tampon = null;
         BufferedReader buff = null;
         String level = "resources/mazes/maze" + cpt + ".txt";
         String line;
@@ -233,6 +234,15 @@ public class Maze {
                         //Score
                         case 'c':
                             listFloor[i][j] = new ScoreFloor(new Point(x,y), tileWidth, tileHeight);
+                            break;
+                        case '1':
+                            if(tampon == null){
+                                tampon = new TeleportFloor(new Point(x,y), tileWidth, tileHeight,null);
+                                listFloor[i][j] = tampon;
+                            }else {
+                                listFloor[i][j] = new TeleportFloor(new Point(x,y), tileWidth, tileHeight,tampon);
+                                tampon.relayTP((TeleportFloor) listFloor[i][j]);
+                            }
                             break;
                         default:
                             listFloor[i][j] = new NormalFloor(new Point(x,y), tileWidth, tileHeight);
