@@ -50,7 +50,7 @@ public class TeleportFloor extends ActivateFloor {
             position.x = teleportFloor.position.x;
             position.y = teleportFloor.position.y;
             hero.setPosition(position);
-            Maze.sound("heal.wav");
+            Maze.sound("teleport.wav");
             desactivate();
             Timer timer = new Timer();
             TimerTask decount = new TimerTask() {
