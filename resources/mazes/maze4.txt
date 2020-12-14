@@ -1,13 +1,13 @@
 20
 20
 nnnnnnnnnnnnnwnnnnnn
-nncnnnnnnnnnpwnnngnn
-nnwwwwwnnwwnnwgnnwwn
-nnwhhwwnnwwwwwnnnnwn
+nncnnnnnnnnnpwnjngnn
+nnwwwwwjjwwnnwgnnwwn
+nnwhhwwjjwwwwwnnnnwn
 nmwnnnnnnwnnnwnnnnwn
 nnwwwwwwwwnsnwwnnwwn
 nannnnnnnwnnnwnnnwnn
-nncnnwwnnwwnnwnnnwcn
+nncnnwwnnwwjjwnnnwcn
 nncgnwwnnnnnnwnnnwnn
 nnannnnnngnnnwnnnwnn
 nnnnnnnnncnnwwnnnwwn
@@ -19,4 +19,4 @@ nnnnwwgnnnwwwnnnwgnn
 nnnnwnnnnngnnwnnwnnn
 ngnnwwnnnnnnnwtnwnnn
 nncnnwwnnwnnnwwwnnnw
-nnnnnmnnnwnnngnnnnnn
+nnnnnmjnnwnnngnnnnnj
